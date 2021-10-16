@@ -1,0 +1,296 @@
+{{extend './layout.html'}}
+
+{{block 'oacontent'}}
+<!-- start section content -->
+<div class="content-body">
+    <div class="warper container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-lg-12 p-md-0">
+                <h4 class="text-dark-gray">Good morning, <span class="names">Bo Chen</span></h4>
+                <p class="mb-0">It looks like a good day!</p>
+            </div>
+        </div>
+        <div class="new-patients main_container">
+            <div class="row">
+                <div class="col-sm-6 col-xl-3 col-lg-6">
+                    <div class="widget card card-white">
+                        <div class="card-body">
+                            <div class="media text-center">
+                                <span>
+                                    <i class="fas fa-calendar-check fa-2x"></i>
+                                </span>
+                                <div class="media-body">
+                                    <span class="text-gray">Orders</span>
+                                    <h3 class="mb-0 .text-dark-gray">7,699</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 col-lg-6">
+                    <div class="widget card card-white">
+                        <div class="card-body">
+                            <div class="media text-center">
+                                <span>
+                                    <i class="fas fa-user-tie fa-2x"></i>
+                                </span>
+                                <div class="media-body">
+                                    <span class="text-gray">Customers</span>
+                                    <h3 class="mb-0 .text-dark-gray">400</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 col-lg-6">
+                    <div class="widget card card-white">
+                        <div class="card-body">
+                            <div class="media text-center">
+                                <span>
+                                    <i class="fas fa-pallet fa-2x"></i>
+                                </span>
+                                <div class="media-body">
+                                    <span class="text-gray">Items</span>
+                                    <h3 class="mb-0 .text-dark-gray">11,360</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 col-lg-6">
+                    <div class="widget card card-white">
+                        <div class="card-body">
+                            <div class="media text-center">
+                                <span>
+                                    <i class="fas fa-database fa-2x"></i>
+                                </span>
+                                <div class="media-body">
+                                    <span class="text-gray">Total Revenue</span>
+                                    <h3 class="mb-0 .text-dark-gray">$14,500</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow widget1">
+                        <div class="card-header">
+                            <h4 class="card-title">Top Category</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <canvas id="chart3" width="100%" height="220"></canvas>
+                                </div>
+                                <div class="col-lg-10">
+                                    <ul class="d-flex justify-content-between m-t-30">
+                                        <li class="content-widget text-center">
+                                            <p class="mb-0 fs-14 text-muted">Electric Lightship</p>
+                                            <h4 class="mb-0 fs-20 text-dark-gray">8952</h4>
+                                        </li>
+                                        <li class="content-widget text-center">
+                                            <p class="mb-0 fs-14 text-muted">Cruising ship</p>
+                                            <h4 class="mb-0 fs-20 text-dark-gray">7458</h4>
+                                        </li>
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card shadow widget1">
+                        <div class="card-header">
+                            <h4 class="card-title">Total orders Per Month</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chart2" width="100%" height="299"></canvas>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h4 class="card-title">To Do List</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="display nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>S.N.</th>
+                                            <th>Date</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>2021-09-16</td>
+                                            <td>order management</td>
+                                            <td>A new order needs to confirm.</td>
+                                            <td>
+                                                <a class='mr-4 check'>
+                                                    <span class='fas fa-check-circle'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                      <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>2021-09-14</td>
+                                            <td>Job management</td>
+                                            <td>A new job allocation.</td>
+                                            <td>
+                                                <a class='mr-4 check'>
+                                                    <span class='fas fa-check-circle'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                       <tr>
+                                            <td>
+                                               3
+                                            </td>
+                                            <td>2021-09-14</td>
+                                            <td>Inventory management</td>
+                                            <td>An item is out of stock.</td>
+                                            <td>
+                                                <a class='mr-4 check'>
+                                                    <span class='fas fa-check-circle'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                4
+                                            </td>
+                                            <td>2021-09-14</td>
+                                            <td>order management</td>
+                                            <td>An order needs to delivery.</td>
+                                            <td>
+                                                <a class='mr-4 check'>
+                                                    <span class='fas fa-check-circle'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow widget-2">
+                        <div class="card-header">
+                            <h4 class="card-title">Out of Stock</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="panel-body widget-media main-scroll nicescroll-box">
+                                <ul class="list-group list-unstyled">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item01.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">Bilge Pump</h4>
+                                                <span>BILGE PUMP 12V 2000GPH</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="ms-btn-icon btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                   
+                                   
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item02.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">Cleats</h4>
+                                                <span>MOORING CLEAT TOP...</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="ms-btn-icon btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item03.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">Ancoring</h4>
+                                                <span>ALU ANOD BOW ROLLERS</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item04.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">OceanVolt AX5</h4>
+                                                <span>AX5 Propulsion System</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item05.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">Oceanvolt SD6</h4>
+                                                <span>SD6 Propulsion System</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center media">
+                                        <div class="d-flex">
+                                            <div class="img-patient">
+                                                <img src="../../public/images/item05.png" class="rounded-circle" alt="people">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="mb-0">Oceanvolt SD6</h4>
+                                                <span>SD6 Propulsion System</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn-success" name="button">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End section content -->
+{{/block }}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Almond Boats </title>
+<!-- Stylesheets -->
+<link href="/public/css/bootstrap.css" rel="stylesheet">
+<link href="/public/css/style.css" rel="stylesheet">
+
+
+<!-- Responsive File -->
+<link href="/public/css/responsive.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="/public/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="/public/images/favicon.png" type="image/x-icon">
+
+<!-- Responsive Settings -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+{{block 'head'}}
+{{/block}}
+</head>
+
+<body>
+
+<div class="page-wrapper">
+    <!-- Preloader -->
+    <div class="preloader"><div class="icon"></div></div>
+
+    {{include '../_partials/header.html'}}
+    <!-- the content for placeholder -->
+    {{block 'content'}}
+     <h1>default content</h1>
+    {{/block}}
+    {{include '../_partials/footer.html'}}
+
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="icon flaticon-back"></span></div>
+
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/popper.min.js"></script>
+<script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/js/jquery-ui.js"></script>
+<script src="/public/js/jquery.fancybox.js"></script>
+<script src="/public/js/owl.js"></script>
+<script src="/public/js/appear.js"></script>
+<script src="/public/js/wow.js"></script>
+<script src="/public/js/scrollbar.js"></script>
+<script src="/public/js/datetimepicker.js"></script>
+<script src="/public/js/validate.js"></script>
+<script src="/public/js/paroller.js"></script>
+<script src="/public/js/element-in-view.js"></script>
+<script src="/public/js/custom-script.js"></script>
+{{block 'script'}}
+{{/block}}
+</body>
+</html>

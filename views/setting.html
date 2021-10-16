@@ -1,0 +1,65 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+<!-- account content  start -->
+<div class="account-content">
+    
+    <div class="auto-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:;">My Account</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Setting</li>
+            </ol>
+          </nav>
+        <form action="/edit" method="post">
+            <div class="account-content-info">
+                <div class="info-title clearfix">Change Password <button  type="submit" class="title-edit btn btn-primary">Confirm</button></div>
+                <div class="info-content edit-page change_password">
+                    <form>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-1">
+
+                                </div>    
+                                <div class="col-lg-8 col-md-8 col-sm-10 nopadding">
+                                    <div class="form-group">
+                                        <label for="">Current Password</label>
+                                        <input type="password" class="form-control" id="" >
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-1">
+    
+                                    </div>    
+                                    <div class="col-lg-8 col-md-8 col-sm-10 nopadding">
+                                    <div class="form-group">
+                                        <label for="">New Password</label>
+                                        <input type="password" class="form-control" id="" >
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-1">
+    
+                                    </div>    
+                                    <div class="col-lg-8 col-md-8 col-sm-10 nopadding">
+                                    <div class="form-group">
+                                        <label for="">Confirm Password</label>
+                                        <input type="password" class="form-control" id="" >
+                                    </div>
+                                    </div>
+                                </div>
+                        </div>
+                      </form>
+                
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+<!-- account content end -->
+{{/block}}

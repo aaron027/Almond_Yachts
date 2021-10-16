@@ -1,0 +1,395 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+ <!--Yacht Tours Section-->
+ <section class="yacht-tours-container alternate-bg-two paddingbottom20">
+    <div class="auto-container">
+        <div class="content-container">
+            <div class="row calculation-box clearfix">
+                <!--Content Side-->
+                <div class="content-side col-lg-8 col-md-12 col-sm-12 nomarginBottom">
+                    <div class="content-inner">
+                        <!--Tour Details-->
+                        <div class="tour-details">
+                            <div class="main-image">
+                                <img src="../../public/images/resource/featured-image-84.jpg" alt="" title="">
+                            </div>
+                            <div class="price-box">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-10">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 total_amount">
+                                            Total: <span class="converter_currency">A$</span><span class="new convertPrice">2685.49</span>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 total_discount">
+                                            Discounted: <span class="converter_currency">A$</span><span class="new convertPrice">4685.49</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 view_summary">
+                                        <span class="arrow fa fa-arrow-circle-right"></span><button class="view" data-toggle="modal" data-target="#viewsummary">View Summary</button>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Widgets Side-->
+                <div class="widgets-side col-lg-4 col-md-12 col-sm-12 yacht-details ">
+                    <div class="widgets-content content-column">
+                         <div class="scroller-box">
+                        <div class="scroller">
+                        <!--Widget-->
+                        <div class="tour-widget single-booking-widget nomarginBottom">
+                            <div class="widget-inner">
+                                <div class="default-form main-booking-form">
+                                    <form method="post" action="contact.html">
+                                        <!-- Nav tabs -->
+                                          <ul class="nav nav-tabs custom-tabs" id="Category_tab">
+                                            <li class="active"><a data-toggle="tab" href="#lightship" class="active">LightShip</a></li>
+                                            <li><a data-toggle="tab" href="#cruising">Coastal Cruising</a></li>
+                                        </ul>
+                                        <div class="tab-content custom-form offers-widget">
+                                            <div class="tab-pane active" id="lightship"><h5>MockA</h5>
+                                                <div class="expected">Expected Delivery: <span>1~3 weeks</span></div>
+                                                <div class="form-group">
+                                                    <div class="field-label"><span class="fa fa-calendar-check"></span><span class="label-title"> Motor</span></div>
+                                                    <div class="field-inner">
+                                                        <ul class="additional-services">
+                                                            {{each result}}
+                                                            <li>
+                                                                <div class="upper">
+                                                                    <div class="check-block"><input type="radio" id="radio_motor{{result[$index].itemId}}" name="engine" checked><label for="radio_motor{{result[$index].itemId}}">{{result[$index].itemName}}</label></div>
+                                                                </div>
+                                                                <div class="downlevel clearfix">
+                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor1"></a> <span>More Information</span> 
+                                                                    <span class="price  "><span class="converter_currency">A$</span><span class="convertPrice">{{result[$index].unitPrice}}</span></span>
+                                                                </div>
+                                                            </li>
+                                                            {{/each}}
+                                                            <!-- <li>
+                                                                <div class="upper">
+                                                                    <div class="check-block"><input type="radio" id="radio_motor2" name="engine" checked><label for="radio_motor2">E175 E-SERIES BATTERY</label></div>
+                                                                </div>
+                                                                <div class="downlevel clearfix">
+                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor2"></a> <span>More Information</span> 
+                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">3999.00</span></span>
+                                                                </div>  
+                                                            </li>
+                                                            <li>
+                                                                <div class="upper">
+                                                                    <div class="check-block"><input type="radio" id="radio_motor3" name="engine" checked><label for="radio_motor3">E80 E-SERIES BATTERY</label></div>
+                                                                </div>
+                                                                <div class="downlevel clearfix">
+                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor3"></a> <span>More Information</span> 
+                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">1999.00</span></span>
+                                                                </div>
+                                                            </li> -->
+                                                        </ul>
+                                                    </div>
+                                                    <div class="optional-box">
+                                                        <div class="optional-title">Optional Items</div>
+                                                        <div class="option-ul">
+                                                            <ul>
+                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op1" name="outboard_op"><label for="outboard_op1">Freight for Navy 6<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">175.00</span></span></label></div></li>
+                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op2" name="outboard_op"><label for="outboard_op2">NAVY BATTERY CHARGER<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">600</span></span></label></div></li>
+                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op3" name="outboard_op"><label for="outboard_op3">NAVY BATTERY CONTROL<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">300</span></span></label></div></li>
+                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op4" name="outboard_op"><label for="outboard_op4">COMMUNICATION EXTENSION<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">50</span></span></label></div></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="form-group">
+                                                    <div class="field-label"><span class="fa fa-calendar-check"></span>  <span class="label-title">Running Rigging</span> </div>
+                                                    <div class="field-inner">
+                                                        <div class="check-block"><input type="radio" id="rigging1" name="rigging1"><label for="rigging1">Ronstan Rigging<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">24179.11</span></span></label></div>
+                                                        <div class="check-block"><input type="radio" id="rigging2" name="rigging1"><label for="rigging2">Karver premium<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">4636.74</span></span></label></div>
+                                                    </div>
+                                                </div> 
+                                                <div class="form-group">
+                                                    <div class="field-label"><span class="fa fa-calendar-check"></span>  <span class="label-title">Sails Selection</span> </div>
+                                                    <div class="field-inner">
+                                                        <div class="check-block"><input type="checkbox" id="sail1" name="sails1" checked><label for="sail1">MainSails<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2440</span></span></label></div>
+                                                        <div class="check-block"><input type="checkbox" id="sail2" name="sails1" checked><label for="sail2">Self Tracking Storm Jib<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">3975</span></span></label></div>
+                                                        <div class="check-block"><input type="checkbox" id="sail3" name="sails1"><label for="sail3">Spinnaker or Genoa<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2200</span></span></label></div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="tab-pane" id="cruising"><h5>MockB</h5>
+                                                <div class="expected">Expected Delivery: <span>2~6 weeks</span></div>
+                                                <div class="accordion-box configuration">
+                                                    <!--Block-->
+                                                    <div class="accordion block ">
+                                                        <div class="acc-btn">Outboard Engine<div class="icon flaticon-down-arrow"></div></div>
+                                                        <div class="acc-content">
+                                                            <div class="content">
+                                                                <div class="form-group">
+                                                                   
+                                                                    <div class="field-inner">
+                                                                        <ul class="additional-services">
+                                                                            <li>
+                                                                                <div class="upper">
+                                                                                    <div class="check-block"><input type="radio" id="radio_motor4" name="radio_motor4" checked><label for="radio_motor4">NAVY 6.0 REMOTE LONGSHAFT</label></div>
+                                                                                </div>
+                                                                                <div class="downlevel clearfix">
+                                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor1"></a> <span>More Information</span> 
+                                                                                    <span class="price  "><span class="converter_currency">A$</span><span class="convertPrice">3249.00</span></span>
+                                                                                </div>
+                                                                            </li> 
+                                                                            <li>
+                                                                                <div class="upper">
+                                                                                    <div class="check-block"><input type="radio" id="radio_motor5" name="radio_motor4" checked><label for="radio_motor5">E175 E-SERIES BATTERY</label></div>
+                                                                                </div>
+                                                                                <div class="downlevel clearfix">
+                                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor2"></a> <span>More Information</span> 
+                                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">3999.00</span></span>
+                                                                                </div>  
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="upper">
+                                                                                    <div class="check-block"><input type="radio" id="radio_motor6" name="radio_motor4" checked><label for="radio_motor6">E80 E-SERIES BATTERY</label></div>
+                                                                                </div>
+                                                                                <div class="downlevel clearfix">
+                                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor3"></a> <span>More Information</span> 
+                                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">1999.00</span></span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="optional-box">
+                                                                        <div class="optional-title">Optional Items</div>
+                                                                        <div class="option-ul">
+                                                                            <ul>
+                                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op5" name="outboard_op"><label for="outboard_op5">Freight for Navy 6<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">175.00</span></span></label></div></li>
+                                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op6" name="outboard_op"><label for="outboard_op6">NAVY BATTERY CHARGER<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">600</span></span></label></div></li>
+                                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op7" name="outboard_op"><label for="outboard_op7">NAVY BATTERY CONTROL<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">300</span></span></label></div></li>
+                                                                                <li> <div class="check-block clearfix"><input type="checkbox" id="outboard_op8" name="outboard_op"><label for="outboard_op8">COMMUNICATION EXTENSION<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">50</span></span></label></div></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Block-->
+                                                    <div class="accordion block interior">
+                                                        <div class="acc-btn">House Power<div class="icon flaticon-down-arrow"></div></div>
+                                                        <div class="acc-content">
+                                                            <div class="content"> 
+                                                                <div class="form-group">
+                                                                    <div class="field-inner">
+                                                                        <div class="post nopadding nomargin">
+                                                                            <div class="post-box  nopadding nomargin">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower1.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower1" name="engine"><label for="housepower1">LiFePO4 Batteries 12v 100AH 1280WH (Supplier: DAKOTA LITHIUM)</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">593.00</span> </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower2.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower2" name="engine"><label for="housepower2">Heliene 385 Black Mono Solar Panel (Supplier: DAKOTA LITHIUM)</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">300.00</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower3.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower3" name="engine"><label for="housepower3">Quattro 48 Volt / 5000 VA Pure Sine Wave Inverter with 70 Amp Charger</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2093.70</span> </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower4.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower4" name="engine"><label for="housepower4">Victron Bus Smart Dongle for Multiplus and Quattro</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">64.40</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower5.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower5" name="engine"><label for="housepower5">Victron Color Control GX</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">425.00</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower6.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower6" name="engine"><label for="housepower6">Victron BlueSolar MPPT 150/35 Charge Controller</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">242.90</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="post-box noborder">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/housepower7.png" alt="" title=""></a>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="check-block"><input type="checkbox" id="housepower7" name="engine"><label for="housepower7">Victron Orion-Tr DC-DC Converters Isolated 200 Watt Series</label></div>
+                                                                                    <div class="price"><span class="converter_currency">A$</span><span class="new convertPrice">$95.90</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Block-->
+                                                    <div class="accordion block interior">
+                                                        <div class="acc-btn">Interior Design<div class="icon flaticon-down-arrow"></div></div>
+                                                        <div class="acc-content  nopadding">
+                                                            <div class="content nopadding"> 
+                                                                <div class="form-group">
+                                                                    <div class="field-label"><span class="fa fa-calendar-check"></span>  <span class="label-title">Interior Base Package</span> </div>
+                                                                    <div class="field-inner">
+                                                                        <div class="post nopadding nomargin">
+                                                                            <div class="post-box noborder nopadding">
+                                                                                <div class="post-inner">
+                                                                                    <div class="post-thumb">
+                                                                                        <a href="#"><img src="../../public/images/resource/interior1.png" alt="" title=""></a>
+                                                                                    </div>
+                                                                                    <div class="check-block clearfix"><input type="checkbox" id="interior1" name="interior1"><label for="interior1">Base Package<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">4403.30</span></span></label></div>
+                                                                                    <div class="description">
+                                                                                        <ul>
+                                                                                            <li>CHR.BR WHITE LOCK +PUSH-BUTTONS /E13</li>
+                                                                                            <li>HINGE CHROMED BRASS 40X30MM</li>
+                                                                                            <li>HINGE CHROMED BRASS 50 X 40MM</li>
+                                                                                            <li>FLUSH LATCH WHITE NYLON</li>
+                                                                                            <li>FLUSH LATCH ST.ST.316 WATERPROOF</li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="optional-box">
+                                                                                    <div class="optional-title">Optional Items</div>
+                                                                                    <div class="option-ul">
+                                                                                        <ul>
+                                                                                            <li> <div class="check-block clearfix"><input type="checkbox" id="interior-op1" name="interior"><label for="interior-op1">Fridge<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2360</span></span></label></div></li>
+                                                                                            <li> <div class="check-block clearfix"><input type="radio" id="interior-op2" name="interior"><label for="interior-op2">Queen Matresses<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">750</span></span></label></div></li>
+                                                                                            <li> <div class="check-block clearfix"><input type="radio" id="interior-op3" name="interior"><label for="interior-op3">Single Matresses<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">500</span></span></label></div></li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!--Block-->
+                                                    <div class="accordion block interior">
+                                                        <div class="acc-btn">Running Rigging<div class="icon flaticon-down-arrow"></div></div>
+                                                        <div class="acc-content">
+                                                            <div class="content"> 
+                                                                <div class="form-group">
+                                                                    <div class="field-inner">
+                                                                        <div class="check-block"><input type="radio" id="rigging3" name="rigging2"><label for="rigging3">Ronstan Rigging<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2360</span></span></label></div>
+                                                                        <div class="check-block"><input type="radio" id="rigging4" name="rigging2"><label for="rigging4">Karver premium<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2360</span></span></label></div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Block-->
+                                                    <div class="accordion block interior">
+                                                        <div class="acc-btn">Sail selection<div class="icon flaticon-down-arrow"></div></div>
+                                                        <div class="acc-content">
+                                                            <div class="content"> 
+                                                                <div class="form-group">
+                                                                    <div class="field-label"><span class="fa fa-calendar-check"></span>  <span class="label-title">Sails Selection</span> </div>
+                                                                    <div class="field-inner">
+                                                                        <div class="check-block"><input type="checkbox" id="sail4" name="sails2" checked><label for="sail4">MainSails<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2440</span></span></label></div>
+                                                                        <div class="check-block"><input type="checkbox" id="sail5" name="sails2" checked><label for="sail5">Self Tracking Storm Jib<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">3975</span></span></label></div>
+                                                                        <div class="check-block"><input type="checkbox" id="sail6" name="sails2"><label for="sail6">Spinnaker or Genoa<span class="price"><span class="converter_currency">A$</span><span class="new convertPrice">2200</span></span></label></div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <br>
+                                                
+                                            </div>
+                                            
+                                            </div>
+                                        </div>
+                                        <!--tabs end-->
+                                        <div class="personal_info">
+                                            <h5>Personal Info</h5>
+                                            <br>
+                                            <div class="form-group">
+                                                <div class="field-inner">
+                                                    <input type="text" name="field-name" placeholder="First Name" required="true" value="" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="field-inner">
+                                                    <input type="text" name="field-name" placeholder="Last Name" required="true" value="" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="field-inner">
+                                                    <input type="text" name="field-name" placeholder="Email" required="true" value="" >
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <button type="submit" class="theme-btn"><span class="btn-title">Place order</span></button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                    <div class="instruction">By clicking the "Place order" button, I agree with the order agreement and customer privacy agreement.</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+     
+</section>
+{{/block}}
+{{block 'script'}}
+<script>
+    $(".accordion-box .accordion .acc-btn").click(function(){
+        if($(this).text()=="Interior Design"){
+            $(".calculation-box .main-image img").attr("src","../public/images/resource/featured-image-87.png")
+        }
+        if($(this).text()=="Outboard Engine"){
+             if($(".custom-tabs li .active").text()=="Coastal Cruising"){
+                $(".calculation-box .main-image img").attr("src","../public/images/resource/featured-image-85.png")
+             }else if($(".custom-tabs li .active").text()=="LightShip"){
+                $(".calculation-box .main-image img").attr("src","../public/images/resource/featured-image-84.jpg")
+             }
+        }
+    });
+</script>
+{{/block}}

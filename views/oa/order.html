@@ -1,0 +1,230 @@
+{{extend './layout.html'}}
+
+{{block 'oacontent'}}
+<!-- start section content -->
+<div class="content-body">
+    <div class="warper container-fluid">
+        <div class="new_appointment main_container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 class="text-primary">Orders</h4>
+                        <p class="mb-0">The customization orders from customers.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:;">New Order</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow">
+                        <div class="card-header  nomargin">
+                            <div class="row m-rl w-100">
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <input id="myInputTextField" class="form-control" type="search" placeholder="Search by yachts' name" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="form-control table-filter-select form-select">
+                                            <option>Search by status</option>
+                                            <option>Received</option>
+                                            <option>Confirmed</option>
+                                            <option>Preparing</option>
+                                            <option>Deliverying</option>
+                                            <option>Delivered</option>
+                                            <option>Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <input id="daterange" class="form-control input-daterange-datepicker">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary w-100 h-56" data-toggle="modal" data-target="#newAppointment">New
+                                            Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example3" class="display nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Order Number</th>
+                                            <th>Order Date</th>
+                                            <th>Boat Name</th>
+                                            <th>Category</th>
+                                            <th>Total Amount</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                O20210916001
+                                            </td>
+                                            <td>2021-09-16</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-primary">Received</span>
+                                            </td>
+                                            <td>
+                                                
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                O20210913001
+                                            </td>
+                                            <td>2021-09-13</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-primary">Confirmed</span>
+                                            </td>
+                                            <td>
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                O20210911001
+                                            </td>
+                                            <td>2021-09-11</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-danger">Cancelled</span>
+                                            </td>
+                                            <td>
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                O20210911002
+                                            </td>
+                                            <td>2021-09-11</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-danger">Cancelled</span>
+                                            </td>
+                                            <td>
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                O20210911003
+                                            </td>
+                                            <td>2021-09-11</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-primary">Received</span>
+                                            </td>
+                                            <td>
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                O20210911004
+                                            </td>
+                                            <td>2021-09-11</td>
+                                            <td> Mocka </td>
+                                            <td> Electric LightShip</td>
+                                            <td> $3,284.98</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-primary">Confirmed</span>
+                                            </td>
+                                            <td>
+                                                <a class='mr-4 edit' data-toggle='modal' data-target='#changeTimeAndDate'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue' >
+                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                </a>
+                                                <a class='view' >
+                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End section content -->
+{{/block }}

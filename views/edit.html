@@ -1,0 +1,97 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+<!-- account content  start -->
+<div class="account-content">
+    <div class="auto-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:;">My Account</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+          </nav>
+        <form action="" method="post">
+            <div class="account-content-info">
+                <div class="info-title clearfix">Edit Information <button  type="submit" class="title-edit btn btn-primary">save</button></div>
+                <div class="info-content edit-page">
+                <div class="edit_content">
+                    
+                       <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >First Name</span>
+                              <input type="text" class="form-control" name="firstName" id="firstName" value="{{user.firstName}}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Last Name</span>
+                              <input type="text" class="form-control" id="lastName" name="lastName" value="{{user.lastName}}" readonly>
+                            </div>
+                        </div>
+                   
+                   
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Email </span>
+                              <input type="text" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Phone NO.</span>
+                              <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{user.phoneNumber}}" >
+                            </div>
+                        </div>
+                   
+                  
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Address </span>
+                              <input type="text" class="form-control" id="address1" name="address1" value="{{user.address1}}" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Country </span>
+                              <input type="text" class="form-control" id="country" name="country" value="{{user.zipCode}}" >
+                            </div>
+                        </div>
+                   
+                    
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >State </span>
+                              <input type="text" class="form-control" id="state" name="state" value="{{user.state}}" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >Suburb </span>
+                              <input type="text" class="form-control" id="suburb" name="suburb" value="{{user.suburb}}" >
+                            </div>
+                        </div>
+                  
+                    
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+                            <div class="input-group">
+                              <span class="input-group-text text-title" >ZipCode </span>
+                              <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{user.zipCode}}" >
+                            </div>
+                        </div>
+                       
+                      </div>
+                </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+<!-- account content end -->
+{{/block}}

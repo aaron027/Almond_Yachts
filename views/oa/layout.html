@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Almond Boats Management System</title>
+    <!-- Base Styling  -->
+    <link rel="stylesheet" href="../../public/css/bootstrap.css">
+    <link rel="stylesheet" href="../../public/css/daterangepicker.css">
+    <link rel="stylesheet" href="../../public/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="../../public/css/fontawesome-all.css">
+    <link rel="stylesheet" href="../../public/css/style_oa.css">
+
+    <link rel="shortcut icon" href="../../public/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../public/images/favicon.png" type="image/x-icon">
+    {{block 'oahead'}}
+    {{/block}}
+</head>
+
+<body>
+    <div id="main-wrapper" class="show">
+
+        {{include './header.html'}}
+        {{include './leftside.html'}}
+        <!-- the content for placeholder -->
+        {{block 'oacontent'}}
+         <h1>default content</h1>
+        {{/block}}
+        {{include './footer.html'}}
+    </div>
+
+    <!-- JQuery v3.5.1 -->
+    <script src="../../public/js/jquery.js"></script>
+
+    <!-- popper js -->
+    <script src="../../public/js/popper.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../../public/js/bootstrap.min.js"></script>
+
+    <!-- Moment -->
+    <script src="../../public/js/moment.min.js"></script>
+
+    <!-- Date Range Picker -->
+    <script src="../../public/js/daterangepicker.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="../../public/js/jquery.dataTables.min.js"></script>
+    <script src="../../public/js/init-tdatatable.js"></script>
+
+    <!-- Chart js -->
+    <script src="../../public/js/Chart.min.js"></script>
+    <script src="../../public/js/charts-custom.js"></script>
+
+    <!-- Main Custom JQuery -->
+    <script src="../../public/js/toggleFullScreen.js"></script>
+    <script src="../../public/js/main.js"></script>
+    {{block 'oascript'}}
+    {{/block}}
+</body>
+
+</html>

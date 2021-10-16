@@ -1,0 +1,141 @@
+{{extend './layout.html'}}
+
+{{block 'oacontent'}}
+<!-- start section content -->
+<div class="content-body">
+    <div class="warper container-fluid">
+        <div class="doctorino_settings main_container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 class="text-primary">Profile Settings</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:;">Profile Settings</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">First Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="firstName"
+                                                    value="{{user.firstName}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Last Name <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="lastName"
+                                                    value="{{user.lastName}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Email <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="email"
+                                                    value="{{user.email}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Phone<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="phoneNumber"
+                                                    value="{{user.phoneNumber}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Country <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="country"
+                                                    value="{{user.country}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">State<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="{{user.state}}"
+                                                    name="state">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Suburb<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="{{user.suburb}}"
+                                                    name="suburb">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Address1 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" name="address1"
+                                                    value="{{user.address1}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Address2 <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" name="address2"
+                                                    value="{{user.address2}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-11">
+                                        <div class="form-group"><button type="submit"
+                                                class="btn btn-primary float-end">Save</button></div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End section content -->
+{{/block }}

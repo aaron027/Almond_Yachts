@@ -1,0 +1,122 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+<!-- login start -->
+<div class="auto-container">
+    <div class="login-content ">
+        <div class="row clearfix">
+            <div class="col-lg-6 col-md-12 col-sm-12 left_container">
+                <img src="../../public/images/background/login_bg.jpg">
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <!-- form start -->
+                <div class="row clearfix paddingForm">
+                   
+                <div class="form-column login-page col-lg-12 col-md-12 col-sm-12">
+                    <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <div class="sec-title">
+                            <h4>Password Reset</h4>
+                        </div>
+                        <div class="default-form contact-form login-form">
+                            <p>Please enter the email address that you used to sign up so we can send you an email with your username and a link to reset your password.
+                            </p>
+                            <form id="login_form">
+                                <div class="row clearfix">          
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                        <div class="field-label">Email</div>
+                                        <div class="field-inner">
+                                            <input type="text" id="email" name="email" placeholder="Email" required value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                        <button type="submit" class="theme-btn btn-style-three" id="almond_login"><span class="btn-title">Send</span></button>
+                                    </div>
+                                    <p>If you still need help, <a href="/contact">contact us</a> </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- form end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login end -->
+{{/block}}
+
+{{block 'script'}}
+<script>
+    $('#login_form').on('submit', function (e) {
+      e.preventDefault()
+      var formData = $(this).serialize()
+      console.log(formData)
+      $.ajax({
+        url: '/login',
+        type: 'post',
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+          var err_code = data.err_code
+          if (err_code === 0) {
+            window.location.href = '/'
+          } else if (err_code === 1) {
+            window.alert('email or password error')
+          } else if (err_code === 500) {
+            window.alert('server error')
+          }
+        }
+      })
+    })
+
+    // remember password  
+    var oForm = document.getElementById('login_form');
+        var oUser = document.getElementById('email');
+        var oPswd = document.getElementById('password');
+        var oRemember = document.getElementById('remember');
+
+        if(getCookie('email') && getCookie('password')){
+            oUser.value = getCookie('email');
+            oPswd.value = getCookie('password');
+            oRemember.checked = true;
+        }
+
+        oRemember.onchange = function(){
+            if(!this.checked){
+                delCookie('email');
+                delCookie('password');
+            }
+        };
+
+        oForm.onsubmit = function(){
+            if(remember.checked){ 
+                setCookie('email',oUser.value,7); //保存帐号到cookie，有效期7天
+                setCookie('password',oPswd.value,7); //保存密码到cookie，有效期7天
+            }
+        };
+    
+
+    function setCookie(name,value,day){
+        var date = new Date();
+        date.setDate(date.getDate() + day);
+        document.cookie = name + '=' + value + ';expires='+ date;
+    };
+
+    function getCookie(name){
+        var reg = RegExp(name+'=([^;]+)');
+        var arr = document.cookie.match(reg);
+        if(arr){
+            return arr[1];
+        }else{
+            return '';
+        }
+    };
+
+    function delCookie(name){
+        setCookie(name,null,-1);
+    };
+
+  </script>
+{{/block}}

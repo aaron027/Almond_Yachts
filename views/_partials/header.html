@@ -1,0 +1,213 @@
+<!-- Main Header -->
+<header class="main-header header-style-three">
+    <!-- Header Top -->
+    <div class="header-top header-top-three">
+        <div class="auto-container">
+            <div class="inner clearfix">
+                <div class="top-left clearfix">
+                    <div class="language">
+                        <div class="lang-btn">
+                            <span class="flag fa fa-globe"></span>
+                            <span class="txt">Australia - AUD</span>
+                            <span class="arrow fa fa-caret-down"></span>
+                        </div>
+                        <div class="lang-dropdown">
+                            <ul>
+                                <li><a href="#">Australia</a></li>
+                                <li><a href="#">America</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <ul class="clearfix">
+                            <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                            <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                            <li><a href="#"><span class="fas fa-rss"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="top-right">
+                    <div class="my-account ">
+                        <ul class="clearfix">
+                            {{if user}}
+                            
+                            <li>Hello, {{user && user.firstName}}</li>
+                            <li class="hasDown"><a href="#" id="myAccount"><span class="icon flaticon-user-2"></span> My Account</a>
+                                <ul class="down">
+                                    <li><a href="/account"><span class="fa fa-th-large"></span> Dashboard</a></li>
+                                    <li><a href="/setting"><span class="fa fa-lock"></span> Setting</a></li>
+                                    <li><a href="/logout"><span class="fa fa-sign-out-alt"></span> Sign out</a></li>
+                                </ul>
+                            </li>
+                            {{else}}
+                            <li><a href="/login"><span class="icon flaticon-password"></span> Login</a></li>
+                            <li><a href="/register"><span class="icon flaticon-user-2"></span> Signup</a></li>
+                            {{/if}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Upper -->
+    <div class="header-upper">
+        <div class="auto-container">
+            <div class="inner clearfix">
+                <!--Logo-->
+                <div class="logo-box">
+                    <div class="logo"><a href="/" title="Almond Boats"><img src="../../public/images/logo-three.png" alt="Almond Boats"></a></div>
+                </div>
+                <div class="nav-content clearfix">
+                    <div class="nav-outer clearfix">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu-1"></span></div>
+
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md navbar-light">
+                            <div class="collapse navbar-collapse show clearfix">
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="/">Home</a></li>
+                                    <li ><a href="/custom">Customization</a></li>
+                                    <li><a href="/contact">Contact</a></li>
+                                    <li><a href="/about">About</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!--Search Btn-->
+                    <div class="search-btn">
+                        <button type="button" class="theme-btn search-toggler"><span class="icon flaticon-magnifying-glass"></span></button>
+                    </div>
+
+                    <!--Nav Toggler-->
+                    <div class="max-nav-toggler">
+                        <button class="theme-btn toggle-btn"><span class="flaticon-menu-5"></span></button>
+                    </div>
+
+
+                    <!--Link Box-->
+                    <div class="link-box">
+                        <span class="fa fa-flag-usa icon-converter"></span> <span> <span class="currency_name">AUD/USD</span> = <span class="converter-value">0.73</span></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Header Upper-->
+
+    <!-- Sticky Header  -->
+    <div class="sticky-header">
+        <div class="auto-container clearfix">
+            <!--Logo-->
+            <div class="logo pull-left">
+                <a href="/" title=""><img src="../../public/images/sticky-logo.png" alt="" title=""></a>
+            </div>
+            <!--Right Col-->
+            <div class="pull-right clearfix">
+                <!-- Main Menu -->
+                <nav class="main-menu clearfix">
+                </nav>
+
+                <!--Search Btn-->
+                <div class="search-btn">
+                    <button type="button" class="theme-btn search-toggler"><span class="icon flaticon-magnifying-glass"></span></button>
+                </div>
+
+                <!--Book Btn-->
+                <div class="booking-link link-box">
+                    <span class="fa fa-flag-usa icon-converter"></span> <span>AUD/USD = <span class="converter-value">0.72887</span></span>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Sticky Menu -->
+
+    <!-- Mobile Menu  -->
+    <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+        <div class="close-btn"><span class="icon flaticon-targeting-cross"></span></div>
+        
+        <nav class="menu-box">
+            <div class="nav-logo"><a href="/"><img src="../../public/images/nav-logo.png" alt="" title=""></a></div>
+            <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+            <!--Social Links-->
+            <div class="social-links">
+                <ul class="clearfix">
+                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                    <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                    <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                    <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                    <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div><!-- End Mobile Menu -->
+</header>
+<!-- End Main Header -->
+
+<!--Search Popup-->
+<div id="search-popup" class="search-popup">
+    <div class="close-search theme-btn"><span class="flaticon-targeting-cross"></span></div>
+    <div class="popup-inner">
+        <div class="overlay-layer"></div>
+        <div class="search-form">
+            <form method="post" action="index.html">
+                <div class="form-group">
+                    <fieldset>
+                        <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                        <input type="submit" value="Search Now!" class="theme-btn">
+                    </fieldset>
+                </div>
+            </form>
+            
+            <br>
+            <h3>Recent Search Keywords</h3>
+            <ul class="recent-searches">
+                <li><a href="#">Yachts</a></li>
+                <li><a href="#">Cruising</a></li>
+                <li><a href="#">Electric</a></li>
+                <li><a href="#">Lightship</a></li>
+                <li><a href="#">Environmentally</a></li>
+            </ul>
+        
+        </div>
+        
+    </div>
+</div>
+
+<!-- Hidden Navigation Bar -->
+<section class="hidden-bar right-align">
+    
+    <div class="hidden-bar-closer">
+        <button><span class="flaticon-letter-x"></span></button>
+    </div>
+    
+    <!-- Hidden Bar Wrapper -->
+    <div class="hidden-bar-wrapper">
+        
+        <div class="logo">
+            <a href="index.html"><img src="../../../public/images/logo-two.png" alt="" /></a>
+        </div>
+        <div class="content-box">
+            <h3>Get In Touch</h3>
+            <div class="text">Our mission is to be an environmentally and socially conscious manufacturer. If you have any questions, please contact us.</div>
+            <a href="/about" class="theme-btn btn-style-two"><div class="btn-title">Consultation</div></a>
+        </div>
+        <div class="contact-info">
+            <h2>Contact Info</h2>
+            <ul class="list-style-two">
+                <li><span class="icon fa fa-map-marker-alt"></span>University Drive, Callaghan NSW 2308, Australia</li>
+                <li><span class="icon fa fa-phone-alt"></span><a href="tel:555626-0234">(+61)02-4921-5000</a></li>
+                <li><span class="icon fa fa-envelope-open"></span> <a href="mailto:support@sailing.com">info@almond.yachts</a></li>
+                <li><span class="icon fa fa-users"></span>DevSouls (Team one) </li>
+                <li><span class="icon fa fa-user-lock"></span><a href="/oa/login">Admin Entry</a></li>
+            </ul>
+        </div>
+    </div><!-- / Hidden Bar Wrapper -->
+    
+</section>
+<!-- End / Hidden Bar -->
