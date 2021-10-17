@@ -94,7 +94,6 @@ router.post('/register', function (req, response, next) {
       body: JSON.stringify(req.body)
     }, (err, res, data) => {
       var result = JSON.parse(res.body);
-
       if (result.status === 401) {
         response.status(200).json({
           err_code: 1,
@@ -138,6 +137,7 @@ router.post('/edit', function (req, res, next) {
     body: JSON.stringify(req.body)
   }, (err, res, data) => {
     var result = JSON.parse(res.body);
+    console.log(result)
     // if (result.status === 401) {
     //   response.status(200).json({
     //     err_code: 1,
