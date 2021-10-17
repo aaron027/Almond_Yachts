@@ -1,8 +1,8 @@
 var express = require('express')
-var User = require('./models/user')
-var md5 = require('blueimp-md5')
+// var User = require('./models/user')
+// var md5 = require('blueimp-md5')
 var request = require('request')
-var axios = require('axios')
+// var axios = require('axios')
 
 var router = express.Router()
 

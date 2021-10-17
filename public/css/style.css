@@ -18939,3 +18939,9 @@ img.lazy-image.loaded{
   .login-page .warning .warning-wrapper{
 	padding: 0 10px;
   }
+  .login-pwd i{
+	  position: absolute;
+	  right: 20px;
+      top: 44px;
+	  cursor: pointer;
+  }

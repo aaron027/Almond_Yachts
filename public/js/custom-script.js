@@ -870,6 +870,18 @@ $(".language ul li a").click(function () {
 	}
 });
 
+$(".login-pwd i").click(function () {
+	var password = $("#password");
+	var pwdtype = password.attr("type")
+	if (pwdtype === "password") {
+		password.attr("type", "text")
+		$(this).removeClass('fa fa-eye').addClass('fa fa-eye-slash')
+	} else {
+		password.attr("type", "password")
+		$(this).removeClass('fa fa-eye-slash').addClass('fa fa-eye')
+	}
+});
+
 
 
 
