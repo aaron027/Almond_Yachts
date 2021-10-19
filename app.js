@@ -28,5 +28,5 @@ app.use(router)
 
 
 app.listen('3000', function () {
-  console.log('the server started at port 3000.....')
+  console.log('The server started at port 3000.....')
 })

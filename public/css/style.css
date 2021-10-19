@@ -672,7 +672,6 @@ img{
 	font-size:14px;
 	line-height:30px;
 	font-weight:600;
-	text-transform:uppercase;
 	letter-spacing: 0.03em;
 	color:#ffffff;
 	padding:10px 0px;
@@ -18949,7 +18948,7 @@ img.lazy-image.loaded{
 	border:1px solid #dfdfdf;
 	border-radius: 8px;
 	font-family: Arial;
-	background: #f4f4f4;
+	background: #fafafa;
 	margin:0;
 	margin-bottom: 1rem;
   }
@@ -18961,7 +18960,7 @@ img.lazy-image.loaded{
   .info-content ul li .status{
 	background: #2b89e0;
 	color:#fff;
-	padding:3px 8px;
+	padding:4px 8px;
 	font-weight: normal;
 	border-radius: 4px;
 	font-size: 0.8rem;
@@ -19010,15 +19009,20 @@ img.lazy-image.loaded{
   .pwd-set-tip{
 	  padding:10px 16px;
 	  line-height: 150%;
-	  font-size: 0.8rem;
+	  
 	  font-weight: normal;
   }
   .pwd-set-tip p{
 	margin-bottom: 5px;
+	font-size: 0.8rem;
+	color:#999;
   }
   .update-btn{
 	  padding:7px 10px;
 	  background: #2b89e0;
 	  border:0;
-	  font-size: 0.9rem;
+	  font-size: 0.8rem;
+  }
+  .change_password .form-group label{
+	color:#333;
   }

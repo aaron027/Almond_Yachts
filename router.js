@@ -131,7 +131,7 @@ router.post('/edit', function (req, response, next) {
     body: JSON.stringify(req.body)
   }, (err, res, data) => {
     var result = res.body
-    // console.log(result)
+    console.log(result)
     // req.session.user = req.body
     // response.redirect('/account')
   })
