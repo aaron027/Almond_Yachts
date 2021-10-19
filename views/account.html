@@ -6,81 +6,90 @@
     <div class="auto-container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item"><a href="javascript:;">My Account</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;">My Account</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
-          </nav>
+        </nav>
         <div class="account-content-info">
-            
-            <div class="info-title clearfix">Account Detail <a href="/edit" class="title-edit btn btn-primary">edit</a></div>
-            <div class="info-content">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >First Name</span>
-                          <span type="text" class="form-control" >{{user.firstName}}</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Last Name</span>
-                          <span type="text" class="form-control" >{{user.lastName}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">  
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Email </span>
-                          <span type="text" class="form-control" >{{user.email}}</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Phone NO.</span>
-                          <span type="text" class="form-control" >{{user.phoneNumber}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">    
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Address </span>
-                          <span type="text" class="form-control" >{{user.address1}}</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Country </span>
-                          <span type="text" class="form-control" >{{user.country}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >State </span>
-                          <span type="text" class="form-control" >{{user.state}}</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >Suburb </span>
-                          <span type="text" class="form-control" >{{user.suburb}}</span>
-                        </div>
-                    </div> 
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                          <span class="input-group-text text-title" >ZipCode </span>
-                          <span type="text" class="form-control" >{{user.zipCode}}</span>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="info-title clearfix">Account Detail <a href="/edit" class="title-edit btn btn-primary">edit</a>
             </div>
+            <div class="info-content">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">First Name</span>
+                                <span type="text" class="form-control">{{user.firstName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Last Name</span>
+                                <span type="text" class="form-control">{{user.lastName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Email </span>
+                                <span type="text" class="form-control">{{user.email}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Phone NO.</span>
+                                <span type="text" class="form-control">{{user.phoneNumber}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Address1 </span>
+                                <span type="text" class="form-control">{{user.address1}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Address2 </span>
+                                <span type="text" class="form-control">{{user.address2}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Country </span>
+                                <span type="text" class="form-control">{{user.country}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">State </span>
+                                <span type="text" class="form-control">{{user.state}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Suburb </span>
+                                <span type="text" class="form-control">{{user.suburb}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">ZipCode </span>
+                                <span type="text" class="form-control">{{user.zipCode}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="account-content-info">
@@ -95,10 +104,10 @@
 {{/block}}
 {{block 'script'}}
 <script>
-    $( ".info-content .form-control" ).each(function( index ) {
-        if($(this).html().trim()===''){
-        $(this).html('-')
-    }
+    $(".info-content .form-control").each(function (index) {
+        if ($(this).html().trim() === '') {
+            $(this).html('-')
+        }
     });
 </script>
 {{/block}}
