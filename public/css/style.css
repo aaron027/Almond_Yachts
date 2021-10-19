@@ -19007,3 +19007,18 @@ img.lazy-image.loaded{
 	background: url(../images/favicon_1.png) center left no-repeat;
 	padding-left: 3rem;
   }
+  .pwd-set-tip{
+	  padding:10px 16px;
+	  line-height: 150%;
+	  font-size: 0.8rem;
+	  font-weight: normal;
+  }
+  .pwd-set-tip p{
+	margin-bottom: 5px;
+  }
+  .update-btn{
+	  padding:7px 10px;
+	  background: #2b89e0;
+	  border:0;
+	  font-size: 0.9rem;
+  }

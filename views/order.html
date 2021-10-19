@@ -174,13 +174,3 @@
 </div>
 <!-- account content end -->
 {{/block}}
-{{block 'script'}}
-<script>
-    $(".info-content .form-control").each(function (index) {
-
-        if ($(this).html().trim() === '') {
-            $(this).html('-')
-        }
-    });
-</script>
-{{/block}}
