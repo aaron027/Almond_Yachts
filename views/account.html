@@ -82,21 +82,75 @@
                                 <span type="text" class="form-control">{{user.suburb}}</span>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                             <div class="input-group">
                                 <span class="input-group-text text-title">ZipCode </span>
                                 <span type="text" class="form-control"
                                     id="zipCode">{{user.zipCode=='0'?'':user.zipCode}}</span>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="account-content-info">
-            <div class="info-title">My Order</div>
+            <div class="info-title">My Latest Order</div>
             <div class="info-content">
-                It seems that there is no order at present.
+                <!-- It seems that there is no order at present. -->
+                <ul>
+                    <li class="row">
+                        <div class="order-top clearfix">
+                            <div class="left">
+                                <div class="top">Order date:</div>
+                                <div class="bottom">2021-10-19</div>
+                            </div>
+                            <div class="right">
+                                <div class="top">Order total:</div>
+                                <div class="bottom">$5000</div>
+                            </div>
+                        </div>
+                        <div class="order-bottom">
+                            <div class="row order-tb">
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="logo">
+                                                <div class="top">Order Number</div>
+                                                <div class="bottom">#202110190001</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4">
+                                            <div class="top">category</div>
+                                            <div class="bottom">Lightship</div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4">
+                                            <div class=" top">Boat Name</div>
+                                            <div class="bottom">MockA</div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4">
+                                            <div class=" top">Order Status</div>
+                                            <div class="bottom">
+                                                <span class="status">
+                                                    <i class="fa fa-check-circle"></i>
+                                                    received
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <a href="#">view order details</a>
+                                </div>
+
+
+                            </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

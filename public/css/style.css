@@ -18945,3 +18945,65 @@ img.lazy-image.loaded{
       top: 44px;
 	  cursor: pointer;
   }
+  .info-content ul li{
+	border:1px solid #dfdfdf;
+	border-radius: 8px;
+	font-family: Arial;
+	background: #f4f4f4;
+	margin:0;
+	margin-bottom: 1rem;
+  }
+  .info-content ul li .top{
+	  font-size: 0.7rem;
+	  font-weight:normal;
+	  color:#999;
+  }
+  .info-content ul li .status{
+	background: #2b89e0;
+	color:#fff;
+	padding:3px 8px;
+	font-weight: normal;
+	border-radius: 4px;
+	font-size: 0.8rem;
+  }
+  .info-content ul li .left{
+	  float: left;
+  }
+  .info-content ul li .right{
+	  float: right;
+  }
+  .info-content ul li .order-top {
+	  width: 100%;
+	  overflow: hidden;
+  }
+  .info-content ul li .order-top .bottom{
+	font-size: 1rem;
+	font-weight:bold;
+	color:#333;
+	
+	}
+	.info-content ul li .order-bottom .bottom{
+	font-size: 0.8rem;
+	font-weight:bold;
+	color:#333;
+	}
+  .info-content ul li .order-top{
+	padding: 10px 20px;
+	border-bottom: 1px solid #dfdfdf;
+  }
+  .info-content ul li .order-bottom{
+	padding: 10px 20px;
+	width: 100%;
+  }
+  .info-content ul li .order-bottom .order-tb{
+	  width: 100%;
+  }
+  .info-content ul li .order-bottom .order-tb a{
+	  display: block;
+	  text-align: center;
+	  margin-top: 0.75rem;
+  }
+  .info-content ul li .order-bottom .logo{
+	background: url(../images/favicon_1.png) center left no-repeat;
+	padding-left: 3rem;
+  }

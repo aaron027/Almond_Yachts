@@ -69,7 +69,11 @@ router.get('/setting', function (req, res) {
     user: req.session.user
   })
 })
-
+router.get('/order', function (req, res) {
+  res.render('order.html', {
+    user: req.session.user
+  })
+})
 router.post('/register', function (req, response, next) {
   request.post({
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
@@ -105,13 +109,20 @@ router.get('/logout', function (req, res) {
   res.redirect('/login')
 })
 
+
+
+
+//======================================================================================
+// Edit profile Block
+//======================================================================================
+
 router.get('/edit', function (req, res) {
   res.render('edit.html', {
     user: req.session.user
   })
 })
 
-router.post('/edit', function (req, res, next) {
+router.post('/edit', function (req, response, next) {
   request.put({
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
     method: 'PUT',
@@ -121,23 +132,10 @@ router.post('/edit', function (req, res, next) {
     },
     body: JSON.stringify(req.body)
   }, (err, res, data) => {
-    var result = JSON.parse(res.body);
-    console.log(result)
-    // req.session.user = user
-    // res.redirect('/account')
-    // if (result.status === 401) {
-    //   response.status(200).json({
-    //     err_code: 1,
-    //     message: 'The email exits!'
-    //   })
-    // } else {
-    //   var user = JSON.parse(res.body)
-    //   req.session.user = user;
-    //   response.status(200).json({
-    //     err_code: 0,
-    //     message: 'OK'
-    //   })
-    // }
+    var result = res.body
+    // console.log(result)
+    // req.session.user = req.body
+    // response.redirect('/account')
   })
 })
 
