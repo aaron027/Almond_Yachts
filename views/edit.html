@@ -75,12 +75,13 @@
                   <input type="text" class="form-control" id="suburb" name="suburb" value="{{user.suburb}}">
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
+              <!-- <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">ZipCode </span>
-                  <input type="text" class="form-control" id="zipCode" name="zipCode" value="{{user.zipCode}}">
+                  <input type="text" class="form-control" id="zipCode" name="zipCode"
+                    value="{{user.zipCode=='0'?'':user.zipCode}}">
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

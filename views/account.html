@@ -82,12 +82,13 @@
                                 <span type="text" class="form-control">{{user.suburb}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                        <!-- <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                             <div class="input-group">
                                 <span class="input-group-text text-title">ZipCode </span>
-                                <span type="text" class="form-control">{{user.zipCode}}</span>
+                                <span type="text" class="form-control"
+                                    id="zipCode">{{user.zipCode=='0'?'':user.zipCode}}</span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -105,6 +106,7 @@
 {{block 'script'}}
 <script>
     $(".info-content .form-control").each(function (index) {
+
         if ($(this).html().trim() === '') {
             $(this).html('-')
         }
