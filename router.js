@@ -71,43 +71,28 @@ router.get('/setting', function (req, res) {
 })
 
 router.post('/register', function (req, response, next) {
-  var options = {
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication',
+  request.post({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      email: 'admin@maalu.com',
-      password: 'Maal@123'
-    })
-  }
-  request(options, function (err, res, data) {
-    apikey = data;
-    request.post({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apikey
-      },
-      body: JSON.stringify(req.body)
-    }, (err, res, data) => {
-      var result = JSON.parse(res.body);
-      if (result.status === 401) {
-        response.status(200).json({
-          err_code: 1,
-          message: 'The email exits!'
-        })
-      } else {
-        var user = JSON.parse(res.body)
-        req.session.user = user;
-        response.status(200).json({
-          err_code: 0,
-          message: 'OK'
-        })
-      }
-    })
+    body: JSON.stringify(req.body)
+  }, (err, res, data) => {
+    var result = JSON.parse(res.body);
+    if (result.status === 401) {
+      response.status(200).json({
+        err_code: 1,
+        message: 'The email exits!'
+      })
+    } else {
+      var user = JSON.parse(res.body)
+      req.session.user = user;
+      response.status(200).json({
+        err_code: 0,
+        message: 'OK'
+      })
+    }
   })
 })
 
@@ -137,7 +122,6 @@ router.post('/edit', function (req, res, next) {
     body: JSON.stringify(req.body)
   }, (err, res, data) => {
     var result = JSON.parse(res.body);
-    console.log(result)
     // if (result.status === 401) {
     //   response.status(200).json({
     //     err_code: 1,
@@ -221,7 +205,14 @@ router.post('/oa/login', function (req, response, next) {
     body: JSON.stringify(req.body)
   }
   request(options, function (err, res, data) {
-    apikey = data
+    apikey = data;
+    var username = JSON.parse(options.body).email
+    if (username != 'admin@maalu.com') {
+      return response.status(200).json({
+        err_code: 2,
+        message: 'No Authorization!'
+      })
+    }
     request.get({
       url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetCurrentUsers',
       headers: {
