@@ -94,8 +94,10 @@
         <div class="account-content-info">
             <div class="info-title">My Latest Order</div>
             <div class="info-content">
-                <!-- It seems that there is no order at present. -->
-                <ul>
+                <div class="default_page">
+                    There are currently no orders.
+                </div>
+                <!-- <ul>
                     <li>
                         <div class="order-top clearfix">
                             <div class="left">
@@ -145,7 +147,7 @@
                                 </div>
                             </div>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>
@@ -155,7 +157,6 @@
 {{block 'script'}}
 <script>
     $(".info-content .form-control").each(function (index) {
-
         if ($(this).html().trim() === '') {
             $(this).html('-')
         }

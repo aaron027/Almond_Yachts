@@ -19075,3 +19075,10 @@ img.lazy-image.loaded{
   .info-content .row{
 	  margin:0 -12px;
   }
+  .info-content .default_page{
+	  height:201px;
+	  background: url(../images/default_page.png) top center no-repeat;
+	  padding-top: 171px;
+	  text-align: center;
+	  font-size: 0.8rem;
+  }

@@ -1822,10 +1822,9 @@ responsive table
   .table-responsive-stack td,
   .table-responsive-stack th {
 	 display:block;
-  /*      
-	 flex-grow | flex-shrink | flex-basis   */
 	 -ms-flex: 1 1 auto;
 	  flex: 1 1 auto;
+	  padding: 6px;
   }
   
   .table-responsive-stack .table-responsive-stack-thead {
@@ -1838,7 +1837,7 @@ responsive table
 		-webkit-box-direction: normal;
 			-ms-flex-direction: column;
 				flex-direction: column;
-		border-bottom: 3px solid #ccc;
+		border-bottom: 1px solid #ccc;
 		display:block;
 		
 	 }
@@ -1854,4 +1853,7 @@ responsive table
     background-color: #343a40;
     border-color: #454d55;
 	font-size: 0.8rem;
+}
+.table-bordered td, .table-bordered th{
+	border:1px solid #dee2e6;
 }
