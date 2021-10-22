@@ -19072,3 +19072,6 @@ img.lazy-image.loaded{
   .delivery-content p{
 	  margin-bottom: 0px;
   }
+  .info-content .row{
+	  margin:0 -12px;
+  }
