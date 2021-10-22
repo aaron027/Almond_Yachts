@@ -18879,7 +18879,7 @@ img.lazy-image.loaded{
 .personal_info{
 	margin-bottom: 1rem;
 }
-.personal_info .field-inner input[type="text"]{
+.personal_info .field-inner input[type="text"],.personal_info .field-inner input[type="email"]{
 	border: 1px solid #dfdfdf;
     border-radius: 2rem;
     background: #f4f4f4;
@@ -19038,4 +19038,37 @@ img.lazy-image.loaded{
   }
   .btn-primary:hover{
 	  background: #333;
+  }
+  .breadcrumb{
+	  padding:.75rem 0;
+  }
+  .info-title .status{
+	background: #2b89e0;
+    color: #fff;
+    padding: 2px 4px;
+    font-weight: normal;
+    border-radius: 4px;
+    font-size: 0.7rem;
+	float: right;
+  }
+  .info-content .container{
+	  padding-left: 0;
+	  padding-right: 0;
+  }
+  .delivery{
+	  margin: 0;
+	  margin-top: 10px;
+	  
+  }
+  .delivery-title{
+	  font-size: 0.9rem;
+	  font-weight: bold;
+	  color:#333;
+	  padding: .375rem .75rem;
+  }
+  .delivery-content{
+	padding: .375rem .75rem;
+  }
+  .delivery-content p{
+	  margin-bottom: 0px;
   }

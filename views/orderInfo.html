@@ -1,0 +1,225 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+<!-- account content  start -->
+<div class="account-content">
+    <div class="auto-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;">My Account</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Order Info</li>
+            </ol>
+        </nav>
+        <div class="account-content-info">
+
+            <div class="info-title clearfix">Order Info <span class="status">
+                    <i class="fa fa-check-circle"></i>
+                    received
+                </span>
+            </div>
+            <div class="info-content">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Order Date</span>
+                                <span type="text" class="form-control">2021-10-19</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Order Number</span>
+                                <span type="text" class="form-control">#202110190001</span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Boat Category</span>
+                                <span type="text" class="form-control">
+                                    Electric LightShip</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Boat Name</span>
+                                <span type="text" class="form-control">
+                                    MockA</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Model Number</span>
+                                <span type="text" class="form-control">
+                                    M200001</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Model Year</span>
+                                <span type="text" class="form-control">
+                                    2020</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="info-title clearfix">Delivery Info
+            </div>
+            <div class="info-content">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-text text-title">Delivery</span>
+                            <span type="text" class="form-control"><i class="fa fa-shipping-fast"></i>
+                                Courier Express</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-text text-title">Delivery Date</span>
+                            <span type="text" class="form-control">
+                                2021-11-01</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="delivery-title"><i class="fa fa-clipboard-check"></i> Billing</div>
+                            <div class="delivery-content">
+                                <p>Bo Chen</p>
+                                <p>234 Albert Street </p>
+                                <p>Jesmond New South Wales,2299 </p>
+                                <p>Australia</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="delivery-title"><i class="fa fa-map-marker-alt"></i> Delivery To</div>
+                            <div class="delivery-content">
+                                <p>Bo Chen</p>
+                                <p>234 Albert Street </p>
+                                <p>Jesmond New South Wales,2299 </p>
+                                <p>Australia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="info-title clearfix">Customization Details
+            </div>
+            <div class="info-content">
+                <div class="container">
+                    <table class="table table-bordered table-striped table-responsive-stack" id="tableOne">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ITEM NAME</th>
+                                <th>SECTION</th>
+                                <th>UNIT PRICE</th>
+                                <th>QTY</th>
+                                <th>SUBTOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NAVY 6.0 REMOTE LONGSHAFT</td>
+                                <td>Motor</td>
+                                <td>$4000</td>
+                                <td>× 1</td>
+                                <td>$4000</td>
+                            </tr>
+                            <tr>
+                                <td>E175 E-SERIES BATTERY</td>
+                                <td>Motor</td>
+                                <td>$8000</td>
+                                <td>× 1</td>
+                                <td>$8000</td>
+                            </tr>
+                            <tr>
+                                <td>RONSTAN RIGGING</td>
+                                <td>Running Rigging</td>
+                                <td>$24190</td>
+                                <td>× 1</td>
+                                <td>$4200</td>
+                            </tr>
+                            <tr>
+                                <td>MAINSAILS</td>
+                                <td>Sails</td>
+                                <td>$2440</td>
+                                <td>× 1</td>
+                                <td>$3000</td>
+                            </tr>
+                            <tr>
+                                <td>NAVY BATTERY CONTROL</td>
+                                <td>Battery</td>
+                                <td>$300</td>
+                                <td>× 1</td>
+                                <td>$300</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 nopadding">
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 nopadding">
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Total(incl.GST)</span>
+                                <span type="text" class="form-control">$15800.00</span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Tax/GST</span>
+                                <span type="text" class="form-control">$158.00</span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Delivery</span>
+                                <span type="text" class="form-control">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- account content end -->
+{{/block}}
+{{block 'script'}}
+<script>
+    $(document).ready(function () {
+        $('.table-responsive-stack').each(function (i) {
+            var id = $(this).attr('id');
+            $(this).find("th").each(function (i) {
+                $('#' + id + ' td:nth-child(' + (i + 1) + ')').prepend('<span class="table-responsive-stack-thead">' + $(this).text() + ':</span> ');
+                $('.table-responsive-stack-thead').hide();
+
+            });
+        });
+        $('.table-responsive-stack').each(function () {
+            var thCount = $(this).find("th").length;
+            var rowGrow = 100 / thCount + '%';
+            $(this).find("th, td").css('flex-basis', rowGrow);
+        });
+        function flexTable() {
+            if ($(window).width() < 768) {
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").show();
+                    $(this).find('thead').hide();
+                });
+            } else {
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").hide();
+                    $(this).find('thead').show();
+                });
+            }
+        }
+        flexTable();
+        window.onresize = function (event) {
+            flexTable();
+        };
+    });
+</script>
+{{/block}}

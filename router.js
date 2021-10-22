@@ -183,6 +183,11 @@ router.get('/pwdReset', function (req, res) {
     user: req.session.user
   })
 })
+router.get('/orderInfo', function (req, res) {
+  res.render('orderInfo.html', {
+    user: req.session.user
+  })
+})
 
 router.get('/oa/index', function (req, res) {
   res.render('./oa/index.html', {
