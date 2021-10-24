@@ -29,6 +29,24 @@
         </form>
     </div>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="loginError">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="insertHere"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 {{/block}}
 {{block 'oascript'}}
 <script>
@@ -46,11 +64,17 @@
                 if (err_code === 0) {
                     window.location.href = '/oa/index'
                 } else if (err_code === 1) {
-                    window.alert('email or password error')
+                    // window.alert('email or password error')
+                    $("#loginError").modal('show');
+                    $(".insertHere").html("email or password error")
                 } else if (err_code === 500) {
-                    window.alert('server error')
+                    // window.alert('server error')
+                    $("#loginError").modal('show');
+                    $(".insertHere").html("server error")
                 } else if (err_code === 2) {
-                    window.alert('No Authorization!')
+                    // window.alert('No Authorization!')
+                    $("#loginError").modal('show');
+                    $(".insertHere").html("No Authorization!")
                 }
             }
         })

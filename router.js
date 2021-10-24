@@ -7,6 +7,9 @@ var request = require('request')
 var router = express.Router()
 
 var apikey = "";
+var adminapi = "";
+var userid = "";
+var adminid = "";
 
 router.get('/', function (req, res, next) {
   res.render('index.html', {
@@ -48,6 +51,7 @@ router.post('/login', function (req, response, next) {
       } else {
         var user = JSON.parse(res.body)
         req.session.user = user;
+        userid = user.id;
         response.status(200).json({
           err_code: 0,
           message: 'OK'
@@ -121,6 +125,9 @@ router.get('/edit', function (req, res) {
 })
 
 router.post('/edit', function (req, response, next) {
+  var formData = req.body;
+  formData.id = userid;
+  formData.zipCode = parseInt(formData.zipCode)
   request.put({
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
     method: 'PUT',
@@ -128,12 +135,11 @@ router.post('/edit', function (req, response, next) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + apikey
     },
-    body: JSON.stringify(req.body)
+    body: JSON.stringify(formData)
   }, (err, res, data) => {
     var result = res.body
-    console.log(result)
-    // req.session.user = req.body
-    // response.redirect('/account')
+    req.session.user = req.body
+    response.redirect('/account')
   })
 })
 
@@ -191,7 +197,7 @@ router.get('/orderInfo', function (req, res) {
 
 router.get('/oa/index', function (req, res) {
   res.render('./oa/index.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 
@@ -209,19 +215,14 @@ router.post('/oa/login', function (req, response, next) {
     body: JSON.stringify(req.body)
   }
   request(options, function (err, res, data) {
-    apikey = data;
+    adminapi = data;
     var username = JSON.parse(options.body).email
-    if (username != 'admin@maalu.com') {
-      return response.status(200).json({
-        err_code: 2,
-        message: 'No Authorization!'
-      })
-    }
+
     request.get({
       url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetCurrentUsers',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apikey
+        'Authorization': 'Bearer ' + adminapi
       }
     }, (err, res, data) => {
       if (res.body == "") {
@@ -230,8 +231,15 @@ router.post('/oa/login', function (req, response, next) {
           message: 'Email or password is invalid.'
         })
       } else {
-        var user = JSON.parse(res.body)
-        req.session.user = user;
+        if (username != 'admin@maalu.com') {
+          return response.status(200).json({
+            err_code: 2,
+            message: 'No Authorization!'
+          })
+        }
+        var admin = JSON.parse(res.body)
+        req.session.admin = admin;
+        adminid = admin.id;
         response.status(200).json({
           err_code: 0,
           message: 'OK'
@@ -242,13 +250,13 @@ router.post('/oa/login', function (req, response, next) {
 })
 
 router.get('/oa/logout', function (req, res) {
-  req.session.user = null
+  req.session.admin = null
   res.redirect('/oa/login')
 })
 
 router.get('/oa/order', function (req, res) {
   res.render('./oa/order.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 
@@ -258,7 +266,7 @@ router.get('/oa/user', function (req, res) {
       res.status(500).send('server error')
     }
     res.render('./oa/user.html', {
-      user: req.session.user,
+      admin: req.session.admin,
       users: users
     })
   })
@@ -273,55 +281,68 @@ router.get('/oa/user/delete', function (req, res) {
   })
 })
 
-router.get('/oa/user/edit', function (req, res) {
-  User.findById(req.query.id.replace(/"/g, ""), function (err, users) {
-    if (err) {
-      res.status(500).send('server error')
-    }
-    res.render('./oa/profile.html', {
-      users: users,
-      user: req.session.user
-    })
+router.get('/oa/user/edit', function (req, response, next) {
+  var formData = req.body;
+  formData.id = adminid;
+  formData.zipCode = parseInt(formData.zipCode)
+  request.put({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminapi
+    },
+    body: JSON.stringify(formData)
+  }, (err, res, data) => {
+    var result = res.body
+    req.session.admin = req.body
+    response.redirect('/oa/account')
   })
 })
 
 router.get('/oa/user/new', function (req, res) {
 
   res.render('./oa/addUser.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 
 router.get('/oa/profile', function (req, res) {
   res.render('./oa/profile.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 
-router.post('/oa/profile', function (req, res, next) {
-  var body = req.body
-  console.log(body)
-  User.findOneAndUpdate({
-    email: body.email
-  }, body, { returnOriginal: false, new: true }, function (err, user) {
-    if (err) {
-      next(err)
-    }
-    console.log(user)
-    req.session.user = user
-    res.redirect('/oa/account')
+router.post('/oa/profile', function (req, response, next) {
+  var formData = req.body;
+  formData.id = adminid;
+  formData.zipCode = parseInt(formData.zipCode)
+  request.put({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminapi
+    },
+    body: JSON.stringify(formData)
+  }, (err, res, data) => {
+
+    var result = res.body
+    console.log(formData)
+    req.session.admin = req.body
+    response.redirect('/oa/account')
   })
 })
 
 router.get('/oa/account', function (req, res) {
   res.render('./oa/account.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 
 router.get('/oa/supplier', function (req, res) {
   res.render('./oa/supplier.html', {
-    user: req.session.user
+    admin: req.session.admin
   })
 })
 

@@ -17,6 +17,10 @@
             class="title-edit btn btn-primary">save</button></div>
         <div class="info-content edit-page">
           <div class="edit_content">
+            <input type="text" name="userName" id="userName" value="{{user.userName}}" hidden>
+            <input type="text" name="normalizedUserName" id="normalizedUserName" value="{{user.normalizedUserName}}"
+              hidden>
+            <input type="text" name="normalizedEmail" id="normalizedEmail" value="{{user.normalizedEmail}}" hidden>
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
@@ -57,6 +61,7 @@
                   <input type="text" class="form-control" id="address2" name="address2" value="{{user.address2}}">
                 </div>
               </div>
+
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Country </span>

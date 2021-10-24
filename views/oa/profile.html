@@ -24,6 +24,11 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <form action="" method="post">
+                                <input type="text" name="userName" id="userName" value="{{admin.userName}}" hidden>
+                                <input type="text" name="normalizedUserName" id="normalizedUserName"
+                                    value="{{admin.normalizedUserName}}" hidden>
+                                <input type="text" name="normalizedEmail" id="normalizedEmail"
+                                    value="{{admin.normalizedEmail}}" hidden>
                                 <div class="row">
                                     <div class="col-xl-6">
                                         <div class="form-group row">
@@ -32,7 +37,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="firstName"
-                                                    value="{{user.firstName}}">
+                                                    value="{{admin.firstName}}">
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +47,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="lastName"
-                                                    value="{{user.lastName}}">
+                                                    value="{{admin.lastName}}">
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +57,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="email"
-                                                    value="{{user.email}}">
+                                                    value="{{admin.email}}">
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +67,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="phoneNumber"
-                                                    value="{{user.phoneNumber}}">
+                                                    value="{{admin.phoneNumber}}">
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +77,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="country"
-                                                    value="{{user.country}}">
+                                                    value="{{admin.country}}">
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +86,7 @@
                                             <label class="col-lg-4 col-form-label">State<span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{user.state}}"
+                                                <input type="text" class="form-control" value="{{admin.state}}"
                                                     name="state">
                                             </div>
                                         </div>
@@ -91,7 +96,7 @@
                                             <label class="col-lg-4 col-form-label">Suburb<span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{user.suburb}}"
+                                                <input type="text" class="form-control" value="{{admin.suburb}}"
                                                     name="suburb">
                                             </div>
                                         </div>
@@ -103,7 +108,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-9">
                                                 <input type="text" class="form-control" name="address1"
-                                                    value="{{user.address1}}">
+                                                    value="{{admin.address1}}">
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +118,17 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-9">
                                                 <input type="text" class="form-control" name="address2"
-                                                    value="{{user.address2}}">
+                                                    value="{{admin.address2}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Zipcode<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="zipCode"
+                                                    value="{{admin.zipCode}}">
                                             </div>
                                         </div>
                                     </div>
