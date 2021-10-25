@@ -20,13 +20,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">First Name</span>
-                            <span type="text" class="form-control">{{user.firstName}}</span>
+                            <span type="text" class="form-control">{{user && user.firstName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Last Name</span>
-                            <span type="text" class="form-control">{{user.lastName}}</span>
+                            <span type="text" class="form-control">{{user && user.lastName}}</span>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Email </span>
-                            <span type="text" class="form-control">{{user.email}}</span>
+                            <span type="text" class="form-control">{{user && user.email}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Phone NO.</span>
-                            <span type="text" class="form-control">{{user.phoneNumber}}</span>
+                            <span type="text" class="form-control">{{user && user.phoneNumber}}</span>
                         </div>
                     </div>
                 </div>
@@ -48,13 +48,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Address1 </span>
-                            <span type="text" class="form-control">{{user.address1}}</span>
+                            <span type="text" class="form-control">{{user && user.address1}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Address2 </span>
-                            <span type="text" class="form-control">{{user.address2}}</span>
+                            <span type="text" class="form-control">{{user && user.address2}}</span>
                         </div>
                     </div>
 
@@ -63,13 +63,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Country </span>
-                            <span type="text" class="form-control">{{user.country}}</span>
+                            <span type="text" class="form-control">{{user && user.country}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">State </span>
-                            <span type="text" class="form-control">{{user.state}}</span>
+                            <span type="text" class="form-control">{{user && user.state}}</span>
                         </div>
                     </div>
 
@@ -78,14 +78,14 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Suburb </span>
-                            <span type="text" class="form-control">{{user.suburb}}</span>
+                            <span type="text" class="form-control">{{user && user.suburb}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">ZipCode </span>
-                            <span type="text" class="form-control"
-                                id="zipCode">{{user.zipCode=='0'?'':user.zipCode}}</span>
+                            <span type="text" class="form-control" id="zipCode">{{user &&
+                                user.zipCode=='0'?'':user.zipCode}}</span>
                         </div>
                     </div>
                 </div>

@@ -18,73 +18,77 @@
         <div class="info-content edit-page">
           <div class="edit_content">
             <input type="text" name="userName" id="userName" value="{{user.userName}}" hidden>
-            <input type="text" name="normalizedUserName" id="normalizedUserName" value="{{user.normalizedUserName}}"
+            <input type="text" name="normalizedUserName" id="normalizedUserName"
+              value="{{user && user.normalizedUserName}}" hidden>
+            <input type="text" name="normalizedEmail" id="normalizedEmail" value="{{user && user.normalizedEmail}}"
               hidden>
-            <input type="text" name="normalizedEmail" id="normalizedEmail" value="{{user.normalizedEmail}}" hidden>
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">First Name</span>
-                  <input type="text" class="form-control" name="firstName" id="firstName" value="{{user.firstName}}"
-                    readonly>
+                  <input type="text" class="form-control" name="firstName" id="firstName"
+                    value="{{user && user.firstName}}" readonly>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Last Name</span>
-                  <input type="text" class="form-control" id="lastName" name="lastName" value="{{user.lastName}}"
-                    readonly>
+                  <input type="text" class="form-control" id="lastName" name="lastName"
+                    value="{{user && user.lastName}}" readonly>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Email </span>
-                  <input type="text" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
+                  <input type="text" class="form-control" id="email" name="email" value="{{user && user.email}}"
+                    readonly>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Phone NO.</span>
                   <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                    value="{{user.phoneNumber}}">
+                    value="{{user && user.phoneNumber}}">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Address1 </span>
-                  <input type="text" class="form-control" id="address1" name="address1" value="{{user.address1}}">
+                  <input type="text" class="form-control" id="address1" name="address1"
+                    value="{{user && user.address1}}">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Address2 </span>
-                  <input type="text" class="form-control" id="address2" name="address2" value="{{user.address2}}">
+                  <input type="text" class="form-control" id="address2" name="address2"
+                    value="{{user && user.address2}}">
                 </div>
               </div>
 
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Country </span>
-                  <input type="text" class="form-control" id="country" name="country" value="{{user.country}}">
+                  <input type="text" class="form-control" id="country" name="country" value="{{user && user.country}}">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">State </span>
-                  <input type="text" class="form-control" id="state" name="state" value="{{user.state}}">
+                  <input type="text" class="form-control" id="state" name="state" value="{{user && user.state}}">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">Suburb </span>
-                  <input type="text" class="form-control" id="suburb" name="suburb" value="{{user.suburb}}">
+                  <input type="text" class="form-control" id="suburb" name="suburb" value="{{user && user.suburb}}">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 nopadding margin10">
                 <div class="input-group">
                   <span class="input-group-text text-title">ZipCode </span>
                   <input type="text" class="form-control" id="zipCode" name="zipCode"
-                    value="{{user.zipCode=='0'?'':user.zipCode}}">
+                    value="{{user && user.zipCode=='0'?'':user.zipCode}}">
                 </div>
               </div>
             </div>

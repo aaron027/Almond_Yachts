@@ -88,21 +88,21 @@
                         <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                             <div class="delivery-title"><i class="fa fa-clipboard-check"></i> Billing</div>
                             <div class="delivery-content">
-                                <p>{{user.firstName}} {{user.lastName}}</p>
-                                <p>{{user.address1}} </p>
-                                <p>{{user.suburb}} </p>
-                                <p>{{user.state}}, {{user.zipCode}} </p>
-                                <p>{{user.country}}</p>
+                                <p>{{user && user.firstName}} {{user.lastName}}</p>
+                                <p>{{user && user.address1}} </p>
+                                <p>{{user && user.suburb}} </p>
+                                <p>{{user && user.state}}, {{user.zipCode}} </p>
+                                <p>{{user && user.country}}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                             <div class="delivery-title"><i class="fa fa-map-marker-alt"></i> Delivery To</div>
                             <div class="delivery-content">
-                                <p>{{user.firstName}} {{user.lastName}}</p>
-                                <p>{{user.address1}} </p>
-                                <p>{{user.suburb}} </p>
-                                <p>{{user.state}}, {{user.zipCode}} </p>
-                                <p>{{user.country}}</p>
+                                <p>{{user && user.firstName}} {{user.lastName}}</p>
+                                <p>{{user && user.address1}} </p>
+                                <p>{{user && user.suburb}} </p>
+                                <p>{{user && user.state}}, {{user.zipCode}} </p>
+                                <p>{{user && user.country}}</p>
                             </div>
                         </div>
                     </div>

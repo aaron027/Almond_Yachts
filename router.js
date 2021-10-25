@@ -79,11 +79,17 @@ router.get('/register', function (req, res, next) {
   res.render('register.html')
 })
 router.get('/setting', function (req, res) {
+  if (apikey === '') {
+    res.redirect('/login')
+  }
   res.render('setting.html', {
     user: req.session.user
   })
 })
 router.get('/order', function (req, res) {
+  if (apikey === '') {
+    res.redirect('/login')
+  }
   res.render('order.html', {
     user: req.session.user
   })
@@ -129,6 +135,9 @@ router.get('/logout', function (req, res) {
 //======================================================================================
 
 router.get('/edit', function (req, res) {
+  if (apikey === '') {
+    res.redirect('/login')
+  }
   res.render('edit.html', {
     user: req.session.user
   })
@@ -183,6 +192,9 @@ router.get('/about', function (req, res) {
 })
 
 router.get('/account', function (req, res) {
+  if (apikey === '') {
+    res.redirect('/login')
+  }
   res.render('account.html', {
     user: req.session.user
   })
@@ -200,6 +212,9 @@ router.get('/pwdReset', function (req, res) {
   })
 })
 router.get('/orderInfo', function (req, res) {
+  if (apikey === '') {
+    res.redirect('/login')
+  }
   res.render('orderInfo.html', {
     user: req.session.user
   })
