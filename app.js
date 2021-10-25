@@ -4,11 +4,8 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 var router = require('./router')
 
-
 var app = express()
 
-
-// form data
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/public/', express.static(path.join(__dirname, './public/')))
@@ -21,9 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(session({
   secret: 'almondboats',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }))
+
 app.use(router)
 
 

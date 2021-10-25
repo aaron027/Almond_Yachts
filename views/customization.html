@@ -773,7 +773,92 @@
     </div>
     </div>
     </div>
+    <div class="modal fade selectRefresh" id="viewsummary" tabindex="-1" aria-labelledby="exampleModalLabelOne"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header summary-header">
+                    <h5 class="modal-title" id="exampleModalLabelOne"> Summary</h5>
 
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-table yacht-details summary_detail">
+                    <div class="specs content-column">
+                        <div class="scroller-box">
+                            <div class="scroller">
+                                <div class="summary-title">
+                                    <h5><span class="text">Brief Info </span>
+                                        <a href="#" class="theme-btn print-it">
+                                            <span class="fa fa-envelope"></span> Email Details</a>
+                                        <a href="#" class="theme-btn share-it"><span class="fa fa-file-pdf"></span> PDF
+                                            Summary</a>
+                                    </h5>
+                                </div>
+                                <table class="table table-bordered table-striped table-responsive-stack" id="tableOne">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ITEM NAME</th>
+                                            <th>SECTION</th>
+                                            <th>UNIT PRICE</th>
+                                            <th>QTY</th>
+                                            <th>SUBTOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>NAVY 6.0 REMOTE LONGSHAFT</td>
+                                            <td>Motor</td>
+                                            <td>$4000</td>
+                                            <td>× 1</td>
+                                            <td>$4000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>E175 E-SERIES BATTERY</td>
+                                            <td>Motor</td>
+                                            <td>$8000</td>
+                                            <td>× 1</td>
+                                            <td>$8000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RONSTAN RIGGING</td>
+                                            <td>Running Rigging</td>
+                                            <td>$24190</td>
+                                            <td>× 1</td>
+                                            <td>$4200</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MAINSAILS</td>
+                                            <td>Sails</td>
+                                            <td>$2440</td>
+                                            <td>× 1</td>
+                                            <td>$3000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NAVY BATTERY CONTROL</td>
+                                            <td>Battery</td>
+                                            <td>$300</td>
+                                            <td>× 1</td>
+                                            <td>$300</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="total_price col-lg-6 col-md-6 col-sm-12">Total Amount Due: <span
+                                class="convertPrice">2685.49</span></div>
+                        <div class="discount col-lg-6 col-md-6 col-sm-12">Discount: <span
+                                class="convertPrice">4685.49</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {{/block}}
 {{block 'script'}}

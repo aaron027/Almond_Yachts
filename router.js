@@ -78,22 +78,25 @@ router.post('/login', function (req, response, next) {
 router.get('/register', function (req, res, next) {
   res.render('register.html')
 })
-router.get('/setting', function (req, res) {
+
+router.get('/setting', function (req, res, next) {
   if (apikey === '') {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
   res.render('setting.html', {
     user: req.session.user
   })
 })
-router.get('/order', function (req, res) {
+
+router.get('/order', function (req, res, next) {
   if (apikey === '') {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
   res.render('order.html', {
     user: req.session.user
   })
 })
+
 router.post('/register', function (req, response, next) {
   request.post({
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
@@ -124,7 +127,7 @@ router.post('/register', function (req, response, next) {
 // Logout Block
 //======================================================================================
 
-router.get('/logout', function (req, res) {
+router.get('/logout', function (req, res, next) {
   req.session.user = null
   res.redirect('/login')
 })
@@ -134,9 +137,9 @@ router.get('/logout', function (req, res) {
 // Edit profile Block
 //======================================================================================
 
-router.get('/edit', function (req, res) {
+router.get('/edit', function (req, res, next) {
   if (apikey === '') {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
   res.render('edit.html', {
     user: req.session.user
@@ -166,7 +169,7 @@ router.post('/edit', function (req, response, next) {
 // Customization Block
 //======================================================================================
 
-router.get('/custom', async (req, res) => {
+router.get('/custom', async (req, res, next) => {
   var options = {
     'method': 'GET',
     'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
@@ -175,7 +178,7 @@ router.get('/custom', async (req, res) => {
       'Content-Type': 'application/json'
     }
   };
-  request(options, function (error, response) {
+  request(options, function (error, response, next) {
     if (error) return error;
     var result = JSON.parse(response.body);
     res.render('customization.html', {
@@ -185,54 +188,54 @@ router.get('/custom', async (req, res) => {
   });
 })
 
-router.get('/about', function (req, res) {
+router.get('/about', function (req, res, next) {
   res.render('about.html', {
     user: req.session.user
   })
 })
 
-router.get('/account', function (req, res) {
+router.get('/account', function (req, res, next) {
   if (apikey === '') {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
   res.render('account.html', {
     user: req.session.user
   })
 })
 
-router.get('/contact', function (req, res) {
+router.get('/contact', function (req, res, next) {
   res.render('contact.html', {
     user: req.session.user
   })
 })
 
-router.get('/pwdReset', function (req, res) {
+router.get('/pwdReset', function (req, res, next) {
   res.render('pwdReset.html', {
     user: req.session.user
   })
 })
-router.get('/orderInfo', function (req, res) {
+router.get('/orderInfo', function (req, res, next) {
   if (apikey === '') {
-    res.redirect('/login')
+    return res.redirect('/login')
   }
   res.render('orderInfo.html', {
     user: req.session.user
   })
 })
 
-router.get('/orderResult', function (req, res) {
+router.get('/orderResult', function (req, res, next) {
   res.render('orderResult.html', {
     user: req.session.user
   })
 })
 
-router.get('/oa/index', function (req, res) {
+router.get('/oa/index', function (req, res, next) {
   res.render('./oa/index.html', {
     admin: req.session.admin
   })
 })
 
-router.get('/oa/login', function (req, res) {
+router.get('/oa/login', function (req, res, next) {
   res.render('./oa/login.html')
 })
 

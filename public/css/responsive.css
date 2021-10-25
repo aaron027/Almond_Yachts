@@ -1849,11 +1849,16 @@ responsive table
   }
 
   .table .thead-dark th {
-    color: #fff;
-    background-color: #343a40;
-    border-color: #454d55;
+    color: #2d2d2d;
+    background-color: #b8b8b8;
 	font-size: 0.8rem;
 }
 .table-bordered td, .table-bordered th{
-	border:1px solid #dee2e6;
+	border:none
+}
+.thead-dark thead th{
+	border:none
+}
+.table-bordered thead td, .table-bordered thead th{
+	border:none
 }

@@ -19141,4 +19141,27 @@ img.lazy-image.loaded{
   .detail-content .span-text{
 	  color:#333;
   }
-  
+  .summary_detail .mCSB_inside>.mCSB_container{
+	margin-left: 15px;
+  }
+ 
+  .modal-body .summary-title{
+	  border-bottom: 1px solid #dfdfdf;
+  }
+  .modal-body .summary-title h5{
+	font-family: Arial;
+	height:1.5rem;
+	line-height: 150%;
+	margin-bottom: 10px;
+  }
+  .modal-body .summary-title h5 .text{
+	font-size:0.8rem;
+	font-weight: bold;
+	color:#333;
+  }
+  .modal-body .summary-title h5 a{
+	  float: right;
+	  font-size: 0.8rem;
+	  margin-right: 10px;
+	  color:#888;
+  }
