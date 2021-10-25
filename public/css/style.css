@@ -19082,5 +19082,63 @@ img.lazy-image.loaded{
 	  text-align: center;
 	  font-size: 0.8rem;
   }
-  
+  .result-content{
+	  background: #f0f3f7;
+	  padding:20px 0;
+  }
+  .result{
+	  background: #fff;
+	  padding:2rem 3rem;
+  }
+  .result-success{
+	  padding:1rem 0;
+	  text-align: center;
+	  font-size: 3rem;
+	  color:#2b89e0;
+  }
+  .result-info .result-lg{
+	  font-size: 1.5rem;
+	  color:#333;
+	  margin-top: 2rem;
+	  
+  }
+  .result-info {
+	  text-align: center;
+	  border-bottom: 1px solid #dfdfdf;
+  }
+  .result-info .result-xs{
+	  font-size: 0.9rem;
+	  margin-top: 1rem;
+	  margin-bottom: 2rem;
+  }
+  .order-detail{
+	border-bottom: 1px solid #dfdfdf;
+	margin-top: 1rem;
+  }
+  .order-detail .detail-title{
+	font-size: 1rem;
+	color:#333;
+	background: #ddd;
+	font-weight: bold;
+	line-height: 150%;
+	padding:0.8rem 1rem;
+  }
+  .order-detail .detail-title .expected_delivery{
+	float: right;
+	font-weight: normal;
+	font-size: 0.8rem;
+  }
+  .detail-content{
+	  border:1px solid #dfdfdf;
+	  padding:1rem;
+  }
+  .detail-tips{
+	  margin-top: 20px;
+  }
+  .result .yacht-details .instruction{
+		margin-top: 10px;
+  }
+  .detail-content .span-text{
+	  color:#333;
+  }
   

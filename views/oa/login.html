@@ -1,5 +1,4 @@
 {{extend './layout_login.html'}}
-
 {{block 'oacontent'}}
 <div class="login-tabib">
     <div class="login-main">
@@ -29,20 +28,14 @@
         </form>
     </div>
 </div>
-<div class="modal" tabindex="-1" role="dialog" id="loginError">
-    <div class="modal-dialog" role="document">
+<div class="modal fade glyphicon" id="myModalalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true"
+    style="display:none;width:12rem\9; margin:0 auto\9;overflow:hidden;*position:absolute;*left:35%; top:30%;">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="insertHere"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="modal-body"> <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
+                <h4 id="t_alert_msg" style="font-weight:normal; font-size: 0.8rem;"> Loading… </h4>
             </div>
         </div>
     </div>
@@ -64,23 +57,21 @@
                 if (err_code === 0) {
                     window.location.href = '/oa/index'
                 } else if (err_code === 1) {
-                    // window.alert('email or password error')
-                    $("#loginError").modal('show');
-                    $(".insertHere").html("email or password error")
+                    t_alert("Email or password error");
                 } else if (err_code === 500) {
-                    // window.alert('server error')
-                    $("#loginError").modal('show');
-                    $(".insertHere").html("server error")
+                    t_alert("Server error");
                 } else if (err_code === 2) {
-                    // window.alert('No Authorization!')
-                    $("#loginError").modal('show');
-                    $(".insertHere").html("No Authorization!")
+                    t_alert("No Authorization!");
                 }
             }
         })
     })
 
-
+    function t_alert(msg) {
+        $("#t_alert_msg").html(msg);
+        $('#myModalalert').modal('show');
+        setTimeout("$('#myModalalert').modal('hide')", 2500);
+    }
     // remember password  
     var oForm = document.getElementById('login_form');
     var oUser = document.getElementById('email');
