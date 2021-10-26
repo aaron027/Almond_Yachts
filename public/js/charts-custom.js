@@ -5,12 +5,12 @@ var ctx = document.getElementById("chart2").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sept','Oct','Nov','Dec'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
         datasets: [{
             label: 'Completed',
-            data: [150, 200, 190, 190, 200, 230, 220,500,432,656,211,300],
+            data: [150, 200, 190, 190, 200, 230, 220, 500, 432, 656, 211, 300],
             barPercentage: .5,
-            backgroundColor: "#3dc1ff",
+            backgroundColor: "#d5ae82",
         }]
     },
     options: {
@@ -19,7 +19,7 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
             labels: {
-                fontColor: '#585757',
+                fontColor: '#d5ae82',
                 boxWidth: 40,
 
             }
@@ -31,7 +31,7 @@ var myChart = new Chart(ctx, {
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    fontColor: '#585757'
+                    fontColor: '#d5ae82'
                 },
                 gridLines: {
                     display: false,
@@ -41,7 +41,7 @@ var myChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    fontColor: '#585757'
+                    fontColor: '#d5ae82'
                 },
                 gridLines: {
                     display: false,
@@ -60,7 +60,7 @@ new Chart(document.getElementById("chart3"), {
         labels: ["Electric Lightship", "Cruising ship"],
         datasets: [{
             label: "Top Diseases (millions)",
-            backgroundColor: ["#73bcff", "#1d7cd3"],
+            backgroundColor: ["#d5ae82", "#edc79d"],
             data: [500, 800]
         }]
     },

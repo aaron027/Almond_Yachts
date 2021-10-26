@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     "use strict";
 
     // chart 4
@@ -59,7 +59,7 @@ $(function() {
         tooltip: {
             theme: 'dark',
             y: {
-                formatter: function(val) {
+                formatter: function (val) {
                     return "$ " + val + " "
                 }
             },
@@ -129,7 +129,7 @@ $(function() {
         tooltip: {
             theme: 'dark',
             y: {
-                formatter: function(val) {
+                formatter: function (val) {
                     return "$ " + val + " "
                 }
             },
@@ -279,7 +279,7 @@ var options = {
     tooltip: {
         theme: 'dark',
         y: {
-            formatter: function(val) {
+            formatter: function (val) {
                 return "$ " + val + " "
             }
         },
@@ -345,7 +345,7 @@ var options = {
     },
     tooltip: {
         y: {
-            formatter: function(val) {
+            formatter: function (val) {
                 return "$ " + val + " thousands"
             }
         }

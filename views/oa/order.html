@@ -69,7 +69,7 @@
                                 <table id="orderTable" class="display nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Order Number</th>
+                                            <th>ID</th>
                                             <th>Order Date</th>
                                             <th>Boat Name</th>
                                             <th>Delivery Time</th>
@@ -130,7 +130,7 @@
         return date
     }
     var formateDateTime = function (dateTime) {
-        var date = dateTime.split('T')[0] + " " + dateTime.split('T')[1]
+        var date = dateTime.split('T')[0] + " " + dateTime.split('T')[1].split('.')[0]
         return date
     }
 </script>

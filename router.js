@@ -230,6 +230,9 @@ router.get('/orderResult', function (req, res, next) {
 })
 
 router.get('/oa/index', function (req, res, next) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   res.render('./oa/index.html', {
     admin: req.session.admin
   })
@@ -291,6 +294,9 @@ router.get('/oa/logout', function (req, res) {
 
 
 router.get('/oa/user', function (req, res) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   User.find(function (err, users) {
     if (err) {
       res.status(500).send('server error')
@@ -312,6 +318,9 @@ router.get('/oa/user/delete', function (req, res) {
 })
 
 router.get('/oa/user/edit', function (req, response, next) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   var formData = req.body;
   formData.id = adminid;
   formData.zipCode = parseInt(formData.zipCode)
@@ -331,19 +340,27 @@ router.get('/oa/user/edit', function (req, response, next) {
 })
 
 router.get('/oa/user/new', function (req, res) {
-
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   res.render('./oa/addUser.html', {
     admin: req.session.admin
   })
 })
 
 router.get('/oa/profile', function (req, res) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   res.render('./oa/profile.html', {
     admin: req.session.admin
   })
 })
 
 router.post('/oa/profile', function (req, response, next) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   var formData = req.body;
   formData.id = adminid;
   formData.zipCode = parseInt(formData.zipCode)
@@ -364,12 +381,18 @@ router.post('/oa/profile', function (req, response, next) {
 })
 
 router.get('/oa/account', function (req, res) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   res.render('./oa/account.html', {
     admin: req.session.admin
   })
 })
 
 router.get('/oa/supplier', async (req, res) => {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   var options = {
     'method': 'GET',
     'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
@@ -389,6 +412,9 @@ router.get('/oa/supplier', async (req, res) => {
 })
 
 router.get('/oa/order', function (req, res) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
   var options = {
     'method': 'GET',
     'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',

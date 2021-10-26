@@ -12,7 +12,7 @@
                         <!--Tour Details-->
                         <div class="tour-details">
                             <div class="main-image">
-                                <img src="../../public/images/resource/featured-image-84.jpg" alt="" title="">
+                                <img src="../../public/images/resource/featured-image-1.jpg" alt="" title="">
                             </div>
                             <div class="price-box">
                                 <div class="row">
@@ -44,8 +44,8 @@
                                 <!--Widget-->
                                 <div class="tour-widget single-booking-widget nomarginBottom">
                                     <div class="widget-inner">
-                                        <div class="default-form main-booking-form">
-                                            <form method="post" action="contact.html">
+                                        <form method="post" action="contact.html">
+                                            <div class="default-form main-booking-form">
                                                 <!-- Nav tabs -->
                                                 <ul class="nav nav-tabs custom-tabs" id="Category_tab">
                                                     <li class="active"><a data-toggle="tab" href="#lightship"
@@ -729,39 +729,39 @@
                                                     </div>
 
                                                 </div>
-                                        </div>
-                                        <!--tabs end-->
-                                        <div class="personal_info">
-                                            <h5>Personal Info</h5>
-                                            <br>
-                                            <div class="form-group">
-                                                <div class="field-inner">
-                                                    <input type="text" name="field-name" placeholder="First Name"
-                                                        required="true" value="">
+                                            </div>
+                                            <!--tabs end-->
+                                            <div class="personal_info">
+                                                <h5>Personal Info</h5>
+                                                <br>
+                                                <div class="form-group">
+                                                    <div class="field-inner">
+                                                        <input type="text" name="field-name" placeholder="First Name"
+                                                            required="true" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="field-inner">
+                                                        <input type="text" name="field-name" placeholder="Last Name"
+                                                            required="true" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="field-inner">
+                                                        <input type="email" name="field-name" placeholder="Email"
+                                                            required="true" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="theme-btn"><span
+                                                            class="btn-title">Place
+                                                            order</span></button>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="field-inner">
-                                                    <input type="text" name="field-name" placeholder="Last Name"
-                                                        required="true" value="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="field-inner">
-                                                    <input type="email" name="field-name" placeholder="Email"
-                                                        required="true" value="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="theme-btn"><span class="btn-title">Place
-                                                        order</span></button>
-                                            </div>
-                                        </div>
-
+                                            <div class="instruction">By clicking the "Place order" button, I agree with
+                                                the
+                                                order agreement and customer privacy agreement.</div>
                                         </form>
-
-                                        <div class="instruction">By clicking the "Place order" button, I agree with the
-                                            order agreement and customer privacy agreement.</div>
                                     </div>
                                 </div>
                             </div>
@@ -858,17 +858,6 @@
 {{/block}}
 {{block 'script'}}
 <script>
-    $(".accordion-box .accordion .acc-btn").click(function () {
-        if ($(this).text() == "Interior Design") {
-            $(".calculation-box .main-image img").attr("src", "../public/images/resource/featured-image-87.png")
-        }
-        if ($(this).text() == "Outboard Engine") {
-            if ($(".custom-tabs li .active").text() == "Coastal Cruising") {
-                $(".calculation-box .main-image img").attr("src", "../public/images/resource/featured-image-85.png")
-            } else if ($(".custom-tabs li .active").text() == "LightShip") {
-                $(".calculation-box .main-image img").attr("src", "../public/images/resource/featured-image-84.jpg")
-            }
-        }
-    });
+
 </script>
 {{/block}}

@@ -828,10 +828,10 @@ $("#Category_tab li").click(function () {
 	var text = $(this).text();
 	if (text == "LightShip") {
 		$(".price-box .total_amount .exact_price").text("3,785.49");
-		$(".content-inner .main-image img").attr("src", "../public/images/resource/featured-image-84.jpg");
+		$(".content-inner .main-image img").attr("src", "../public/images/resource/featured-image-1.jpg");
 	} else {
 		$(".price-box .total_amount .exact_price").text("4,785.49");
-		$(".content-inner .main-image img").attr("src", "../public/images/resource/featured-image-85.png")
+		$(".content-inner .main-image img").attr("src", "../public/images/resource/featured-image-2.jpg")
 	}
 });
 
