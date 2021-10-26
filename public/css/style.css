@@ -19161,7 +19161,17 @@ img.lazy-image.loaded{
   }
   .modal-body .summary-title h5 a{
 	  float: right;
-	  font-size: 0.8rem;
+	  font-size: 0.7rem;
 	  margin-right: 10px;
-	  color:#888;
+	  color:#666;
   }
+  .content-column{
+	  padding:0.8rem 0;
+  }
+  .summary_detail .table .thead-dark th{
+	  font-size: 0.8rem;
+  }
+  .summary_detail .table-bordered td{
+	 font-size: 0.8rem;
+  }
+  

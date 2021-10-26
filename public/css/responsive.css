@@ -1850,8 +1850,9 @@ responsive table
 
   .table .thead-dark th {
     color: #2d2d2d;
-    background-color: #b8b8b8;
+    background-color: #ccc;
 	font-size: 0.8rem;
+	font-family: Arial;
 }
 .table-bordered td, .table-bordered th{
 	border:none
