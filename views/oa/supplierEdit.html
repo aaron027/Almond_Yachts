@@ -1,0 +1,137 @@
+{{extend './layout.html'}}
+
+{{block 'oacontent'}}
+<!-- start section content -->
+<div class="content-body">
+    <div class="warper container-fluid">
+        <div class="doctorino_settings main_container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 class="text-primary">Supplier Information</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:;">Supplier Edit</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form id="editSupplier">
+                                <input type="text" name="supplierId" id="supplierId"
+                                    value="{{supplierSingle && supplierSingle.supplierId}}" hidden>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Supplier Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="supplierName"
+                                                    value="{{supplierSingle && supplierSingle.supplierName}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Address <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="address"
+                                                    value="{{supplierSingle && supplierSingle.address}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Email <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="email"
+                                                    value="{{supplierSingle && supplierSingle.email}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Phone<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="phone"
+                                                    value="{{supplierSingle && supplierSingle.phone}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">ABN <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="abn"
+                                                    value="{{supplierSingle && supplierSingle.abn}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Contact Person<span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control"
+                                                    value="{{supplierSingle && supplierSingle.contactPersonName}}"
+                                                    name="contactPersonName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-11">
+                                        <div class="form-group"><button type="submit"
+                                                class="btn btn-primary float-end">Save</button></div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End section content -->
+{{/block }}
+{{block 'oascript'}}
+<script>
+
+    $('#editSupplier').on('submit', function (e) {
+        e.preventDefault()
+        var formData = $(this).serialize();
+        $.ajax({
+            url: '/oa/supplierEdit',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 0) {
+                    window.location.href = '/oa/Supplier'
+                } else if (err_code === 500) {
+                    t_alert("Server error");
+                }
+
+            }
+        })
+    })
+</script>
+{{/block }}

@@ -1,10 +1,10 @@
-$(function() {
+$(function () {
 
     // ========================================================================= //
     //    Add remove class active has menu
     // ========================================================================= //
 
-    jQuery(".has-submenu").click(function() {
+    jQuery(".has-submenu").click(function () {
         jQuery(".has-submenu").removeClass("active");
         $(this).toggleClass("active");
     });
@@ -13,7 +13,7 @@ $(function() {
     //    Toggle Aside Menu
     // ========================================================================= //
 
-    jQuery(".hamburger").click(function() {
+    jQuery(".hamburger").click(function () {
         jQuery("aside.left-panel").toggleClass("collapsed");
         jQuery("body").toggleClass("sidebar-toggled");
         jQuery("#main-wrapper").toggleClass("menu-toggle");
@@ -34,7 +34,7 @@ $(function() {
     //    resize 
     // ========================================================================= //
 
-    function resize() {
+    function resize () {
         if (window.matchMedia("(max-width: 767px)").matches) {
             $('body').attr('data-sidebar-style', 'overlay');
             $("#main-wrapper").addClass('overlay');
@@ -53,7 +53,7 @@ $(function() {
 
     resize();
 
-    jQuery(window).resize(function() {
+    jQuery(window).resize(function () {
         resize();
     })
 
@@ -63,7 +63,7 @@ $(function() {
 //    upload image in drag
 // ========================================================================= //
 
-function showPreview(event) {
+function showPreview (event) {
     if (event.target.files.length > 0) {
         var src = URL.createObjectURL(event.target.files[0]);
         var preview = document.getElementById("file-ip-1-preview");
@@ -76,7 +76,7 @@ function showPreview(event) {
 //   Preview Pictures
 // ========================================================================= //
 
-$(".widget-3 input[type='file']").on("change", function() {
+$(".widget-3 input[type='file']").on("change", function () {
     $(".widget-3").addClass("custom-text");
 });
 
@@ -87,51 +87,23 @@ $(".widget-3 input[type='file']").on("change", function() {
 
 $('input[name="daterange"]').daterangepicker({
     opens: 'right'
-}, function(start, end, label) {
+}, function (start, end, label) {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 });
 
-
-// ========================================================================= //
-//   Button Add Drugs
-// ========================================================================= //
-$('#butonAddDrug').click(function() {
-    var structure = `   
-        <form id="testmed">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group"><input type="text" class="form-control" placeholder="Type"></div>
-                </div>
-                <div class="col-md-6"> 
-                <div class="form-group">
-                <select class="form-control form-select"> <option value="">Select Drug...</option> <option value="19">csdfsff</option><option value="20">test trade name</option> </select> 
-                
-                </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group"> <input type="text" class="form-control" placeholder="Mg/Ml"></div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group"> <input type="text" class="form-control" placeholder="Dose"> </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group"> <input type="text" class="form-control" placeholder="Duration"> </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group"> <input type="text" class="form-control" placeholder="Advice/Comment"></div>
-                </div>
-            </div>
-        </form>
-        <hr/>`;
-    $(".drugslist").append(structure);
-    // $('select').selectpicker();
+jQuery('.datetimepicker').datetimepicker({
+    timepicker: false,
+    format: 'Y-m-d',
+    onChangeDateTime: function (dp, $input) {
+        //   alert($input.val())
+    }
 });
 
 // ========================================================================= //
 //  Button Add Test
 // ========================================================================= //
 
-$('#butonAddTest').click(function() {
+$('#butonAddTest').click(function () {
     var structure = `<form>
     <div class="row">
         <div class="col-md-6">
@@ -169,27 +141,11 @@ $('#butonAddTest').click(function() {
 });
 
 
-// ========================================================================= //
-//  Change dates patient
-// ========================================================================= //
-
-$(function() {
-    $('input[name="dates"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10)
-    }, function(start, end, label) {
-        var years = moment().diff(start, 'years');
-    });
-});
-
-
 
 // ========================================================================= //
 //   refrech select picker inside modal
 // ========================================================================= //
-$('.selectRefresh').on('shown', function() {
+$('.selectRefresh').on('shown', function () {
     $('.selectpicker').selectpicker('refresh');
 });
 
@@ -199,7 +155,7 @@ $('.selectRefresh').on('shown', function() {
 // ========================================================================= //
 
 
-function resize() {
+function resize () {
     if (window.matchMedia("(max-width: 1199px)").matches) {
         $(".has-submenu").removeClass('active');
     }
@@ -207,14 +163,14 @@ function resize() {
 
 resize();
 
-jQuery(window).resize(function() {
+jQuery(window).resize(function () {
     resize();
 })
 
 
-jQuery(function($) {
+jQuery(function ($) {
     var path = window.location.href;
-    $('ul li a').each(function() {
+    $('ul li a').each(function () {
         if (window.matchMedia("(max-width: 1199px) and (max-width: 1199px)").matches) {
             if (this.href === path) {
                 if ($(this).parent().hasClass("has-submenu")) {
@@ -224,6 +180,17 @@ jQuery(function($) {
                 }
             }
         }
-        
+
     });
 });
+
+/**
+ * The method for alert dialog before delete one element
+ * @returns 
+ */
+function confirmAct () {
+    if (confirm('Are you sure to delete this?')) {
+        return true;
+    }
+    return false;
+}

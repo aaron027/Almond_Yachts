@@ -9,6 +9,7 @@
     <!-- Base Styling  -->
     <link rel="stylesheet" href="../../public/css/bootstrap.css">
     <link rel="stylesheet" href="../../public/css/daterangepicker.css">
+    <link rel="stylesheet" href="../../public/css/datetimepicker.css">
     <link rel="stylesheet" href="../../public/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="../../public/css/fontawesome-all.css">
     <link rel="stylesheet" href="../../public/css/style_oa.css">
@@ -26,7 +27,7 @@
         {{include './leftside.html'}}
         <!-- the content for placeholder -->
         {{block 'oacontent'}}
-         <h1>default content</h1>
+        <h1>default content</h1>
         {{/block}}
         {{include './footer.html'}}
     </div>
@@ -45,6 +46,7 @@
 
     <!-- Date Range Picker -->
     <script src="../../public/js/daterangepicker.min.js"></script>
+    <script src="../../public/js/datetimepicker.js"></script>
 
     <!-- Datatable -->
     <script src="../../public/js/jquery.dataTables.min.js"></script>
@@ -57,6 +59,7 @@
     <!-- Main Custom JQuery -->
     <script src="../../public/js/toggleFullScreen.js"></script>
     <script src="../../public/js/main.js"></script>
+    <script src="../../public/js/DateUtils.js"></script>
     {{block 'oascript'}}
     {{/block}}
 </body>

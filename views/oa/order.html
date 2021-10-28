@@ -84,24 +84,25 @@
                                             <td>
                                                 {{result[$index].orderId}}
                                             </td>
-                                            <td class="orderDate">{{result[$index].orderDate}}</td>
+                                            <td class="orderDate">{{result[$index].orderDate | getDate}}</td>
                                             <td> Mocka </td>
-                                            <td class="dateformate"> {{result[$index].estimatedDeliveryDate}}</td>
+                                            <td class="dateformate"> {{result[$index].estimatedDeliveryDate | getDate}}
+                                            </td>
                                             <td> {{result[$index].price}}</td>
                                             <td class="text-start">
                                                 <span class="badge badge-primary">Received</span>
                                             </td>
                                             <td>
 
-                                                <a class='mr-4 edit' data-toggle='modal'
-                                                    data-target='#changeTimeAndDate'>
+                                                <a class='mr-4 edit' href="/oa/orderEdit?id={{result[$index].orderId}}">
                                                     <span class='fas fa-pencil-alt'></span>
                                                 </a>
-                                                <a class='mr-4 vue'>
-                                                    <span class='fas fa-trash-alt' aria-hidden='true'></span>
+                                                <a class='mr-4 vue' href="/oa/orderDelete?id={{result[$index].orderId}}"
+                                                    onclick="return confirmAct();">
+                                                    <span class='fas fa-trash-alt'></span>
                                                 </a>
                                                 <a class='view'>
-                                                    <span class='fas fa-eye' aria-hidden='true'></span>
+                                                    <span class='fas fa-eye'></span>
                                                 </a>
                                             </td>
                                         </tr>
@@ -121,8 +122,18 @@
 {{block 'oascript'}}
 <script>
     $(function () {
-        $(".dateformate").html(formateDate($(".dateformate").html()))
-        $(".orderDate").html(formateDateTime($(".orderDate").html()))
+
+        var arr = [];
+
+        for (i = 0; len = $(".dateformate").length, i < len; i++) {
+            arr.push($(".dateformate").html())
+        }
+        arr.forEach(element => {
+            // alert(element)
+        });
+        // $(".dateformate").html(formateDate($(".dateformate").html()))
+
+        // $(".orderDate").html(formateDateTime($(".orderDate").html()))
         jQuery('#orderTable').DataTable({})
     })
     var formateDate = function (dateTime) {

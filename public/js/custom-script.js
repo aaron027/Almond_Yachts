@@ -851,9 +851,8 @@ $('#rigging2').on('change', function (e) {
 	}
 });
 
-
+// The drop down menu for my account
 $("#myAccount").click(function () {
-	console.log('ok')
 	$(".hasDown .down").toggle();
 });
 

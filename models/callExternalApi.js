@@ -1,22 +1,33 @@
 var request = require('request')
 
 
-var callExternalAPI = (callback) => {
-    request({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(req.body)
-
-    }, (err, res, data) => {
-        if (err) {
-            return callback(err)
+var dateFormat = function (date, format) {
+    date = new Date(date);
+    var map = {
+        "M": date.getMonth() + 1, //月份
+        "d": date.getDate(), //日
+        "h": date.getHours(), //小时
+        "m": date.getMinutes(), //分
+        "s": date.getSeconds(), //秒
+        "q": Math.floor((date.getMonth() + 3) / 3), //季度
+        "S": date.getMilliseconds() //毫秒
+    };
+    format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+        var v = map[t];
+        if (v !== undefined) {
+            if (all.length > 1) {
+                v = '0' + v;
+                v = v.substr(v.length - 2);
+            }
+            return v;
+        } else if (t === 'y') {
+            return (date.getFullYear() + '').substr(4 - all.length);
         }
-        return callback(data)
-    })
-}
+        return all;
+    });
+    return format;
+};
 
-module.exports.callApi = callExternalAPI
+
+module.exports.formatter = dateFormat
 

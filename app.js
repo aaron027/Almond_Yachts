@@ -3,6 +3,7 @@ var path = require('path')
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var router = require('./router')
+var template = require('art-template')
 
 var app = express()
 
@@ -13,6 +14,19 @@ app.use('/node_modules/', express.static(path.join(__dirname, './node_modules/')
 
 app.engine('html', require('express-art-template'))
 app.set('views', path.join(__dirname, './views/'))
+
+template.defaults.imports.getDate = (dateTime) => {
+  const datetime = new Date(dateTime)
+
+  const year = datetime.getFullYear()
+  const month = ("0" + (datetime.getMonth() + 1)).slice(-2)
+  const date = ("0" + datetime.getDate()).slice(-2)
+  const hour = ("0" + datetime.getHours()).slice(-2)
+  const minute = ("0" + datetime.getMinutes()).slice(-2)
+  const second = ("0" + datetime.getSeconds()).slice(-2)
+
+  return year + "-" + month + "-" + date
+}
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

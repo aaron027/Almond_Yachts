@@ -54,7 +54,9 @@
                                                 </ul>
                                                 <div class="tab-content custom-form offers-widget">
                                                     <div class="tab-pane active" id="lightship">
-                                                        <h5>MockA</h5>
+
+                                                        <h5>Bo's Ship</h5>
+
                                                         <div class="expected">Expected Delivery: <span>1~3 weeks</span>
                                                         </div>
                                                         <div class="form-group">
@@ -63,13 +65,13 @@
                                                                     class="label-title"> Motor</span></div>
                                                             <div class="field-inner">
                                                                 <ul class="additional-services">
-                                                                    {{each result}}
+                                                                    <!-- {{each ItemResult}}
                                                                     <li>
                                                                         <div class="upper">
                                                                             <div class="check-block"><input type="radio"
-                                                                                    id="radio_motor{{result[$index].itemId}}"
+                                                                                    id="radio_motor{{ItemResult[$index].itemId}}"
                                                                                     name="engine" checked><label
-                                                                                    for="radio_motor{{result[$index].itemId}}">{{result[$index].itemName}}</label>
+                                                                                    for="radio_motor{{ItemResult[$index].itemId}}">{{result[$index].itemName}}</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="downlevel clearfix">
@@ -79,28 +81,46 @@
                                                                                 Information</span>
                                                                             <span class="price  "><span
                                                                                     class="converter_currency">A$</span><span
-                                                                                    class="convertPrice">{{result[$index].unitPrice}}</span></span>
+                                                                                    class="convertPrice">{{ItemResult[$index].unitPrice}}</span></span>
                                                                         </div>
                                                                     </li>
-                                                                    {{/each}}
-                                                                    <!-- <li>
-                                                                <div class="upper">
-                                                                    <div class="check-block"><input type="radio" id="radio_motor2" name="engine" checked><label for="radio_motor2">E175 E-SERIES BATTERY</label></div>
-                                                                </div>
-                                                                <div class="downlevel clearfix">
-                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor2"></a> <span>More Information</span> 
-                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">3999.00</span></span>
-                                                                </div>  
-                                                            </li>
-                                                            <li>
-                                                                <div class="upper">
-                                                                    <div class="check-block"><input type="radio" id="radio_motor3" name="engine" checked><label for="radio_motor3">E80 E-SERIES BATTERY</label></div>
-                                                                </div>
-                                                                <div class="downlevel clearfix">
-                                                                    <a class="fa fa-info-circle icon-info" data-toggle="modal" data-target="#motor3"></a> <span>More Information</span> 
-                                                                    <span class="price "><span class="converter_currency">A$</span><span class="convertPrice">1999.00</span></span>
-                                                                </div>
-                                                            </li> -->
+                                                                    {{/each}} -->
+                                                                    <li>
+                                                                        <div class="upper">
+                                                                            <div class="check-block"><input type="radio"
+                                                                                    id="radio_motor2" name="engine"
+                                                                                    checked><label
+                                                                                    for="radio_motor2">E175 E-SERIES
+                                                                                    BATTERY</label></div>
+                                                                        </div>
+                                                                        <div class="downlevel clearfix">
+                                                                            <a class="fa fa-info-circle icon-info"
+                                                                                data-toggle="modal"
+                                                                                data-target="#motor2"></a> <span>More
+                                                                                Information</span>
+                                                                            <span class="price "><span
+                                                                                    class="converter_currency">A$</span><span
+                                                                                    class="convertPrice">3999.00</span></span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="upper">
+                                                                            <div class="check-block"><input type="radio"
+                                                                                    id="radio_motor3" name="engine"
+                                                                                    checked><label
+                                                                                    for="radio_motor3">E80 E-SERIES
+                                                                                    BATTERY</label></div>
+                                                                        </div>
+                                                                        <div class="downlevel clearfix">
+                                                                            <a class="fa fa-info-circle icon-info"
+                                                                                data-toggle="modal"
+                                                                                data-target="#motor3"></a> <span>More
+                                                                                Information</span>
+                                                                            <span class="price "><span
+                                                                                    class="converter_currency">A$</span><span
+                                                                                    class="convertPrice">1999.00</span></span>
+                                                                        </div>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                             <div class="optional-box">
@@ -731,6 +751,9 @@
                                                 </div>
                                             </div>
                                             <!--tabs end-->
+                                            {{if apikey}}
+
+                                            {{else}}
                                             <div class="personal_info">
                                                 <h5>Personal Info</h5>
                                                 <br>
@@ -752,6 +775,10 @@
                                                             required="true" value="">
                                                     </div>
                                                 </div>
+
+                                            </div>
+                                            {{/if}}
+                                            <div class="place-order">
                                                 <div class="form-group">
                                                     <button type="submit" class="theme-btn"><span
                                                             class="btn-title">Place

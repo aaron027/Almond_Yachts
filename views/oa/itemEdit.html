@@ -1,0 +1,180 @@
+{{extend './layout.html'}}
+
+{{block 'oacontent'}}
+<!-- start section content -->
+<div class="content-body">
+    <div class="warper container-fluid">
+        <div class="doctorino_settings main_container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 class="text-primary">Items</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:;">Item Edit</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="editInfo">
+                        <div class="card shadow mb-4">
+                            <div class="card-header">
+                                <h4 class="card-title">Edit Item Info</h4>
+                                <div class="col-sm-4">
+                                    <div class="form-group"><button type="submit"
+                                            class="btn btn-primary float-end">Save</button></div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <input type="text" name="itemId" id="itemId" value="{{itemSingle.itemId}}" hidden>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Supplier<span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" id="supplierId" value="{{itemSingle.supplierId}}"
+                                                    hidden>
+                                                <select class="form-control" id="suppliers">
+                                                    {{each suppliers}}
+                                                    <option name="supplierId" value="{{suppliers[$index].supplierId}}">
+                                                        {{suppliers[$index].supplierName}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Section<span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" id="sectionId" value="{{itemSingle.sectionId}}"
+                                                    hidden>
+                                                <select class="form-control" id="sections">
+                                                    {{each sections}}
+                                                    <option name="sectionId" value="{{sections[$index].sectionId}}">
+                                                        {{sections[$index].sectionName}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Item Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="itemName"
+                                                    value="{{itemSingle.itemName}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Quantity <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="quantity"
+                                                    value="{{itemSingle.quantity}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Inventory <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="quantityRemaining"
+                                                    value="{{itemSingle.quantityRemaining}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Unit Price<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="unitPrice"
+                                                    value="{{itemSingle.unitPrice}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Weight <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="weight"
+                                                    value="{{itemSingle.weight}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Size<span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="{{itemSingle.size}}"
+                                                    name="size">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Origin<span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="{{itemSingle.origin}}"
+                                                    name="origin">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End section content -->
+{{/block }}
+{{block 'oascript'}}
+<script>
+    $("#suppliers").val($("#supplierId").val())
+    $("#sections").val($("#sectionId").val())
+    $('#editInfo').on('submit', function (e) {
+        e.preventDefault()
+        var supplierId = $("#suppliers option:selected").val();
+        var sectionId = $("#sections option:selected").val();
+        var formData = $(this).serialize() + '&supplierId=' + supplierId + '&sectionId=' + sectionId
+        $.ajax({
+            url: '/oa/itemEdit',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 0) {
+                    window.location.href = '/oa/Item'
+                } else if (err_code === 500) {
+                    t_alert("Server error");
+                }
+
+            }
+        })
+    })
+</script>
+{{/block }}

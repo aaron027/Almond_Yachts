@@ -8,13 +8,13 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4 class="text-primary"> Suppliers</h4>
+                        <h4 class="text-primary">Sections</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:;">Suppliers</a>
+                        <li class="breadcrumb-item active"><a href="javascript:;">Sections</a>
                         </li>
                     </ol>
                 </div>
@@ -25,11 +25,11 @@
                         <div class="card-header fix-card">
                             <div class="row">
                                 <div class="col-8">
-                                    <h5 class="card-title"> All Suppliers</h5>
+                                    <h5 class="card-title"> Section List</h5>
                                 </div>
                                 <div class="col-4">
-                                    <a href="/oa/newSupplier" class="btn btn-primary float-end">New
-                                        Supplier </a>
+                                    <a href="/oa/newSection" class="btn btn-primary float-end">New
+                                        Section </a>
                                 </div>
                             </div>
                         </div>
@@ -38,34 +38,25 @@
                                 <table id="example1" class="display nowrap">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Supplier Name</th>
-                                            <th>ABN</th>
-                                            <th>PhoneNumber</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>ContactPerson</th>
+                                            <th>Section ID</th>
+                                            <th>Section Name</th>
+                                            <th>Description</th>
                                             <th>Operation</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {{each result}}
                                         <tr>
-                                            <td>{{result[$index].supplierId}}</td>
-                                            <td>{{result[$index].supplierName}}</td>
-                                            <td>{{result[$index].abn}}</td>
-                                            <td>{{result[$index].phone}}</td>
-                                            <td>{{result[$index].email}}</td>
-                                            <td>{{result[$index].address}}</td>
-                                            <td>{{result[$index].contactPersonName}}</td>
+                                            <td>{{result[$index].sectionId}}</td>
+                                            <td>{{result[$index].sectionName}}</td>
+                                            <td>{{result[$index].description}}</td>
                                             <td>
-                                                <a href="/oa/supplierEdit?id={{result[$index].supplierId}}"
-                                                    class='mr-4'>
+                                                <a href="/oa/sectionEdit?id={{result[$index].sectionId}}"
+                                                    class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a class='mr-4 delet'
-                                                    href="/oa/deleteSupplier?id={{result[$index].supplierId}}"
-                                                    onclick="return confirmAct();">
+                                                <a href="/oa/deleteSection?id={{result[$index].sectionId}}"
+                                                    class='mr-4 btn-delete' onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
                                             </td>
