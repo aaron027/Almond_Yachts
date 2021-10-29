@@ -5,12 +5,17 @@ var ctx = document.getElementById("chart2").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+        labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fr'],
         datasets: [{
-            label: 'Completed',
-            data: [150, 200, 190, 190, 200, 230, 220, 500, 432, 656, 211, 300],
+            label: 'Lightship',
+            data: [150, 200, 190, 190, 200, 230, 220],
             barPercentage: .5,
             backgroundColor: "#d5ae82",
+        }, {
+            label: 'Cruising',
+            data: [190, 140, 180, 240, 160, 190, 140],
+            barPercentage: .5,
+            backgroundColor: "#edc79d",
         }]
     },
     options: {
@@ -19,9 +24,8 @@ var myChart = new Chart(ctx, {
         legend: {
             display: false,
             labels: {
-                fontColor: '#d5ae82',
+                fontColor: '#585757',
                 boxWidth: 40,
-
             }
         },
         tooltips: {
@@ -31,7 +35,7 @@ var myChart = new Chart(ctx, {
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    fontColor: '#d5ae82'
+                    fontColor: '#585757'
                 },
                 gridLines: {
                     display: false,
@@ -41,7 +45,7 @@ var myChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    fontColor: '#d5ae82'
+                    fontColor: '#585757'
                 },
                 gridLines: {
                     display: false,
@@ -59,7 +63,7 @@ new Chart(document.getElementById("chart3"), {
     data: {
         labels: ["Electric Lightship", "Cruising ship"],
         datasets: [{
-            label: "Top Diseases (millions)",
+            label: "Popular Categories",
             backgroundColor: ["#d5ae82", "#edc79d"],
             data: [500, 800]
         }]

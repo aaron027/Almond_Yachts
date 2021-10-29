@@ -8,7 +8,7 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4 class="text-primary">Order Information</h4>
+                        <h4 class="text-primary">Edit Order</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
@@ -19,43 +19,94 @@
                     </ol>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <form id="editSection">
+            <form id="editSection">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header fix-card">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title"> Order Info</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group"><button type="submit"
+                                                class="btn btn-primary float-end">Save</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
                                 <input type="text" name="orderId" value="{{orderSingle && orderSingle.orderId}}" hidden>
                                 <div class="row">
-                                    <div class="col-xl-4">
-                                        <div class="form-group row">
-                                            <img src="../../public/images/resource/featured-image-{{orderSingle && orderSingle.orderId}}.jpg"
-                                                alt="" width="95%">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-8">
+                                    <div class="col-xl-6">
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Order Date <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control datetimepicker" name="orderDate"
-                                                    value="{{orderSingle && orderSingle.orderDate | getDate}}">
+                                                <input type="text" class="form-control" name="orderDate"
+                                                    value="{{orderSingle && orderSingle.orderDate | getDate}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Status <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="received" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Delivery Date <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control datetimepicker"
+                                                    name="estimatedDeliveryDate"
+                                                    value="{{orderSingle && orderSingle.estimatedDeliveryDate | getDate}}"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Price <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input type="text" class="form-control" name="price"
+                                                    value="{{orderSingle && orderSingle.price | moneyFormat}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Description <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" name="description"
+                                                    value="{{orderSingle && orderSingle.description}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Comments <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" name="comments"
+                                                    value="{{orderSingle && orderSingle.comments}}">
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <div class="form-group"><button type="submit"
-                                                class="btn btn-primary float-end">Save</button></div>
-                                    </div>
-                                </div>
+                            </div>
 
-                            </form>
                         </div>
                     </div>
+
                 </div>
-            </div>
+            </form>
         </div>
 
     </div>
