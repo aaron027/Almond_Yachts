@@ -15,7 +15,7 @@
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex nav_title">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/oa/index">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:;">New Order</a>
+                        <li class="breadcrumb-item active"><a href="javascript:;">Orders</a>
                         </li>
                     </ol>
                 </div>
@@ -51,9 +51,8 @@
                                 </div>
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-primary w-100 h-56" data-toggle="modal"
-                                            data-target="#newAppointment">New
-                                            Order</button>
+                                        <button type="button" class="btn btn-primary w-100 h-56">New
+                                            Orders</button>
                                     </div>
                                 </div>
                             </div>
@@ -85,10 +84,10 @@
                                                 {{result[$index].orderId}}
                                             </td>
                                             <td class="orderDate">{{result[$index].orderDate | getDate}}</td>
-                                            <td> Mocka </td>
+                                            <td>{{result[$index].boats.boatName}} </td>
                                             <td class="dateformate"> {{result[$index].estimatedDeliveryDate | getDate}}
                                             </td>
-                                            <td> {{result[$index].price}}</td>
+                                            <td> {{result[$index].price | moneyFormat}}</td>
                                             <td class="text-start">
                                                 <span class="badge badge-primary">Received</span>
                                             </td>

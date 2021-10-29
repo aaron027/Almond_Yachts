@@ -28,6 +28,13 @@ template.defaults.imports.getDate = (dateTime) => {
   return year + "-" + month + "-" + date
 }
 
+template.defaults.imports.moneyFormat = (money) => {
+  if (money) {
+    return '$' + money.toFixed(0).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+  return "0.00";
+}
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(session({

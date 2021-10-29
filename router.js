@@ -273,9 +273,54 @@ router.get('/oa/index', function (req, res, next) {
   if (adminid === '') {
     return res.redirect('/oa/login')
   }
-  res.render('./oa/index.html', {
-    admin: req.session.admin
-  })
+  var options = {
+    'method': 'GET',
+    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+    'headers': {
+      'Content-Type': 'application/json'
+    }
+  };
+  request(options, function (error, response) {
+    if (error) return error;
+    var result = JSON.parse(response.body);
+    var itemsize = result.length;
+    var options = {
+      'method': 'GET',
+      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
+      'headers': {
+        'Content-Type': 'application/json'
+      }
+    };
+    request(options, function (error, res2) {
+      if (error) return error;
+      var orderresult = JSON.parse(res2.body);
+      var sumtotal = 0;
+      orderresult.forEach(element => sumtotal += element.price);
+      var ordersize = orderresult.length
+      var options = {
+        'method': 'GET',
+        'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUsers',
+        'headers': {
+          'Content-Type': 'application/json'
+        }
+      };
+      request(options, function (error, res3) {
+        if (error) return error;
+        var userresult = JSON.parse(res3.body);
+        var usersize = userresult.length
+        res.render('./oa/index.html', {
+          admin: req.session.admin,
+          itemsize: itemsize,
+          ordersize: ordersize,
+          usersize: usersize,
+          sumtotal: sumtotal
+        })
+      });
+
+    });
+
+  });
+
 })
 
 //=================================================================================
@@ -732,6 +777,7 @@ router.get('/oa/order', function (req, res) {
     }, (err, res2, data) => {
       if (error) return error;
       var boats = JSON.parse(res2.body);
+      result.forEach(element => element.boats = boats[element.boatId - 1]);
       req.session.boats = boats;
       res.render('./oa/order.html', {
         result: result,

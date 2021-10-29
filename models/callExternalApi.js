@@ -1,5 +1,10 @@
 var request = require('request')
-
+function moneyFormat (money) {
+    if (money) {
+        return money.toFixed(2);
+    }
+    return "0.00";
+};
 
 var dateFormat = function (date, format) {
     date = new Date(date);
