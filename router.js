@@ -9,22 +9,43 @@ var userid = "";
 var adminid = "";
 
 router.get('/', function (req, res, next) {
+  res.render('index.html', {
+    user: req.session.user
+  })
+})
+
+router.get('/model', function (req, res, next) {
   var options = {
     'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
+    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
     'headers': {
       'Authentication': 'Bearer ' + apikey,
       'Content-Type': 'application/json'
     }
   };
-  request(options, function (error, response) {
+  request(options, function (error, res1) {
     if (error) return error;
-    var result = JSON.parse(response.body);
-    res.render('index.html', {
-      result: result,
-      user: req.session.user
-    })
+    var categoryresults = JSON.parse(res1.body);
+    var options = {
+      'method': 'GET',
+      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
+      'headers': {
+        'Authentication': 'Bearer ' + apikey,
+        'Content-Type': 'application/json'
+      }
+    };
+    request(options, function (error, res2) {
+      if (error) return error;
+      var result = JSON.parse(res2.body);
+      result.forEach(element => element.category = categoryresults[element.categoryId - 1]);
+      res.render('model.html', {
+        result: result,
+        user: req.session.user,
+        categoryresults: categoryresults
+      })
+    });
   });
+
 })
 
 //======================================================================================
@@ -34,6 +55,8 @@ router.get('/', function (req, res, next) {
 router.get('/login', function (req, res, next) {
   res.render('login.html')
 })
+
+
 
 router.post('/login', function (req, response, next) {
   var options = {
@@ -169,11 +192,12 @@ router.post('/edit', function (req, response, next) {
 // Customization Block
 //======================================================================================
 
-router.get('/custom', async (req, res, next) => {
+router.get('/custom', async (req, res4, next) => {
   var categoryresult;
-  var BoatResult;
-  var sectionResult;
-  var ItemResult;
+  var BoatsResult;
+  var sectionsResult;
+  var ItemsResult;
+  var id = req.query.id;
   var options = {
     'method': 'GET',
     'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
@@ -181,49 +205,65 @@ router.get('/custom', async (req, res, next) => {
       'Content-Type': 'application/json'
     }
   };
-  request(options, function (error, response, next) {
+  request(options, function (error, res, next) {
     if (error) return error;
-    categoryresult = JSON.parse(response.body);
-    res.render('customization.html', {
-      // apikey: apikey,
-      // categoryresult: categoryresult,
-      // BoatResult: BoatResult,
-      sectionResult: sectionResult,
-      ItemResult: ItemResult,
-      user: req.session.user
+    categoryresult = JSON.parse(res.body);
+    request(options, function (err, response, data) {
+      request.get({
+        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, (err, res1, data) => {
+        BoatsResult = JSON.parse(res1.body);
+        BoatsResult.forEach(element => element.category = categoryresult[element.categoryId - 1]);
+        var found = BoatsResult.find(element => element.id == id);
+        request(options, function (err, res, data) {
+          request.get({
+            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }, (err, res2, data) => {
+            sectionsResult = JSON.parse(res2.body);
+            request(options, function (err, res, data) {
+              request.get({
+                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }, (err, res3, data) => {
+                ItemsResult = JSON.parse(res3.body);
+                var finalResult = [];
+                var itemArr = [];
+                // ItemsResult.forEach((element1, index) => { var found = sectionsResult.find(element => element.sectionId == element1.sectionId); element1.section = found });
+                sectionsResult.forEach((item, index) => {
+                  finalResult.push(item);
+                  finalResult[index].info = [];
+                  ItemsResult.forEach((item2, index2) => {
+                    itemArr.push(item2)
+                    if (finalResult[index].sectionId == itemArr[index2].sectionId) {
+                      finalResult[index].info.push(itemArr[index2])
+                    }
+                  })
+                });
+                res4.render('customization.html', {
+                  sectionsResult: sectionsResult,
+                  ItemsResult: ItemsResult,
+                  finalResult: finalResult,
+                  found: found,
+                  user: req.session.user
+                })
+              })
+            })
+          })
+        })
+      })
     })
   });
-  request(options, function (err, res, data) {
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, res1, data) => {
-      BoatResult = JSON.parse(res1.body);
-    })
-  })
-  request(options, function (err, res, data) {
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, res2, data) => {
-      sectionResult = JSON.parse(res2.body);
 
-    })
-  })
-  request(options, function (err, res, data) {
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, res3, data) => {
-      ItemResult = JSON.parse(res3.body);
-    })
-  })
+
+
 })
 
 router.get('/about', function (req, res, next) {
@@ -939,7 +979,6 @@ router.post('/oa/newBoat', function (req, response, next) {
   var formData = req.body;
   var categoryId = parseInt(req.body.categoryId)
   var modelYear = formData.modelYear;
-  console.log(modelYear)
   formData.categoryId = categoryId
   formData.category = null
   formData.items = null

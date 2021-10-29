@@ -30,7 +30,7 @@ template.defaults.imports.getDate = (dateTime) => {
 
 template.defaults.imports.moneyFormat = (money) => {
   if (money) {
-    return '$' + money.toFixed(0).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    return '$' + money.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
   return "0.00";
 }

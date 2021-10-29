@@ -18,7 +18,7 @@
                             <div class="text">Using high-tech composite engineering, Almond Yachts are designed to
                                 protect, and provide an engaging, hassle free yachting experience. </div>
                             <div class="links-box clearfix">
-                                <a href="/custom" class="theme-btn btn-style-two">
+                                <a href="/model" class="theme-btn btn-style-two">
                                     <div class="btn-title">Customize Now</div>
                                 </a>
                             </div>
@@ -42,7 +42,7 @@
                             <div class="text">Using high-tech composite engineering, Almond Yachts are designed to
                                 protect, and provide an engaging, hassle free yachting experience. </div>
                             <div class="links-box clearfix">
-                                <a href="/custom" class="theme-btn btn-style-two">
+                                <a href="/model" class="theme-btn btn-style-two">
                                     <div class="btn-title">Customize Now</div>
                                 </a>
                             </div>
@@ -67,7 +67,7 @@
                             <div class="text">Our mission is to be an environmentally and socially conscious
                                 manufacturer. And Almond Yachts is dedicated to sustainable boating </div>
                             <div class="links-box clearfix">
-                                <a href="/custom" class="theme-btn btn-style-two">
+                                <a href="/model" class="theme-btn btn-style-two">
                                     <div class="btn-title">Customize Now</div>
                                 </a>
                             </div>
@@ -82,42 +82,74 @@
 </section>
 <!--End Banner Section -->
 
-<section class="similar-yachts">
+<section class="services-section-two destinations-two alternate">
     <div class="auto-container">
-        <div class="upper-title">
-            <h4>Premium Yachts</h4>
+        <div class="sec-title centered">
+            <h2>Sailing <strong>Destination</strong></h2>
+            <div class="lower-text">Where do you want to go?</div>
         </div>
         <div class="row clearfix">
-            <!--Rental Block-->
-            {{each result}}
-            <div class="rental-block col-lg-6 col-md-6 col-sm-12">
+
+            <!--Service Block-->
+            <div class="service-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0ms"
+                data-wow-duration="1500ms">
                 <div class="inner-box">
-                    <div class="image-box">
-                        <figure class="image">
-                            <a href="#"><img src="../../public/images/resource/featured-image-{{$index+1}}.jpg" alt=""
-                                    title=""></a>
-                        </figure>
-                        <div class="price-box">
-                            <div class="price" style="font-size:0.8rem;">Model Number </div>
-                            <div class="cycle">{{result[$index].modelNumber}}</div>
-                        </div>
+                    <div class="image">
+                        <img src="../public/images/resource/featured-image-35.jpg" alt="" title="">
                     </div>
-                    <div class="title-box">
-                        <div class="more-link-box">
-                            <a href="/custom?query={{result[$index].boatName}}" class="theme-btn">Customization</a>
+                    <div class="lower-box">
+                        <div class="title-box">
+                            <div class="inner">
+                                <div class="subtitle">Top landmarks & amazing</div>
+                                <h4><a href="#">Yacht Tour</a></h4>
+                            </div>
                         </div>
-                        <h4><a href="/custom?query={{result[$index].boatName}}">{{result[$index].boatName}}</a></h4>
-                        <div class="info">177’ / 53.65 m / Light Yacht</div>
-                    </div>
-                    <div class="meta-info">
-                        <ul class="clearfix">
-                            <li><a href="#"><span class="fa fa-tachometer-alt"></span> Speed: 30 KN</a></li>
-                            <li><a href="#"><span class="fa fa-radiation-alt"></span> Range: 750 KN</a></li>
-                        </ul>
+                        <div class="text">Right to find fault with a man who chooses to enjoy a pleasure that has
+                            annoying consequences.</div>
                     </div>
                 </div>
             </div>
-            {{/each}}
+
+            <!--Service Block-->
+            <div class="service-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms"
+                data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image">
+                        <img src="../public/images/resource/featured-image-36.jpg" alt="" title="">
+                    </div>
+                    <div class="lower-box">
+                        <div class="title-box">
+                            <div class="inner">
+                                <div class="subtitle">Top landmarks & amazing</div>
+                                <h4><a href="#">Yacht Travel</a></h4>
+                            </div>
+                        </div>
+                        <div class="text">Right to find fault with a man who chooses to enjoy a pleasure that has
+                            annoying consequences.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Service Block-->
+            <div class="service-block-two col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms"
+                data-wow-duration="1500ms">
+                <div class="inner-box">
+                    <div class="image">
+                        <img src="../public/images/resource/featured-image-37.jpg" alt="" title="">
+                    </div>
+                    <div class="lower-box">
+                        <div class="title-box">
+                            <div class="inner">
+                                <div class="subtitle">Top landmarks & amazing</div>
+                                <h4><a href="#">Water Sports</a></h4>
+                            </div>
+                        </div>
+                        <div class="text">Right to find fault with a man who chooses to enjoy a pleasure that has
+                            annoying consequences.</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

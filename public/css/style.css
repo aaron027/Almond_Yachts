@@ -19184,3 +19184,19 @@ img.lazy-image.loaded{
 a:hover {
     color: #e69c48;
 }
+.yachts-model{
+	background: none;
+	padding:0;
+}
+.custom-form .additional-services li:last-child{
+	border-bottom: 0px;
+}
+.boatcontent{
+	margin:1.5rem 0;
+}
+.personal_info{
+	margin-top: 1.5rem;
+}
+.place-order{
+	margin-top: 1rem;
+}
