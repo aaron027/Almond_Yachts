@@ -84,7 +84,7 @@
                                             <label class="col-lg-4 col-form-label">Quantity <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="quantity"
+                                                <input type="number" class="form-control" name="quantity"
                                                     value="{{itemSingle.quantity}}" required>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                             <label class="col-lg-4 col-form-label">Inventory <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="quantityRemaining"
+                                                <input type="number" class="form-control" name="quantityRemaining"
                                                     value="{{itemSingle.quantityRemaining}}" required>
                                             </div>
                                         </div>
@@ -104,8 +104,17 @@
                                             <label class="col-lg-4 col-form-label">Unit Price<span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="unitPrice"
-                                                    value="{{itemSingle.unitPrice}}" required>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control"
+                                                        aria-label="Amount (to the nearest dollar)" name="unitPrice"
+                                                        value="{{itemSingle.unitPrice}}" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +123,7 @@
                                             <label class="col-lg-4 col-form-label">Weight <span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="weight"
+                                                <input type="number" class="form-control" name="weight"
                                                     value="{{itemSingle.weight}}">
                                             </div>
                                         </div>
@@ -124,7 +133,7 @@
                                             <label class="col-lg-4 col-form-label">Size<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.size}}"
+                                                <input type="number" class="form-control" value="{{itemSingle.size}}"
                                                     name="size">
                                             </div>
                                         </div>

@@ -54,7 +54,7 @@
                                             <td>{{result[$index].itemName}}</td>
                                             <td>{{result[$index].quantity}}</td>
                                             <td>{{result[$index].quantityRemaining}}</td>
-                                            <td>{{result[$index].unitPrice}}</td>
+                                            <td>{{result[$index].unitPrice | moneyFormat}}</td>
                                             <td>{{result[$index].origin}}</td>
                                             <td>
                                                 <a href="/oa/itemEdit?id={{result[$index].itemId}}"

@@ -81,7 +81,7 @@
                                             <label class="col-lg-4 col-form-label">Quantity <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="quantity" required>
+                                                <input type="number" class="form-control" name="quantity" required>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                             <label class="col-lg-4 col-form-label">Inventory <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="quantityRemaining"
+                                                <input type="number" class="form-control" name="quantityRemaining"
                                                     required>
                                             </div>
                                         </div>
@@ -100,7 +100,17 @@
                                             <label class="col-lg-4 col-form-label">Unit Price<span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="unitPrice" required>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control"
+                                                        aria-label="Amount (to the nearest dollar)" name="unitPrice"
+                                                        required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +119,7 @@
                                             <label class="col-lg-4 col-form-label">Weight <span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="weight">
+                                                <input type="number" class="form-control" name="weight">
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +128,7 @@
                                             <label class="col-lg-4 col-form-label">Size<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="size">
+                                                <input type="number" class="form-control" name="size">
                                             </div>
                                         </div>
                                     </div>
