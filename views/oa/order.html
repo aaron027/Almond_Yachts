@@ -30,8 +30,8 @@
                                     <h4 class="card-title"> Order List</h4>
                                 </div>
                                 <div class="col-4">
-                                    <a href="/oa/newOrder" class="btn btn-primary float-end">New
-                                        Order </a>
+                                    <!-- <a href="/oa/newOrder" class="btn btn-primary float-end">New
+                                        Order </a> -->
                                 </div>
                             </div>
                         </div>
@@ -50,29 +50,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{each result}}
+                                        {{each result }}
                                         <tr>
                                             <td>
-                                                {{result[$index].orderId}}
+                                                {{result[$index] && result[$index].orderId}}
                                             </td>
-                                            <td class="orderDate">{{result[$index].orderDate | getDate}}</td>
-                                            <td>{{result[$index].boats.boatName}} </td>
-                                            <td class="dateformate"> {{result[$index].estimatedDeliveryDate | getDate}}
+                                            <td class="orderDate">{{result[$index] && result[$index].orderDate |
+                                                getDate}}</td>
+                                            <td>{{result[$index] && result[$index].boats.boatName }} </td>
+                                            <td class="dateformate"> {{result[$index] &&
+                                                result[$index].estimatedDeliveryDate | getDate}}
                                             </td>
-                                            <td> {{result[$index].price | moneyFormat}}</td>
+                                            <td> {{result[$index] && result[$index].price | moneyFormat}}</td>
                                             <td class="text-start">
                                                 <span class="badge badge-primary">Received</span>
                                             </td>
                                             <td>
 
-                                                <a class='mr-4 edit' href="/oa/orderEdit?id={{result[$index].orderId}}">
+                                                <a class='mr-4 edit'
+                                                    href="/oa/orderEdit?id={{result[$index] && result[$index].orderId}}">
                                                     <span class='fas fa-pencil-alt'></span>
                                                 </a>
-                                                <a class='mr-4 vue' href="/oa/orderDelete?id={{result[$index].orderId}}"
+                                                <a class='mr-4 vue'
+                                                    href="/oa/deleteOrder?id={{result[$index] && result[$index].orderId}}"
                                                     onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
-                                                <a class='view'>
+                                                <a class='view' href="/oa/viewOrder?id={{$value.orderId}}">
                                                     <span class='fas fa-eye'></span>
                                                 </a>
                                             </td>

@@ -23,13 +23,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Date</span>
-                            <span type="text" class="form-control">2021-10-19</span>
+                            <span type="text" class="form-control">{{orderFound.orderDate | getDate}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Number</span>
-                            <span type="text" class="form-control">#202110190001</span>
+                            <span type="text" class="form-control">#20211019000{{orderFound.orderId}}</span>
                         </div>
                     </div>
 
@@ -37,28 +37,28 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Category</span>
                             <span type="text" class="form-control">
-                                Electric LightShip</span>
+                                {{orderFound.boats.category.categoryName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Name</span>
                             <span type="text" class="form-control">
-                                MockA</span>
+                                {{orderFound.boats.boatName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Number</span>
                             <span type="text" class="form-control">
-                                M200001</span>
+                                {{orderFound.boats.modelNumber}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Year</span>
                             <span type="text" class="form-control">
-                                2020</span>
+                                {{orderFound.boats.modelYear | getDate}}</span>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Delivery Date</span>
                             <span type="text" class="form-control">
-                                2021-11-01</span>
+                                {{orderFound.estimatedDeliveryDate | getDate}}</span>
                         </div>
                     </div>
                 </div>

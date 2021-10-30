@@ -38,9 +38,7 @@
                                             <th>Last Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Country</th>
-                                            <th>State</th>
-                                            <th>Suburb</th>
+                                            <th>Role</th>
                                             <th>Operation</th>
                                         </tr>
                                     </thead>
@@ -51,13 +49,11 @@
                                             <td>{{result[$index].lastName}}</td>
                                             <td>{{result[$index].email}}</td>
                                             <td>{{result[$index].phoneNumber}}</td>
-                                            <td>{{result[$index].country}}</td>
-                                            <td>{{result[$index].state}}</td>
-                                            <td>{{result[$index].suburb}}</td>
+                                            <td>{{result[$index].role}}</td>
                                             <td><a href="/oa/userEdit?id={{result[$index].id}}" class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a href="/oa/userEdit?id={{result[$index].id}}" class='mr-4 btn-delete'>
+                                                <a href="/oa/userView?id={{result[$index].id}}" class='mr-4 btn-delete'>
                                                     <span class='fas fa-eye'></span>
                                                 </a>
                                             </td>

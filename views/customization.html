@@ -44,7 +44,7 @@
                                 <!--Widget-->
                                 <div class="tour-widget single-booking-widget nomarginBottom">
                                     <div class="widget-inner">
-                                        <form method="post" action="contact.html">
+                                        <form id="customForm">
                                             <div class="default-form main-booking-form">
 
                                                 <div class="tab-content custom-form offers-widget">
@@ -52,7 +52,7 @@
 
                                                         <h5>{{found.boatName}}</h5>
 
-                                                        <div class="expected">Expected Delivery: <span>1~3 weeks</span>
+                                                        <div class="expected">Estimated Delivery: <span>1~3 weeks</span>
                                                         </div>
                                                         {{each finalResult value index}}
                                                         <div class="form-group boatcontent">
@@ -66,9 +66,10 @@
                                                                     <li>
                                                                         <div class="upper">
                                                                             <div class="check-block"><input
-                                                                                    type="checkbox"
+                                                                                    type="{{value.type}}"
                                                                                     id="radio_motor{{value2.itemId}}"
-                                                                                    name="engine"><label
+                                                                                    name="engine{{value2.sectionId}}"
+                                                                                    value="{{value2.itemName}}"><label
                                                                                     for="radio_motor{{value2.itemId}}">{{value2.itemName}}</label>
                                                                             </div>
                                                                         </div>
@@ -99,19 +100,19 @@
                                                 <br>
                                                 <div class="form-group">
                                                     <div class="field-inner">
-                                                        <input type="text" name="field-name" placeholder="First Name"
+                                                        <input type="text" name="firstName" placeholder="First Name"
                                                             required="true" value="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="field-inner">
-                                                        <input type="text" name="field-name" placeholder="Last Name"
+                                                        <input type="text" name="lastName" placeholder="Last Name"
                                                             required="true" value="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="field-inner">
-                                                        <input type="email" name="field-name" placeholder="Email"
+                                                        <input type="email" name="email" placeholder="Email"
                                                             required="true" value="">
                                                     </div>
                                                 </div>
@@ -226,5 +227,36 @@
 {{block 'script'}}
 <script>
 
+    $('#customForm').on('submit', function (e) {
+        e.preventDefault()
+        var formData = $(this).serialize();
+        alert(formData)
+        // $.ajax({
+        //     url: '/oa/sectionEdit',
+        //     type: 'post',
+        //     data: formData,
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         var err_code = data.err_code
+        //         if (err_code === 0) {
+        //             window.location.href = '/oa/sections'
+        //         } else if (err_code === 500) {
+        //             t_alert("Server error");
+        //         }
+
+        //     }
+        // })
+    })
+
+    function getValue() {
+        var radio = $('input');
+        sum = "";
+        for (i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+                sum += radio[i].value;
+            }
+        }
+        return sum
+    }
 </script>
 {{/block}}

@@ -19,7 +19,7 @@
                     </ol>
                 </div>
             </div>
-            <form id="editSection">
+            <form id="editOrder">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow mb-4">
@@ -29,13 +29,14 @@
                                         <h5 class="card-title"> Order Info</h5>
                                     </div>
                                     <div class="col-6">
-                                        <div class="form-group"><button type="submit"
-                                                class="btn btn-primary float-end">Save</button></div>
+                                        <div class="form-group"><button type="submit" class="btn btn-primary float-end">
+                                                Save</button></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body account-detail">
                                 <input type="text" name="orderId" value="{{orderSingle && orderSingle.orderId}}" hidden>
+                                <input type="text" name="boatId" value="{{orderSingle && orderSingle.boatId}}" hidden>
                                 <div class="row">
                                     <div class="col-xl-6">
                                         <div class="form-group row">
@@ -49,10 +50,11 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-4 col-form-label">Status <span
+                                            <label class="col-lg-4 col-form-label">Boat Name <span
                                                     class="text-danger"></span></label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="received" readonly>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{orderSingle &&
+                                                    orderSingle.boats.boatName}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -73,8 +75,18 @@
                                             <label class="col-lg-4 col-form-label">Price <span
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="price"
-                                                    value="{{orderSingle && orderSingle.price | moneyFormat}}" required>
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control"
+                                                        aria-label="Amount (to the nearest dollar)" name="price"
+                                                        value="{{orderSingle && orderSingle.price}}" required>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -116,18 +128,18 @@
 {{block 'oascript'}}
 <script>
 
-    $('#editSection').on('submit', function (e) {
+    $('#editOrder').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();
         $.ajax({
-            url: '/oa/sectionEdit',
+            url: '/oa/orderEdit',
             type: 'post',
             data: formData,
             dataType: 'json',
             success: function (data) {
                 var err_code = data.err_code
                 if (err_code === 0) {
-                    window.location.href = '/oa/sections'
+                    window.location.href = '/oa/order'
                 } else if (err_code === 500) {
                     t_alert("Server error");
                 }

@@ -27,8 +27,9 @@
                             <div class="field-inner">
                                 <select class="custom-select-box" id="categories">
                                     <option value="All Categories">All Categories</option>
-                                    <option value="Electric Lightship">Electric Lightship</option>
-                                    <option value="Coastal Cruising">Coastal Cruising</option>
+                                    {{each categoryresults}}
+                                    <option value="">{{$value.categoryName}}</option>
+                                    {{/each}}
                                 </select>
                             </div>
                         </div>
