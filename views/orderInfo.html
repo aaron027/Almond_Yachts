@@ -23,7 +23,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Date</span>
-                            <span type="text" class="form-control">{{orderFound.orderDate | getDate}}</span>
+                            <span type="text" class="form-control">{{orderFound.orderDate | getMonthDate}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
@@ -79,7 +79,7 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Delivery Date</span>
                             <span type="text" class="form-control">
-                                {{orderFound.estimatedDeliveryDate | getDate}}</span>
+                                {{orderFound.estimatedDeliveryDate | getMonthDate}}</span>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,76 @@
+{{extend './_layout/layout.html'}}
+
+{{block 'content'}}
+<!-- login start -->
+<div class="auto-container">
+    <div class="login-content ">
+        <div class="row clearfix">
+            <div class="col-lg-6 col-md-12 col-sm-12 left_container">
+                <img src="../../public/images/background/login_bg.jpg">
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <!-- form start -->
+                <div class="row clearfix paddingForm">
+
+                    <div class="form-column login-page col-lg-12 col-md-12 col-sm-12">
+                        <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+                            <div class="sec-title">
+                                <h4>Password Reset</h4>
+                            </div>
+                            <div class="default-form contact-form login-form">
+                                <p>Please enter the email address that you used to sign up so we can send you an
+                                    email
+                                    with your username and password.
+                                </p>
+                                <form id="forgetPwd">
+                                    <div class="row clearfix">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                            <div class="field-label">Email</div>
+                                            <div class="field-inner">
+                                                <input type="text" name="email" placeholder="Email" required value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                            <button type="submit" class="theme-btn btn-style-three"><span
+                                                    class="btn-title">Send</span></button>
+                                        </div>
+                                        <p>If you still need help, <a href="/contact">contact us</a> </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- form end -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- login end -->
+{{/block}}
+
+{{block 'script'}}
+<script>
+    $('#forgetPwd').on('submit', function (e) {
+        e.preventDefault()
+        var formData = $(this).serialize()
+        $.ajax({
+            url: '/forgetPwd',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 0) {
+                    window.location.href = '/'
+                } else if (err_code === 500) {
+                    window.alert('server error')
+                }
+            }
+        })
+    })
+</script>
+{{/block}}

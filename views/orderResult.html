@@ -20,6 +20,7 @@
 
                 </div>
             </div>
+            {{each valueData}}
             <div class="order-detail">
                 <div class="detail-title">
 
@@ -29,7 +30,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <span class="expected_delivery"> <i class="fa fa-clock"></i>
-                                Expected Delivery Date: <span class="date">2021-11-01</span></span>
+                                Expected Delivery Date: <span
+                                    class="date">{{valueData.estimatedDeliveryDate}}</span></span>
                         </div>
                     </div>
                 </div>
@@ -39,31 +41,33 @@
                         <div class="col-lg-4">
                             Boat Name:
                         </div>
-                        <div class="col-lg-8"> <span class="span-text">Bo'ship</span></div>
+                        <div class="col-lg-8"> <span class="span-text">{{valueData.boats.boatName}}</span></div>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-4">
                             Boat Category:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">Electric Lightship</span></div>
+                        <div class="col-lg-8"><span class="span-text">{{valueData.boats.category.categoryName}}</span>
+                        </div>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-4">
                             Boat Price:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">$5000</span></div>
+                        <div class="col-lg-8"><span class="span-text">{{valueData.price}}</span></div>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-4">
                             Order Date:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">2021-10-19</span></div>
+                        <div class="col-lg-8"><span class="span-text">{{valueData.orderDate}}</span></div>
                     </div>
                 </div>
             </div>
+            {{/each}}
             <div class="detail-tips">
                 <ul class="yacht-details">
                     <li class="instruction">You will receive a confirmation email with order detail for your order.</li>

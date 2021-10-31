@@ -16,7 +16,7 @@
     <div class="auto-container">
         <div class="lower-filter-row clearfix">
             <div class="results-count">
-                <span>{{result.length}} Results Found</span>
+                <span>Premium Yachts</span>
                 <span id="demo"></span>
             </div>
             <!--Filter-->
@@ -25,10 +25,10 @@
                     <div class="filter-box">
                         <div class="form-group">
                             <div class="field-inner">
-                                <select class="custom-select-box" id="categories">
+                                <select id="categories">
                                     <option value="All Categories">All Categories</option>
                                     {{each categoryresults}}
-                                    <option value="">{{$value.categoryName}}</option>
+                                    <option value="{{$value.categoryName}}">{{$value.categoryName}}</option>
                                     {{/each}}
                                 </select>
                             </div>
@@ -39,10 +39,11 @@
         </div>
     </div>
 </section>
+
 <section class="similar-yachts yachts-model">
     <div class="auto-container">
 
-        <div class="row clearfix">
+        <div class="row clearfix result_category" id="all">
             <!--Rental Block-->
             {{each result}}
             <div class="rental-block col-lg-6 col-md-6 col-sm-12">
@@ -53,7 +54,6 @@
                                     alt="" title=""></a>
                         </figure>
                         <div class="price-box">
-                            <!-- <div class="price" style="font-size:0.8rem;">Model Number </div> -->
                             <div class="cycle">{{result[$index].category.categoryName}}</div>
                         </div>
                     </div>
@@ -77,19 +77,99 @@
             </div>
             {{/each}}
         </div>
+        <div class="row clearfix result_category" id="lightship" style="display: none;">
+            {{each lightShipCategory}}
+            <div class="rental-block col-lg-6 col-md-6 col-sm-12">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <figure class="image">
+                            <a href="#"><img
+                                    src="../../public/images/resource/featured-image-{{lightShipCategory[$index].id}}.jpg"
+                                    alt="" title=""></a>
+                        </figure>
+                        <div class="price-box">
+                            <div class="cycle">{{lightShipCategory[$index].category.categoryName}}</div>
+                        </div>
+                    </div>
+                    <div class="title-box">
+                        <div class="more-link-box">
+                            <a href="/custom?id={{result[$index].id}}" class="theme-btn">Customization</a>
+                        </div>
+                        <h4><a href="/custom?id={{result[$index].id}}">{{lightShipCategory[$index].boatName}}</a></h4>
+                        <div class="info">177’ / 53.65 m / <span
+                                class="categoryName">{{lightShipCategory[$index].category.categoryName}}</span></div>
+                    </div>
+                    <div class="meta-info">
+                        <ul class="clearfix">
+                            <li><a href="#"><span class="fa fa-tachometer-alt"></span> Number:
+                                    {{lightShipCategory[$index].modelNumber}}</a></li>
+                            <li><a href="#"><span class="fa fa-calendar-alt"></span> Year:
+                                    {{lightShipCategory[$index].modelYear | getDate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="row clearfix result_category" id="cruising" style="display: none;">
+            {{each CruisingCategory}}
+            <div class="rental-block col-lg-6 col-md-6 col-sm-12">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <figure class="image">
+                            <a href="#"><img
+                                    src="../../public/images/resource/featured-image-{{CruisingCategory[$index].id}}.jpg"
+                                    alt="" title=""></a>
+                        </figure>
+                        <div class="price-box">
+                            <div class="cycle">{{CruisingCategory[$index].category.categoryName}}</div>
+                        </div>
+                    </div>
+                    <div class="title-box">
+                        <div class="more-link-box">
+                            <a href="/custom?id={{result[$index].id}}" class="theme-btn">Customization</a>
+                        </div>
+                        <h4><a href="/custom?id={{result[$index].id}}">{{CruisingCategory[$index].boatName}}</a></h4>
+                        <div class="info">177’ / 53.65 m / <span
+                                class="categoryName">{{CruisingCategory[$index].category.categoryName}}</span></div>
+                    </div>
+                    <div class="meta-info">
+                        <ul class="clearfix">
+                            <li><a href="#"><span class="fa fa-tachometer-alt"></span> Number:
+                                    {{CruisingCategory[$index].modelNumber}}</a></li>
+                            <li><a href="#"><span class="fa fa-calendar-alt"></span> Year:
+                                    {{CruisingCategory[$index].modelYear | getDate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
     </div>
 </section>
 {{/block}}
 {{block 'script'}}
 <script>
-    // alert($("#categories option:selected").val())
-    $("#categories").change(function () {
-        alert('okkk')
+    $('#categories').change(function () {
+        var selectedValue = $(this).val();
+        if (selectedValue == 'Lightship') {
+            $("#all").hide();
+            $("#cruising").hide();
+            $("#lightship").show()
+        }
+        else if (selectedValue == 'Coastal Cruising ') {
+            $("#all").hide();
+            $("#lightship").hide();
+            $("#cruising").show()
+
+        } else if (selectedValue == 'All Categories') {
+            $("#lightship").hide();
+            $("#cruising").hide();
+            $("#all").show()
+        } else {
+            $(".result_category").hide()
+        }
     });
-    // function myFunction() {
-    //     alert('ok')
-    //     var x = document.getElementById("categories").value;
-    //     document.getElementById("demo").innerHTML = "You selected: " + x;
-    // }
+
 </script>
 {{/block}}

@@ -28,6 +28,26 @@ template.defaults.imports.getDate = (dateTime) => {
   return year + "-" + month + "-" + date
 }
 
+template.defaults.imports.getMonthDate = (dateTime) => {
+  const datetime = new Date(dateTime)
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const dayNames = ["Monday", "Tuesday", "Wednesday", "Thurday", "Friday", "Saturday",
+    "Sunday"
+  ];
+  var monthname = monthNames[datetime.getMonth()];
+  const year = datetime.getFullYear()
+  const day = dayNames[datetime.getDay()]
+  const month = ("0" + (datetime.getMonth() + 1)).slice(-2)
+  const date = ("0" + datetime.getDate()).slice(-2)
+  const hour = ("0" + datetime.getHours()).slice(-2)
+  const minute = ("0" + datetime.getMinutes()).slice(-2)
+  const second = ("0" + datetime.getSeconds()).slice(-2)
+
+  return day + ", " + date + ' ' + monthname
+}
+
 template.defaults.imports.moneyFormat = (money) => {
   if (money) {
     return '$' + money.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
