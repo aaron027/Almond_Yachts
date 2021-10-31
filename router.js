@@ -241,6 +241,12 @@ router.get('/forgetPwd', function (req, res, next) {
   })
 })
 
+router.get('/forgetPwdResult', function (req, res, next) {
+  res.render('forgetPwdResult.html', {
+    user: req.session.user
+  })
+})
+
 router.post('/forgetPwd', async (req, res) => {
   var formData = req.body;
   var email = formData.email
@@ -257,22 +263,26 @@ router.post('/forgetPwd', async (req, res) => {
     var username = result.email;
     var pwd = result.passwordHash
     var firstName = result.firstName
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.live.com',
-      port: 587,
-      auth: {
-        user: 'almondboats02@hotmail.com',
-        pass: '20031105Ab'
-      }
-    });
+    res.status(200).json({
+      err_code: 0,
+      message: 'OK'
+    })
+    // const transporter = nodemailer.createTransport({
+    //   host: 'smtp.live.com',
+    //   port: 587,
+    //   auth: {
+    //     user: 'almondboats02@hotmail.com',
+    //     pass: '20031105Ab'
+    //   }
+    // });
 
     // send email
-    transporter.sendMail({
-      from: 'almondboats02@hotmail.com',
-      to: result.email,
-      subject: 'Almond Yachts Password Reset',
-      text: 'Hi ' + firstName + ', ' + 'your username is: ' + username + ', password is : ' + pwd
-    });
+    // transporter.sendMail({
+    //   from: 'almondboats02@hotmail.com',
+    //   to: result.email,
+    //   subject: 'Almond Yachts Password Reset',
+    //   text: 'Hi ' + firstName + ', ' + 'your username is: ' + username + ', password is : ' + pwd
+    // });
   });
 })
 
