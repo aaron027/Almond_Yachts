@@ -2,9 +2,7 @@ var express = require('express')
 // var User = require('./models/user')
 var request = require('request')
 var router = express.Router()
-var nodeoutlook = require('nodejs-nodemailer-outlook')
-var nodemailer = require("nodemailer");
-const promisify = require("es6-promisify");
+
 
 var apikey = "";
 var adminapi = "";
@@ -112,6 +110,32 @@ router.post('/placeOrder', function (req, response, next) {
   formData.orderDate = orderDate;
   formData.boatId = parseInt(formData.boatId)
   formData.categoryId = parseInt(formData.categoryId)
+  var currentDate = new Date().toISOString().split('T')[0];
+  var arr = currentDate.split('-');
+  var year = arr[0];
+  var month = arr[1];
+  var day = arr[2];
+  var days = new Date(year, month, 0);
+  days = days.getDate();
+  var year2 = year;
+  var month2 = parseInt(month) + 1;
+  if (month2 == 13) {
+    year2 = parseInt(year2) + 1;
+    month2 = 1;
+  }
+  var day2 = day;
+  var days2 = new Date(year2, month2, 0);
+  days2 = days2.getDate();
+  if (day2 > days2) {
+    day2 = days2;
+  }
+  if (month2 < 10) {
+    month2 = '0' + month2;
+  }
+
+  var estDelivery = year2 + '-' + month2 + '-' + day2;
+  estDelivery = new Date(estDelivery).toISOString()
+
   var sumPrice = 0;
   var itemList = [];
 
@@ -128,7 +152,7 @@ router.post('/placeOrder', function (req, response, next) {
     customerId: formData.userid,
     boatId: formData.boatId,
     orderDate: formData.orderDate,
-    estimatedDeliveryDate: formData.orderDate,
+    estimatedDeliveryDate: estDelivery,
     price: formData.price,
     boats: [{
       id: formData.boatId,
@@ -146,6 +170,7 @@ router.post('/placeOrder', function (req, response, next) {
     }
   }
 
+  console.log(valueDate)
   var firstName = formData.firstName;
   var lastName = formData.lastName;
   var email = formData.email;
@@ -208,19 +233,13 @@ router.get('/setting', function (req, res, next) {
 //======================================================================================
 router.post('/changePwd', function (req, response, next) {
   var formData = req.body;
-  var userid = formData.id;
-  var newPwd = formData.newPwd
   request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdatePassword',
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ResetPassword',
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      id: userid,
-      passwordHash: newPwd
-    })
+    body: JSON.stringify(formData)
   }, (err, res, data) => {
     var result = res.body
     req.session.user = result
@@ -247,43 +266,23 @@ router.get('/forgetPwdResult', function (req, res, next) {
   })
 })
 
-router.post('/forgetPwd', async (req, res) => {
+router.post('/forgetPwd', async (req, response) => {
   var formData = req.body;
-  var email = formData.email
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUserByEmail?email=' + email,
-    'headers': {
+  request.put({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ForgetPassword',
+    method: 'PUT',
+    headers: {
       'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    var username = result.email;
-    var pwd = result.passwordHash
-    var firstName = result.firstName
-    console.log(result)
-    res.status(200).json({
+    },
+    body: JSON.stringify(formData)
+  }, (err, res, data) => {
+    var result = res.body
+    console.log(data)
+    response.status(200).json({
       err_code: 0,
       message: 'OK'
     })
-    // const transporter = nodemailer.createTransport({
-    //   host: 'smtp.live.com',
-    //   port: 587,
-    //   auth: {
-    //     user: 'almondboats02@hotmail.com',
-    //     pass: '20031105Ab'
-    //   }
-    // });
-
-    // transporter.sendMail({
-    //   from: 'almondboats02@hotmail.com',
-    //   to: result.email,
-    //   subject: 'Almond Yachts Password Reset',
-    //   html: 'Hi ' + firstName + '<br/> ' + 'Your username is: <b>' + username + '</b>, password is : ' + pwd
-    // });
-  });
+  })
 })
 
 
@@ -1106,7 +1105,7 @@ router.get('/oa/order', function (req, res) {
     var result = JSON.parse(response.body);
     req.session.orders = result
     request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/boats',
+      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + adminapi
@@ -1114,13 +1113,32 @@ router.get('/oa/order', function (req, res) {
     }, (err, res2, data) => {
       if (error) return error;
       var boats = JSON.parse(res2.body);
-      result.forEach(element => element.boats = boats[element.boatId - 1]);
-      req.session.boats = boats;
-      res.render('./oa/order.html', {
-        result: result,
-        boats: req.session.boats,
-        admin: req.session.admin
-      })
+      request(options, function (error, response) {
+        if (error) return error;
+        var result = JSON.parse(response.body);
+        req.session.orders = result
+        request.get({
+          url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + adminapi
+          }
+        }, (err, res3, data) => {
+          if (error) return error;
+          var categories = JSON.parse(res3.body);
+          result.forEach(element => {
+            element.boats = boats[element.boatId - 1];
+            element.boats.category = categories[boats.find(element1 => element1.id == element.boatId).categoryId - 1]
+          });
+          req.session.boats = boats;
+          res.render('./oa/order.html', {
+            result: result,
+            boats: req.session.boats,
+            admin: req.session.admin
+          })
+        })
+
+      });
     })
 
   });
@@ -1134,10 +1152,22 @@ router.get('/oa/orderEdit', function (req, res) {
   var orders = req.session.orders
   var found = orders.find(element => element.orderId == orderid);
   req.session.orderSingle = found;
-  res.render('./oa/orderEdit.html', {
-    admin: req.session.admin,
-    orderSingle: found
+  var categoryid = parseInt(found.boats.categoryId);
+  request.get({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + categoryid,
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, (err, res2, data) => {
+    var result = JSON.parse(res2.body)
+    res.render('./oa/orderEdit.html', {
+      admin: req.session.admin,
+      orderSingle: found,
+      categoryInfo: result
+    })
   })
+
 })
 
 router.post('/oa/orderEdit', function (req, response, next) {
@@ -1695,23 +1725,17 @@ router.get('/oa/changePwd', function (req, res, next) {
 })
 router.post('/oa/changePwd', function (req, response, next) {
   var formData = req.body;
-  var userid = formData.id;
-  var newPwd = formData.new_pwd
   request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdatePassword',
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ResetPassword',
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + adminapi
     },
-    body: JSON.stringify({
-      id: userid,
-      passwordHash: newPwd
-    })
+    body: JSON.stringify(formData)
   }, (err, res, data) => {
     var result = res.body
     req.session.admin = result
-    console.log(data)
     response.status(200).json({
       err_code: 0,
       message: 'OK'

@@ -39,7 +39,7 @@
                                 <div class="col-lg-6 col-md-8 col-sm-10 nopadding">
                                     <div class="form-group">
                                         <label for="">Current Password</label>
-                                        <input type="password" name="currentPwd" class="form-control" id="">
+                                        <input type="password" name="oldPassword" class="form-control" id="">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-2 col-sm-1">
@@ -52,7 +52,7 @@
                                 <div class="col-lg-6 col-md-8 col-sm-10 nopadding">
                                     <div class="form-group">
                                         <label for="">New Password</label>
-                                        <input type="password" name="newPwd" class="form-control">
+                                        <input type="password" name="newPassword" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-2 col-sm-1">
@@ -64,7 +64,7 @@
                                 <div class="col-lg-6 col-md-8 col-sm-10 nopadding">
                                     <div class="form-group">
                                         <label for="">Confirm Password</label>
-                                        <input type="password" name="ConfirmPWd" class="form-control">
+                                        <input type="password" name="verifyPassword" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-2 col-sm-1">
@@ -124,7 +124,6 @@
                     $(".warning").show();
                     $(".warning span").html("server error.");
                 }
-
             }
         })
     })
