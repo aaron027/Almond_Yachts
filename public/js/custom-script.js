@@ -912,5 +912,10 @@ $(".login-pwd i").click(function () {
 });
 
 
-
+$(".navigation li a").each(function () {
+	if ($(this)[0].href == String(window.location)) {
+		// $(".navigation li").removeClass("current");
+		$(this).parent("li").addClass('current').siblings().removeClass('current')
+	}
+});
 
