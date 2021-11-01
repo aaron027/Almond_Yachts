@@ -874,30 +874,30 @@ $("#myAccount").click(function () {
 // Change currency function
 var currencyrate = parseFloat($(".converter-value").text());
 
-$(".language ul li a").click(function () {
-	var convertPrice = $('.convertPrice').html()
-	var converter_value = 0.73
-	var converter_value_us = 1.38;
-	if ($(this).text() == 'Australia') {
-		$(".language .txt").text("Australia - AUD ");
-		$(".link-box .currency_name").text("AUD/USD")
-		$(".converter-value").text(converter_value)
-		$(".converter_currency").html("A$")
-		$(".convertPrice").each(function (index) {
-			var changedvalue = $(this).text() * 1.38
-			$(this).text(changedvalue.toFixed(2))
-		});
-	} else {
-		$(".language .txt").text("America - USD ");
-		$(".converter_currency").html("US$")
-		$(".link-box .currency_name").text("USD/AUD")
-		$(".converter-value").text(converter_value_us)
-		$(".convertPrice").each(function (index) {
-			var changedvalue = $(this).text() * 0.73;
-			$(this).text(changedvalue.toFixed(2))
-		});
-	}
-});
+// $(".language ul li a").click(function () {
+// 	var convertPrice = $('.convertPrice').html()
+// 	var converter_value = 0.73
+// 	var converter_value_us = 1.38;
+// 	if ($(this).text() == 'Australia') {
+// 		$(".language .txt").text("Australia - AUD ");
+// 		$(".link-box .currency_name").text("AUD/USD")
+// 		$(".converter-value").text(converter_value)
+// 		$(".converter_currency").html("A$")
+// 		$(".convertPrice").each(function (index) {
+// 			var changedvalue = $(this).text() * 1.38
+// 			$(this).text(changedvalue.toFixed(2))
+// 		});
+// 	} else {
+// 		$(".language .txt").text("America - USD ");
+// 		$(".converter_currency").html("US$")
+// 		$(".link-box .currency_name").text("USD/AUD")
+// 		$(".converter-value").text(converter_value_us)
+// 		$(".convertPrice").each(function (index) {
+// 			var changedvalue = $(this).text() * 0.73;
+// 			$(this).text(changedvalue.toFixed(2))
+// 		});
+// 	}
+// });
 
 $(".login-pwd i").click(function () {
 	var password = $("#password");
@@ -914,7 +914,6 @@ $(".login-pwd i").click(function () {
 
 $(".navigation li a").each(function () {
 	if ($(this)[0].href == String(window.location)) {
-		// $(".navigation li").removeClass("current");
 		$(this).parent("li").addClass('current').siblings().removeClass('current')
 	}
 });

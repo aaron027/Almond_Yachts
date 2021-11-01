@@ -619,8 +619,19 @@ router.get('/oa/index', function (req, res, next) {
       if (error) return error;
       var orderresult = JSON.parse(res2.body);
       var sumtotal = 0;
-      orderresult.forEach(element => sumtotal += element.price);
-      var ordersize = orderresult.length
+      var d = new Date();
+      var month = d.getMonth();
+      var day = d.getDate();
+      var today = d.getFullYear() + '-' + (month < 10 ? '0' : '') + (month + 1) + '-' + (day < 10 ? '0' : '') + day
+      var todayOrders = []
+      orderresult.forEach(element => {
+        sumtotal += element.price;
+        var orderDate = element.orderDate.split('T')[0]
+        if (orderDate == today) {
+          todayOrders.push(element)
+        }
+      });
+      var ordersize = orderresult.length;
       var options = {
         'method': 'GET',
         'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUsers',
@@ -632,12 +643,14 @@ router.get('/oa/index', function (req, res, next) {
         if (error) return error;
         var userresult = JSON.parse(res3.body);
         var usersize = userresult.length
+
         res.render('./oa/index.html', {
           admin: req.session.admin,
           itemsize: itemsize,
           ordersize: ordersize,
           usersize: usersize,
-          sumtotal: sumtotal
+          sumtotal: sumtotal,
+          todayOrders: todayOrders
         })
       });
 
@@ -1666,5 +1679,43 @@ router.get('/oa/userView', async (req, res) => {
       admin: req.session.admin
     })
   });
+})
+
+//======================================================================================
+// Change password Block
+//======================================================================================
+
+router.get('/oa/changePwd', function (req, res, next) {
+  if (adminid === '') {
+    return res.redirect('/oa/login')
+  }
+  res.render('./oa/changePwd.html', {
+    admin: req.session.admin
+  })
+})
+router.post('/oa/changePwd', function (req, response, next) {
+  var formData = req.body;
+  var userid = formData.id;
+  var newPwd = formData.new_pwd
+  request.put({
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdatePassword',
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminapi
+    },
+    body: JSON.stringify({
+      id: userid,
+      passwordHash: newPwd
+    })
+  }, (err, res, data) => {
+    var result = res.body
+    req.session.admin = result
+    console.log(data)
+    response.status(200).json({
+      err_code: 0,
+      message: 'OK'
+    })
+  })
 })
 module.exports = router

@@ -89,11 +89,11 @@
                                     <ul class="d-flex justify-content-between m-t-30">
                                         <li class="content-widget text-center">
                                             <p class="mb-0 fs-14 text-muted">Electric Lightship</p>
-                                            <h4 class="mb-0 fs-20 text-dark-gray">8952</h4>
+                                            <h4 class="mb-0 fs-20 text-dark-gray">2</h4>
                                         </li>
                                         <li class="content-widget text-center">
                                             <p class="mb-0 fs-14 text-muted">Cruising ship</p>
-                                            <h4 class="mb-0 fs-20 text-dark-gray">7458</h4>
+                                            <h4 class="mb-0 fs-20 text-dark-gray">2</h4>
                                         </li>
 
                                     </ul>
@@ -124,66 +124,46 @@
                                 <table id="example1" class="display nowrap">
                                     <thead>
                                         <tr>
-                                            <th>S.N.</th>
-                                            <th>Date</th>
-                                            <th>Category</th>
-                                            <th>Description</th>
+                                            <th>ID</th>
+                                            <th>Order Date</th>
+                                            <th>Delivery Time</th>
+                                            <th>Total Amount</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{each todayOrders }}
                                         <tr>
                                             <td>
-                                                1
+                                                {{todayOrders && todayOrders[$index].orderId}}
                                             </td>
-                                            <td>2021-09-16</td>
-                                            <td>order management</td>
-                                            <td>A new order needs to confirm.</td>
+                                            <td class="orderDate">{{todayOrders && todayOrders[$index].orderDate |
+                                                getDate}}</td>
+                                            <td class="dateformate"> {{todayOrders &&
+                                                todayOrders[$index].estimatedDeliveryDate | getDate}}
+                                            </td>
+                                            <td> {{todayOrders && todayOrders[$index].price | moneyFormat}}</td>
+                                            <td class="text-start">
+                                                <span class="badge badge-primary">Received</span>
+                                            </td>
                                             <td>
-                                                <a class='mr-4 check'>
-                                                    <span class='fas fa-check-circle'></span>
+
+                                                <a class='mr-4 edit'
+                                                    href="/oa/orderEdit?id={{todayOrders && todayOrders[$index].orderId}}">
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+                                                <a class='mr-4 vue'
+                                                    href="/oa/deleteOrder?id={{todayOrders && todayOrders[$index].orderId}}"
+                                                    onclick="return confirmAct();">
+                                                    <span class='fas fa-trash-alt'></span>
+                                                </a>
+                                                <a class='view' href="/oa/viewOrder?id={{$value.orderId}}">
+                                                    <span class='fas fa-eye'></span>
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>2021-09-14</td>
-                                            <td>Job management</td>
-                                            <td>A new job allocation.</td>
-                                            <td>
-                                                <a class='mr-4 check'>
-                                                    <span class='fas fa-check-circle'></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                3
-                                            </td>
-                                            <td>2021-09-14</td>
-                                            <td>Inventory management</td>
-                                            <td>An item is out of stock.</td>
-                                            <td>
-                                                <a class='mr-4 check'>
-                                                    <span class='fas fa-check-circle'></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                4
-                                            </td>
-                                            <td>2021-09-14</td>
-                                            <td>order management</td>
-                                            <td>An order needs to delivery.</td>
-                                            <td>
-                                                <a class='mr-4 check'>
-                                                    <span class='fas fa-check-circle'></span>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>

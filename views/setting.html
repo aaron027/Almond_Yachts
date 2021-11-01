@@ -121,7 +121,8 @@
                     $(".warning span").html("Password successfully changed.");
                     // window.location.href = '/login'
                 } else if (err_code === 500) {
-                    t_alert("Server error");
+                    $(".warning").show();
+                    $(".warning span").html("server error.");
                 }
 
             }

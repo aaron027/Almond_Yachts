@@ -10,9 +10,9 @@
             </div>
             <div class="form-group m-b-10">
                 <label class="col-form-label">Password</label>
-                <div class="form-input position-relative">
+                <div class="form-input position-relative login-pwd">
                     <input class="form-control" id="password" type="password" name="password" placeholder="Password">
-                    <div class="show-hide"><span class="show"></span></div>
+                    <i class="fa fa-eye"></i>
                 </div>
             </div>
             <div class="form-group mb-0 default-form">
@@ -41,6 +41,17 @@
 {{/block}}
 {{block 'oascript'}}
 <script>
+    $(".login-pwd i").click(function () {
+        var password = $("#password");
+        var pwdtype = password.attr("type")
+        if (pwdtype === "password") {
+            password.attr("type", "text")
+            $(this).removeClass('fa fa-eye').addClass('fa fa-eye-slash')
+        } else {
+            password.attr("type", "password")
+            $(this).removeClass('fa fa-eye-slash').addClass('fa fa-eye')
+        }
+    });
     $('#login_form').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize()

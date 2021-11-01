@@ -3036,3 +3036,33 @@ Authentification
   content: '\f00c';
   border-color: #e69c48;
 }
+.login-pwd i {
+  position: absolute;
+  right: 20px;
+  top: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.login-page .warning{
+  background: #fdebe9;
+  font-size: 0.7rem;
+  line-height: 150%;
+  color:#333;
+  padding: 0.6rem;
+  display: none;
+  width: 100%;
+  border-radius: 4px;
+  margin: 5px 10px;
+  border:1px solid #f9c1c0;
+  font-weight: normal;
+}
+.login-page .warning i{
+  float: right;
+  cursor: pointer;
+  color:#c5262f;
+}
+.login-page .warning .warning-wrapper{
+padding: 0 10px;
+}
+

@@ -59,18 +59,7 @@ $(function () {
 
 });
 
-// ========================================================================= //
-//    upload image in drag
-// ========================================================================= //
 
-function showPreview (event) {
-    if (event.target.files.length > 0) {
-        var src = URL.createObjectURL(event.target.files[0]);
-        var preview = document.getElementById("file-ip-1-preview");
-        preview.src = src;
-        preview.style.display = "block";
-    }
-}
 
 // ========================================================================= //
 //   Preview Pictures
@@ -99,48 +88,6 @@ jQuery('.datetimepicker').datetimepicker({
     }
 });
 
-// ========================================================================= //
-//  Button Add Test
-// ========================================================================= //
-
-$('#butonAddTest').click(function () {
-    var structure = `<form>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <select class="form-control form-select">
-                    <option>Select Test...</option>
-                    <option>Scanner thoracique</option>
-                    <option>Covid 19</option>
-                    <option>dsdsfd</option>
-                    <option>wqd</option>
-                    <option>asdfsf</option>
-                    <option>fgg</option>
-                    <option>uohl</option>
-                    <option>Pueba wilson</option>
-                    <option>jjjhj</option>
-                    <option>hh</option>
-                    <option>Badanie Oberon</option>
-                    <option>sdsadsa</option>
-                    <option>test</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Description">
-            </div>
-        </div>
-    </div>
-    <hr/>
-
-</form>`;
-    $(".addTest").append(structure);
-    // $('select').selectpicker();
-
-});
-
-
 
 // ========================================================================= //
 //   refrech select picker inside modal
@@ -167,7 +114,9 @@ jQuery(window).resize(function () {
     resize();
 })
 
-
+/**
+ * The function for dropdown menu
+ */
 jQuery(function ($) {
     var path = window.location.href;
     $('ul li a').each(function () {
@@ -186,7 +135,8 @@ jQuery(function ($) {
 
 /**
  * The method for alert dialog before delete one element
- * @returns 
+ * @returns true to confirm delete
+ *          false cancel deletion
  */
 function confirmAct () {
     if (confirm('Are you sure to delete this?')) {
@@ -195,9 +145,12 @@ function confirmAct () {
     return false;
 }
 
+/**
+ * The method for changing the navagation status
+ */
 $(".navigation li a").each(function () {
     if ($(this)[0].href == String(window.location)) {
-        // $(".navigation li").removeClass("current");
         $(this).parent("li").addClass('active').siblings().removeClass('active')
     }
 });
+
