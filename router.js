@@ -263,6 +263,7 @@ router.post('/forgetPwd', async (req, res) => {
     var username = result.email;
     var pwd = result.passwordHash
     var firstName = result.firstName
+    console.log(result)
     res.status(200).json({
       err_code: 0,
       message: 'OK'
@@ -276,12 +277,11 @@ router.post('/forgetPwd', async (req, res) => {
     //   }
     // });
 
-    // send email
     // transporter.sendMail({
     //   from: 'almondboats02@hotmail.com',
     //   to: result.email,
     //   subject: 'Almond Yachts Password Reset',
-    //   text: 'Hi ' + firstName + ', ' + 'your username is: ' + username + ', password is : ' + pwd
+    //   html: 'Hi ' + firstName + '<br/> ' + 'Your username is: <b>' + username + '</b>, password is : ' + pwd
     // });
   });
 })
@@ -544,6 +544,7 @@ router.get('/custom', async (req, res4, next) => {
                     finalResult[index].type = 'checkbox';
                   }
                 });
+
                 res4.render('customization.html', {
                   sectionsResult: sectionsResult,
                   ItemsResult: ItemsResult,

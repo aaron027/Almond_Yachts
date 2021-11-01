@@ -14936,6 +14936,34 @@ img.lazy-image.loaded{
 	z-index: 2;
 }
 
+.calculation-box .section-box{
+	background: rgba(255,255,255,.8);
+    position: absolute;
+    left: 50%;
+    top: 0px;	
+    width: 300px;
+    margin-left: -150px;
+    border-radius: 0px 0px 10px 10px;
+    padding: 1rem 0px;
+    font-size: 1rem;
+	text-align: center;
+    text-transform: uppercase;
+    color: #e69c48;
+    line-height: 1.5rem;
+    text-align: center;
+	transition:all 0.4s ease;
+	-moz-transition:all 0.4s ease;
+	-webkit-transition:all 0.4s ease;
+	-ms-transition:all 0.4s ease;
+	-o-transition:all 0.4s ease;
+	z-index: 2;
+	
+}
+.calculation-box .section-box p{
+	margin:0;
+	font-weight: bold;
+}
+
 .calculation-box .price-box .total_amount{
 	font-size:16px;
 	font-weight: 600;
