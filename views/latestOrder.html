@@ -23,13 +23,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Date</span>
-                            <span type="text" class="form-control">{{orderFound.orderDate | getMonthDate}}</span>
+                            <span type="text" class="form-control">{{latestOrder.orderDate | getMonthDate}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Number</span>
-                            <span type="text" class="form-control">#20211019000{{orderFound.orderId}}</span>
+                            <span type="text" class="form-control">#20211019000{{latestOrder.orderId}}</span>
                         </div>
                     </div>
 
@@ -37,28 +37,28 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Category</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.category.categoryName}}</span>
+                                {{latestCategory.categoryName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Name</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.boatName}}</span>
+                                {{latestBoat.boatName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Number</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.modelNumber}}</span>
+                                {{latestBoat.modelNumber}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Year</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.modelYear | getDate}}</span>
+                                {{latestBoat.modelYear | getDate}}</span>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Delivery Date</span>
                             <span type="text" class="form-control">
-                                {{orderFound.estimatedDeliveryDate | getDate}}</span>
+                                {{latestOrder.estimatedDeliveryDate | getDate}}</span>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Total(incl.GST)</span>
-                                <span type="text" class="form-control">{{orderFound.price | moneyFormat}}</span>
+                                <span type="text" class="form-control">{{latestOrder.price | moneyFormat}}</span>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Tax/GST</span>

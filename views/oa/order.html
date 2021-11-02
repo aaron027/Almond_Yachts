@@ -43,7 +43,7 @@
                                             <th>ID</th>
                                             <th>Order Date</th>
                                             <th>Boat Name</th>
-                                            <th>Category</th>
+                                            <!-- <th>Category</th> -->
                                             <th>Delivery Time</th>
                                             <th>Total Amount</th>
                                             <th>Status</th>
@@ -59,8 +59,7 @@
                                             <td class="orderDate">{{result[$index] && result[$index].orderDate |
                                                 getDate}}</td>
                                             <td>{{result[$index].boats && result[$index].boats.boatName }} </td>
-                                            <td>{{result[$index].boats.category &&
-                                                result[$index].boats.category.categoryName}}</td>
+
                                             <td class="dateformate"> {{result[$index] &&
                                                 result[$index].estimatedDeliveryDate | getDate}}
                                             </td>
