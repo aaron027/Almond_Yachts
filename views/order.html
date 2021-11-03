@@ -17,16 +17,17 @@
             <div class="info-content">
                 <!-- It seems that there is no order at present. -->
                 <ul>
-                    {{each result}}
+                    {{each orderresult}}
                     <li>
                         <div class="order-top clearfix">
                             <div class="left">
                                 <div class="top">Order date:</div>
-                                <div class="bottom">{{result && result[$index].orderDate | getMonthDate}}</div>
+                                <div class="bottom">{{orderresult && orderresult[$index].orderDate | getMonthDate}}
+                                </div>
                             </div>
                             <div class="right">
                                 <div class="top">Order total:</div>
-                                <div class="bottom">{{result && result[$index].price | moneyFormat}}</div>
+                                <div class="bottom">{{orderresult && orderresult[$index].price | moneyFormat}}</div>
                             </div>
                         </div>
                         <div class="order-bottom">
@@ -36,7 +37,8 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="logo">
                                                 <div class="top">Order Number</div>
-                                                <div class="bottom">#20211030{{result && result[$index].orderId}}</div>
+                                                <div class="bottom">#20211030{{orderresult &&
+                                                    orderresult[$index].orderId}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -46,12 +48,13 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4">
                                             <div class="top">category</div>
-                                            <div class="bottom">{{result && result[$index].boats.category.categoryName}}
+                                            <div class="bottom">{{categoryArr[$index] &&
+                                                categoryArr[$index].categoryName}}
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4">
                                             <div class=" top">Boat Name</div>
-                                            <div class="bottom">{{result && result[$index].boats.boatName}}</div>
+                                            <div class="bottom">{{boatArr[$index] && boatArr[$index].boatName}}</div>
                                         </div>
                                         <div class="col-lg-4 col-md-2 col-sm-4  col-xs-4">
                                             <div class=" top">Order Status</div>
@@ -65,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-12">
-                                    <a href="/orderInfo?orderid={{result[$index].orderId}}">view order details</a>
+                                    <a href="/orderInfo?orderid={{orderresult[$index].orderId}}">view order details</a>
                                 </div>
                             </div>
                     </li>

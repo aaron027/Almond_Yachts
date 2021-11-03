@@ -17,15 +17,24 @@ app.set('views', path.join(__dirname, './views/'))
 
 template.defaults.imports.getDate = (dateTime) => {
   const datetime = new Date(dateTime)
-
   const year = datetime.getFullYear()
   const month = ("0" + (datetime.getMonth() + 1)).slice(-2)
   const date = ("0" + datetime.getDate()).slice(-2)
   const hour = ("0" + datetime.getHours()).slice(-2)
   const minute = ("0" + datetime.getMinutes()).slice(-2)
   const second = ("0" + datetime.getSeconds()).slice(-2)
-
   return year + "-" + month + "-" + date
+}
+
+template.defaults.imports.getDateTime = (dateTime) => {
+  const datetime = new Date(dateTime)
+  const year = datetime.getFullYear()
+  const month = ("0" + (datetime.getMonth() + 1)).slice(-2)
+  const date = ("0" + datetime.getDate()).slice(-2)
+  const hour = ("0" + datetime.getHours()).slice(-2)
+  const minute = ("0" + datetime.getMinutes()).slice(-2)
+  const second = ("0" + datetime.getSeconds()).slice(-2)
+  return year + "-" + month + "-" + date + ' ' + hour + ':' + minute + ':' + second
 }
 
 template.defaults.imports.getMonthDate = (dateTime) => {
@@ -44,7 +53,6 @@ template.defaults.imports.getMonthDate = (dateTime) => {
   const hour = ("0" + datetime.getHours()).slice(-2)
   const minute = ("0" + datetime.getMinutes()).slice(-2)
   const second = ("0" + datetime.getSeconds()).slice(-2)
-
   return day + ", " + date + ' ' + monthname
 }
 
@@ -57,6 +65,16 @@ template.defaults.imports.moneyFormat = (money) => {
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(function (req, res, next) {
+  var _send = res.send;
+  var sent = false;
+  res.send = function (data) {
+    if (sent) return;
+    _send.bind(res)(data);
+    sent = true;
+  };
+  next();
+});
 app.use(session({
   secret: 'almondboats',
   resave: false,

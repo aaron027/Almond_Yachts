@@ -1,9 +1,14 @@
 var express = require('express')
-// var User = require('./models/user')
 var request = require('request')
 var router = express.Router()
 var nodemailer = require('nodemailer')
-
+var user_Handler = require('./Router_Handler/customer/login')
+var order_Handler = require('./Router_Handler/customer/order')
+var account_Handler = require('./Router_Handler/customer/account')
+var model_Handler = require('./Router_Handler/customer/model')
+var forgetPwd_Handler = require('./Router_Handler/customer/forgetPwd')
+var register_Handler = require('./Router_Handler/customer/register')
+var menu_Handler = require('./Router_Handler/customer/navMenu')
 
 var apikey = "";
 var adminapi = "";
@@ -11,654 +16,103 @@ var userid = "";
 var adminid = "";
 
 //======================================================================================
-// index  Block
-//======================================================================================
-router.get('/', function (req, res, next) {
-  res.render('index.html', {
-    user: req.session.user
-  })
-})
-
-//======================================================================================
-// Model Block
+// MenuNav Block
+// This block contains: Index page,  about page, model page and contact page
 //======================================================================================
 
-router.get('/model', function (req, res, next) {
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories', // get category Date from API
-    'headers': {
-      'Authentication': 'Bearer ' + apikey,
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, res1) {
-    if (error) return error;
-    var categoryresults = JSON.parse(res1.body);
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',  // get boat Date from API
-      'headers': {
-        'Authentication': 'Bearer ' + apikey,
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, res2) {
-      if (error) return error;
-      var result = JSON.parse(res2.body);
-      result.forEach(element => element.category = categoryresults[element.categoryId - 1]);
-      var lightShipCategory = result.filter(element => element.categoryId == 1)
-      var CruisingCategory = result.filter(element => element.categoryId == 2)
-      res.render('model.html', {
-        result: result,
-        user: req.session.user,
-        categoryresults: categoryresults,
-        lightShipCategory: lightShipCategory,
-        CruisingCategory: CruisingCategory
-      })
-    });
-  });
+//Render index page 
+router.get('/', menu_Handler.indexPage)
 
-})
+//Render about page 
+router.get('/about', menu_Handler.aboutPage)
+
+//Render contact page 
+router.get('/contact', menu_Handler.contactPage)
+
+//Render model page 
+router.get('/model', model_Handler.modelPage)
+
 
 //======================================================================================
 // Login Block
+// This block contains login page, forget password page, forget password result page
+// Contains the function for logining in and submit email for resetting password
 //======================================================================================
 
-router.get('/login', function (req, res, next) {
-  res.render('login.html')
-})
+// Render login page
+router.get('/login', user_Handler.loginUser)
 
+// Post request for login
+router.post('/login', user_Handler.loginUserForm)
 
-router.post('/login', function (req, response, next) {
-  var options = {
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(req.body)
-  }
-  request(options, function (err, res, data) {
-    apikey = data;
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetCurrentUsers',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apikey
-      }
-    }, (err, res, data) => {
-      if (res.body == "") {
-        response.status(200).json({
-          err_code: 1,
-          message: 'Email or password is invalid.'
-        })
-      } else {
-        var user = JSON.parse(res.body)
-        req.session.user = user;
-        userid = user.id;
-        response.status(200).json({
-          err_code: 0,
-          message: 'OK'
-        })
-      }
-    })
-  })
-})
-//======================================================================================
-// Place order
-//======================================================================================
-router.post('/placeOrder', function (req, response, next) {
-  var formData = req.body;
-  var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-  var orderDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
-  formData.orderDate = orderDate;
-  formData.boatId = parseInt(formData.boatId)
-  formData.categoryId = parseInt(formData.categoryId)
-  var currentDate = new Date().toISOString().split('T')[0];
-  var arr = currentDate.split('-');
-  var year = arr[0];
-  var month = arr[1];
-  var day = arr[2];
-  var days = new Date(year, month, 0);
-  days = days.getDate();
-  var year2 = year;
-  var month2 = parseInt(month) + 1;
-  if (month2 == 13) {
-    year2 = parseInt(year2) + 1;
-    month2 = 1;
-  }
-  var day2 = day;
-  var days2 = new Date(year2, month2, 0);
-  days2 = days2.getDate();
-  if (day2 > days2) {
-    day2 = days2;
-  }
-  if (month2 < 10) {
-    month2 = '0' + month2;
-  }
+// The function for logout
+router.get('/logout', user_Handler.logout)
 
-  var estDelivery = year2 + '-' + month2 + '-' + day2;
-  estDelivery = new Date(estDelivery).toISOString()
+// Render forget password page
+router.get('/forgetPwd', forgetPwd_Handler.renderForgetPwd)
 
-  var sumPrice = 0;
-  var itemList = [];
+// Render forget password result page
+router.get('/forgetPwdResult', forgetPwd_Handler.renderForgetPwdResult)
 
-  for (var item in formData) {
-    if (item.indexOf("engine") != -1) {
-      sumPrice += parseInt(JSON.stringify(formData[item]).split('_')[1])
-      itemList.push(JSON.stringify(formData[item]).split('_')[0])
-    } else {
-    }
-  }
-  formData.price = sumPrice
-
-  formData.estimatedDeliveryDate = estDelivery
-
-  var firstName = formData.firstName;
-  var lastName = formData.lastName;
-  var email = formData.email;
-
-  if (formData.customerId == '') {
-    request.post({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: 'Almond@123'
-      }
-    }, (err, res, data) => {
-      var result = JSON.parse(res.body);
-    })
-  }
-
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = JSON.parse(res.body);
-    req.session.currentOrderInfo = result
-    console.log(result)
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+// The function for sending email for reset password
+router.post('/forgetPwd', forgetPwd_Handler.forgetPwdForm)
 
 //======================================================================================
-// Setting Block
+// Order Block
+// This block contains customization page and order result page
+// Contains the function for placing order
 //======================================================================================
 
-router.get('/setting', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  res.render('setting.html', {
-    user: req.session.user
-  })
-})
+//Render custom page 
+router.get('/custom', menu_Handler.customPage)
+
+// The function for placing order
+router.post('/placeOrder', order_Handler.placeOrder)
+
+// Render order result after placing order
+router.get('/orderResult', order_Handler.showResult)
 
 //======================================================================================
-// Change password Block
-//======================================================================================
-router.post('/changePwd', function (req, response, next) {
-  var formData = req.body;
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ResetPassword',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.user = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-//======================================================================================
-// Change password Block
+// My account Block
+// This block contains the Dashboard page, setting page, reset password page, 
+// order history page, order detail page and latest order detail page
+// Contains the function for resetting password and editting profile
 //======================================================================================
 
-router.get('/forgetPwd', function (req, res, next) {
-  res.render('forgetPwd.html', {
-    user: req.session.user
-  })
-})
+// Render resetting password page
+router.get('/setting', account_Handler.userSetting)
 
-router.get('/forgetPwdResult', function (req, res, next) {
-  res.render('forgetPwdResult.html', {
-    user: req.session.user
-  })
-})
+// Render dashboard page
+router.get('/account', account_Handler.renderDashboard)
 
-router.post('/forgetPwd', async (req, response) => {
-  var formData = req.body;
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ForgetPassword',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+// Render latest order information page
+router.get('/latestOrderInfo', account_Handler.latestOrderInfo)
 
+// The function for changing password
+router.post('/changePwd', account_Handler.changePwd)
 
-//======================================================================================
-// Setting order History Block
-//======================================================================================
-router.get('/order', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  var userid = req.session.user.id;
-  // var found = categories.find(element => element.categoryId == categoryid);
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/GetOrdersByCustomerId?customerId=' + userid,
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, response) {
-      if (error) return error;
-      var BoatsResult = JSON.parse(response.body);
+// Render order history page
+router.get('/order', account_Handler.orderHistory)
 
-      var options = {
-        'method': 'GET',
-        'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/GetOrdersByCustomerId?customerId=' + userid,
-        'headers': {
-          'Content-Type': 'application/json'
-        }
-      };
-      request(options, function (error, response) {
-        if (error) return error;
-        var result = JSON.parse(response.body);
-        var options = {
-          'method': 'GET',
-          'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-          'headers': {
-            'Content-Type': 'application/json'
-          }
-        };
-        request(options, function (error, response) {
-          if (error) return error;
-          var CategoryResult = JSON.parse(response.body);
+// Render order info page for each order in history
+router.get('/orderInfo', account_Handler.orderHistoryDetail)
 
-          BoatsResult.forEach((element1, index) => {
-            result.forEach(element => {
-              if (element1.id == element.boatId) {
-                element.boats = element1
-              }
-            });
-          });
-          CategoryResult.forEach((element3, index) => {
-            result.forEach(element => {
-              if (element3.categoryId == element.boats.categoryId) {
-                element.boats.category = element3
-              }
-            });
-          });
-          req.session.orderInfo = result
-          res.render('order.html', {
-            user: req.session.user,
-            result: result
-          })
-        });
-      });
-    });
-  });
+// Render editing profile page
+router.get('/edit', account_Handler.RenderEditProfile)
 
-})
+// The function for editing profile
+router.post('/edit', account_Handler.EditProfileForm)
 
-router.get('/orderInfo', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  var orderid = req.query.orderid;
-  var orderInfo = req.session.orderInfo
-  var found = null;
-  orderInfo.forEach(element => {
-    if (element.orderId == orderid) {
-      found = element;
-    }
-  });
-  res.render('orderInfo.html', {
-    user: req.session.user,
-    orderFound: found
-  })
-})
 //======================================================================================
 // Register Block
 //======================================================================================
 
-router.get('/register', function (req, res, next) {
-  res.render('register.html')
-})
+//Render register page
+router.get('/register', register_Handler.renderRegPage)
 
-router.post('/register', function (req, response, next) {
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authentication': 'Bearer ' + apikey
-    },
-    body: JSON.stringify(req.body)
-  }, (err, res, data) => {
-    var result = JSON.parse(res.body);
-    console.log(data)
-    if (result.status === 401) {
-      response.status(200).json({
-        err_code: 1,
-        message: 'The email exits!'
-      })
-    } else {
-      var user = JSON.parse(res.body)
-      req.session.user = user;
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.live.com',
-        port: 587,
-        auth: {
-          user: 'almondboats01@hotmail.com',
-          pass: '20031105Ab'
-        }
-      });
+//The function for registering an account
+router.post('/register', register_Handler.userRegForm)
 
-      // send email
-      transporter.sendMail({
-        from: 'almondboats01@hotmail.com',
-        to: user.email,
-        subject: 'Registeration Information',
-        text: 'Thank you for joining us! Your username is: ' + user.email
-      });
-      response.status(200).json({
-        err_code: 0,
-        message: 'OK'
-      })
-    }
-  })
-})
-
-//======================================================================================
-// Logout Block
-//======================================================================================
-
-router.get('/logout', function (req, res, next) {
-  req.session.user = null
-  res.redirect('/login')
-})
-
-
-//======================================================================================
-// Edit profile Block
-//======================================================================================
-
-router.get('/edit', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  res.render('edit.html', {
-    user: req.session.user
-  })
-})
-
-router.post('/edit', function (req, response, next) {
-  var formData = req.body;
-  formData.id = userid;
-  formData.zipCode = parseInt(formData.zipCode)
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + apikey
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.user = req.body
-    response.redirect('/account')
-  })
-})
-
-//======================================================================================
-// Customization Block
-//======================================================================================
-
-router.get('/custom', async (req, res4, next) => {
-  var categoryresult;
-  var BoatsResult;
-  var sectionsResult;
-  var ItemsResult;
-  var id = req.query.id;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, res, next) {
-    if (error) return error;
-    categoryresult = JSON.parse(res.body);
-    request(options, function (err, response, data) {
-      request.get({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }, (err, res1, data) => {
-        BoatsResult = JSON.parse(res1.body);
-        BoatsResult.forEach(element => element.category = categoryresult[element.categoryId - 1]);
-        var found = BoatsResult.find(element => element.id == id);
-        request(options, function (err, res, data) {
-          request.get({
-            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }, (err, res2, data) => {
-            sectionsResult = JSON.parse(res2.body);
-            request(options, function (err, res, data) {
-              request.get({
-                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              }, (err, res3, data) => {
-                ItemsResult = JSON.parse(res3.body);
-                var finalResult = [];
-                var itemArr = [];
-                // ItemsResult.forEach((element1, index) => { var found = sectionsResult.find(element => element.sectionId == element1.sectionId); element1.section = found });
-                sectionsResult.forEach((item, index) => {
-                  finalResult.push(item);
-                  finalResult[index].info = [];
-                  finalResult[index].type = 'radio';
-
-                  ItemsResult.forEach((item2, index2) => {
-                    itemArr.push(item2)
-                    if (finalResult[index].sectionId == itemArr[index2].sectionId) {
-                      finalResult[index].info.push(itemArr[index2])
-                    }
-                  })
-                  if (finalResult[index].sectionName == 'Additional Service') {
-                    finalResult[index].type = 'checkbox';
-                  }
-                  if (finalResult[index].sectionName == 'Sails Selection') {
-                    finalResult[index].type = 'checkbox';
-                  }
-                  if (finalResult[index].sectionName == 'Interior Design') {
-                    finalResult[index].type = 'checkbox';
-                  }
-                });
-
-                res4.render('customization.html', {
-                  sectionsResult: sectionsResult,
-                  ItemsResult: ItemsResult,
-                  finalResult: finalResult,
-                  found: found,
-                  user: req.session.user
-                })
-              })
-            })
-          })
-        })
-      })
-    })
-  });
-
-
-
-})
-
-router.get('/about', function (req, res, next) {
-  res.render('about.html', {
-    user: req.session.user
-  })
-})
-
-router.get('/account', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var orders = JSON.parse(response.body);
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, res2, data) => {
-      if (error) return error;
-      var boats = JSON.parse(res2.body);
-      var latestOrder = orders[orders.length - 1];
-
-      req.session.latestOrder = latestOrder
-      request.get({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }, (err, res2, data) => {
-        if (error) return error;
-        var categories = JSON.parse(res2.body);
-        var boatId = latestOrder.boatId;
-        var foundBoat = boats.find(element => element.id == boatId);
-        req.session.latestBoat = foundBoat
-        var foundCategory = categories.find(element => element.categoryId == foundBoat.categoryId);
-        req.session.latestCategory = foundCategory
-        res.render('account.html', {
-          user: req.session.user,
-          latestOrder: latestOrder,
-          foundBoat: foundBoat,
-          foundCategory: foundCategory
-        })
-      })
-    })
-
-  });
-
-})
-
-router.get('/latestOrderInfo', function (req, res, next) {
-  if (apikey === '') {
-    return res.redirect('/login')
-  }
-  var latestOrder = req.session.latestOrder
-  var latestBoat = req.session.latestBoat
-  var latestCategory = req.session.latestCategory
-  res.render('latestOrder.html', {
-    user: req.session.user,
-    latestOrder: latestOrder,
-    latestBoat: latestBoat,
-    latestCategory: latestCategory
-  })
-})
-
-router.get('/contact', function (req, res, next) {
-  res.render('contact.html', {
-    user: req.session.user
-  })
-})
-
-router.get('/orderResult', function (req, res, next) {
-  var currentOrderInfo = req.session.currentOrderInfo;
-  var boatId = currentOrderInfo.boatId;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var boats = JSON.parse(response.body);
-    var foundBoat = boats.find(element => element.id == boatId);
-    var categoryId = foundBoat.categoryId
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, response) {
-      if (error) return error;
-      var categories = JSON.parse(response.body);
-      var foundCategory = categories.find(element => element.categoryId == categoryId);
-      res.render('orderResult.html', {
-        user: req.session.user,
-        currentOrderInfo: currentOrderInfo,
-        foundBoat: foundBoat,
-        foundCategory: foundCategory
-      })
-
-    });
-
-  });
-
-})
 //=================================================================================
 //  Index
 //=================================================================================
@@ -1170,10 +624,10 @@ router.get('/oa/order', function (req, res) {
       'Content-Type': 'application/json'
     }
   };
-  request(options, function (error, response) {
+  request(options, function (error, res1) {
     if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.orders = result
+    var orders = JSON.parse(res1.body);
+    req.session.orders = orders
     request.get({
       url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
       headers: {
@@ -1196,15 +650,30 @@ router.get('/oa/order', function (req, res) {
         }, (err, res3, data) => {
           if (error) return error;
           var categories = JSON.parse(res3.body);
-          result.forEach(element => {
-            element.boats = boats[element.boatId - 1];
-            // element.boats.category = categories[boats.find(element1 => element1.id == element.boatId).categoryId - 1]
+          req.session.categories = categories
+          var boatarray = [];
+          var boatcategoryarr = [];
+          orders.forEach(element1 => {
+            boats.forEach(element2 => {
+              if (element1.boatId == element2.id) {
+                boatarray.push(element2)
+              }
+            });
+          });
+          boatarray.forEach(element1 => {
+            categories.forEach(element2 => {
+              if (element1.categoryId == element2.categoryId) {
+                boatcategoryarr.push(element2)
+              }
+            });
           });
           req.session.boats = boats;
+
           res.render('./oa/order.html', {
-            result: result,
-            boats: req.session.boats,
-            admin: req.session.admin
+            orders: orders,
+            boats: boatarray,
+            admin: req.session.admin,
+            categories: boatcategoryarr
           })
         })
 
@@ -1219,24 +688,106 @@ router.get('/oa/orderEdit', function (req, res) {
     return res.redirect('/oa/login')
   }
   var orderid = parseInt(req.query.id);
-  var orders = req.session.orders
-  var found = orders.find(element => element.orderId == orderid);
-  req.session.orderSingle = found;
-  var categoryid = parseInt(found.boats.categoryId);
   request.get({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + categoryid,
+    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
     method: 'get',
     headers: {
       'Content-Type': 'application/json'
     }
-  }, (err, res2, data) => {
-    var result = JSON.parse(res2.body)
-    res.render('./oa/orderEdit.html', {
-      admin: req.session.admin,
-      orderSingle: found,
-      categoryInfo: result
+  }, (err, res1, data) => {
+    var orders = JSON.parse(res1.body)
+    var found = orders.find(element => element.orderId == orderid);
+    var customerId = found.customerId;
+
+    request.get({
+      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, (err, res2, data) => {
+      var boats = JSON.parse(res2.body)
+      var boatid = found.boatId;
+      var foundBoat = boats.find(element => element.id == boatid);
+      req.session.orderSingle = found;
+      var categoryid = foundBoat.categoryId;
+      request.get({
+        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + categoryid,
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, (err, res3, data) => {
+        var categoryResult = JSON.parse(res3.body)
+        request.get({
+          url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUserById?Id=' + customerId,
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }, (err, res4, data) => {
+          var cutomerFound = JSON.parse(res4.body)
+          request.get({
+            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByOrderId?orderId=' + orderid,
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }, (err, res5, data) => {
+            var orderDetails = JSON.parse(res5.body)
+
+            request.get({
+              url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }, (err, res6, data) => {
+              var items = JSON.parse(res6.body)
+              var foundArr = []
+              for (var i in orderDetails) {
+                for (var j in items) {
+                  if (orderDetails[i].itemId == items[j].itemId) {
+                    foundArr.push(items[j])
+                  }
+                }
+              }
+              request.get({
+                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
+                method: 'get',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }, (err, res7, data) => {
+                var sections = JSON.parse(res7.body)
+                var foundArrSection = []
+                for (var i in foundArr) {
+                  for (var j in sections) {
+                    if (foundArr[i].sectionId == sections[j].sectionId) {
+
+                      foundArrSection.push(sections[j])
+                    }
+                  }
+                }
+                res.render('./oa/orderEdit.html', {
+                  admin: req.session.admin,
+                  orderSingle: found,
+                  categoryInfo: categoryResult,
+                  foundBoat: foundBoat,
+                  cutomerFound: cutomerFound,
+                  foundArr: foundArr,
+                  foundArrSection: foundArrSection
+                })
+              })
+            })
+          })
+        })
+      })
     })
+
   })
+
+
 
 })
 

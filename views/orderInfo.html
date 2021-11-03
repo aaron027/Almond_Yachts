@@ -23,13 +23,15 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Date</span>
-                            <span type="text" class="form-control">{{orderFound.orderDate | getMonthDate}}</span>
+                            <span type="text" class="form-control">{{orderFound && orderFound.orderDate |
+                                getMonthDate}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Order Number</span>
-                            <span type="text" class="form-control">#20211019000{{orderFound.orderId}}</span>
+                            <span type="text" class="form-control">#20211019000{{orderFound &&
+                                orderFound.orderId}}</span>
                         </div>
                     </div>
 
@@ -37,28 +39,28 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Category</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.category.categoryName}}</span>
+                                {{foudCategory && foudCategory.categoryName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Name</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.boatName}}</span>
+                                {{foundboat && foundboat.boatName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Number</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.modelNumber}}</span>
+                                {{foundboat && foundboat.modelNumber}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
                         <div class="input-group">
                             <span class="input-group-text text-title">Model Year</span>
                             <span type="text" class="form-control">
-                                {{orderFound.boats.modelYear | getDate}}</span>
+                                {{foundboat && foundboat.modelYear | getDate}}</span>
                         </div>
                     </div>
 
@@ -79,7 +81,7 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Delivery Date</span>
                             <span type="text" class="form-control">
-                                {{orderFound.estimatedDeliveryDate | getDate}}</span>
+                                {{orderFound && orderFound.estimatedDeliveryDate | getDate}}</span>
                         </div>
                     </div>
                 </div>
@@ -124,41 +126,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{each selectedItems}}
                             <tr>
-                                <td>NAVY 6.0 REMOTE LONGSHAFT</td>
-                                <td>Motor</td>
-                                <td>$4000</td>
+                                <td>{{ selectedItems && selectedItems[$index].itemName }}</td>
+                                <td>{{ selectedSections && selectedSections[$index].sectionName }}</td>
+                                <td>{{ selectedItems && selectedItems[$index].unitPrice | moneyFormat }}</td>
                                 <td>× 1</td>
-                                <td>$4000</td>
+                                <td>{{ selectedItems && selectedItems[$index].unitPrice | moneyFormat }}</td>
                             </tr>
-                            <tr>
-                                <td>E175 E-SERIES BATTERY</td>
-                                <td>Motor</td>
-                                <td>$8000</td>
-                                <td>× 1</td>
-                                <td>$8000</td>
-                            </tr>
-                            <tr>
-                                <td>RONSTAN RIGGING</td>
-                                <td>Running Rigging</td>
-                                <td>$24190</td>
-                                <td>× 1</td>
-                                <td>$4200</td>
-                            </tr>
-                            <tr>
-                                <td>MAINSAILS</td>
-                                <td>Sails</td>
-                                <td>$2440</td>
-                                <td>× 1</td>
-                                <td>$3000</td>
-                            </tr>
-                            <tr>
-                                <td>NAVY BATTERY CONTROL</td>
-                                <td>Battery</td>
-                                <td>$300</td>
-                                <td>× 1</td>
-                                <td>$300</td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                     <div class="row">
@@ -172,7 +148,8 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Total(incl.GST)</span>
-                                <span type="text" class="form-control">{{orderFound.price | moneyFormat}}</span>
+                                <span type="text" class="form-control">{{orderFound && orderFound.price |
+                                    moneyFormat}}</span>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Tax/GST</span>

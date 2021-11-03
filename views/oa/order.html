@@ -30,8 +30,7 @@
                                     <h4 class="card-title"> Order List</h4>
                                 </div>
                                 <div class="col-4">
-                                    <!-- <a href="/oa/newOrder" class="btn btn-primary float-end">New
-                                        Order </a> -->
+
                                 </div>
                             </div>
                         </div>
@@ -43,7 +42,7 @@
                                             <th>ID</th>
                                             <th>Order Date</th>
                                             <th>Boat Name</th>
-                                            <!-- <th>Category</th> -->
+                                            <th>Category</th>
                                             <th>Delivery Time</th>
                                             <th>Total Amount</th>
                                             <th>Status</th>
@@ -51,35 +50,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{each result }}
+                                        {{each orders }}
                                         <tr>
                                             <td>
-                                                {{result[$index] && result[$index].orderId}}
+                                                {{orders[$index] && orders[$index].orderId}}
                                             </td>
-                                            <td class="orderDate">{{result[$index] && result[$index].orderDate |
-                                                getDate}}</td>
-                                            <td>{{result[$index].boats && result[$index].boats.boatName }} </td>
-
-                                            <td class="dateformate"> {{result[$index] &&
-                                                result[$index].estimatedDeliveryDate | getDate}}
+                                            <td class="orderDate">{{orders[$index] && orders[$index].orderDate |
+                                                getDateTime}}</td>
+                                            <td>{{boats[$index] && boats[$index].boatName }} </td>
+                                            <td>{{categories[$index] && categories[$index].categoryName }} </td>
+                                            <td class="dateformate"> {{orders[$index] &&
+                                                orders[$index].estimatedDeliveryDate | getDate}}
                                             </td>
-                                            <td> {{result[$index] && result[$index].price | moneyFormat}}</td>
+                                            <td> {{orders[$index] && orders[$index].price | moneyFormat}}</td>
                                             <td class="text-start">
                                                 <span class="badge badge-primary">Received</span>
                                             </td>
                                             <td>
 
                                                 <a class='mr-4 edit'
-                                                    href="/oa/orderEdit?id={{result[$index] && result[$index].orderId}}">
+                                                    href="/oa/orderEdit?id={{orders[$index] && orders[$index].orderId}}">
                                                     <span class='fas fa-pencil-alt'></span>
                                                 </a>
                                                 <a class='mr-4 vue'
-                                                    href="/oa/deleteOrder?id={{result[$index] && result[$index].orderId}}"
+                                                    href="/oa/deleteOrder?id={{orders[$index] && orders[$index].orderId}}"
                                                     onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
-                                                </a>
-                                                <a class='view' href="/oa/viewOrder?id={{$value.orderId}}">
-                                                    <span class='fas fa-eye'></span>
                                                 </a>
                                             </td>
                                         </tr>

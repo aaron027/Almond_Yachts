@@ -44,9 +44,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Order Date <span
                                                     class="text-danger">*</span></label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="orderDate"
-                                                    value="{{orderSingle && orderSingle.orderDate | getDate}}" readonly>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{orderSingle && orderSingle.orderDate | getDateTime}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -55,8 +54,7 @@
                                             <label class="col-lg-4 col-form-label">Boat Name <span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6 span-text">
-                                                <span>{{orderSingle &&
-                                                    orderSingle.boats.boatName}}</span>
+                                                <span>{{ foundBoat && foundBoat.boatName }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -65,8 +63,7 @@
                                             <label class="col-lg-4 col-form-label">Boat Cateogory <span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6 span-text">
-                                                <span>{{categoryInfo &&
-                                                    categoryInfo.categoryName}}</span>
+                                                <span>{{ categoryInfo && categoryInfo.categoryName }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +101,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Description <span
+                                            <label class="col-lg-2 col-form-label">Rename Boat <span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-9">
                                                 <input type="text" class="form-control" name="description"
@@ -130,6 +127,162 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header fix-card">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title"> Customer Info</h5>
+                                    </div>
+                                    <div class="col-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body account-detail">
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Customer Name <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.firstName }} {{ cutomerFound &&
+                                                    cutomerFound.lastName }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Phone Number <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.phoneNumber }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Email <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.email }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Country <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.country }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">State <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.state }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Suburb <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.suburb }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Address1 <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.address1 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Address2 <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.address2 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">ZipCode <span
+                                                    class="text-danger"></span></label>
+                                            <div class="col-lg-6 span-text">
+                                                <span>{{ cutomerFound && cutomerFound.zipCode }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header fix-card">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title"> Customization Info</h5>
+                                    </div>
+                                    <div class="col-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body account-detail">
+
+                                <div class="row" style="margin:0">
+                                    <div class="table-responsive">
+                                        <table id="item_table" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item ID</th>
+                                                    <th>Item Name</th>
+                                                    <th>Section</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{each foundArr }}
+                                                <tr>
+                                                    <td>{{foundArr && foundArr[$index].itemId}}</td>
+                                                    <td>{{foundArr && foundArr[$index].itemName}}</td>
+                                                    <td>{{foundArrSection && foundArrSection[$index].sectionName}}</td>
+                                                    <td>{{foundArr && foundArr[$index].unitPrice | moneyFormat}}</td>
+                                                    <td>*1</td>
+                                                    <td>{{foundArr && foundArr[$index].unitPrice | moneyFormat}}</td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </form>
         </div>
 
@@ -139,7 +292,12 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    var table = $('#item_table').DataTable();
 
+    $('#item_table tbody').on('click', 'tr', function () {
+        var data = table.row(this).data();
+        //  alert( 'You clicked on '+data[0]+'\'s row' );
+    });
     $('#editOrder').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();

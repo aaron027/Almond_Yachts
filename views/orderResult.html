@@ -19,6 +19,12 @@
                 <div class="desc">
 
                 </div>
+                {{if newuser}}
+                <div>We have created an account for you. Your username is : <b> {{user && user.email}} </b> Your
+                    password is : <b>{{
+                        createdpassword}}</b> </div>
+                {{else}}
+                {{/if}}
             </div>
             <div class="order-detail">
                 <div class="detail-title">
