@@ -9,6 +9,7 @@ var model_Handler = require('./Router_Handler/customer/model')
 var forgetPwd_Handler = require('./Router_Handler/customer/forgetPwd')
 var register_Handler = require('./Router_Handler/customer/register')
 var menu_Handler = require('./Router_Handler/customer/navMenu')
+var login_admin_Handler = require('./Router_Handler/admin/login')
 
 var apikey = "";
 var adminapi = "";
@@ -113,9 +114,13 @@ router.get('/register', register_Handler.renderRegPage)
 //The function for registering an account
 router.post('/register', register_Handler.userRegForm)
 
+
+
+
 //=================================================================================
-//  Index
+// Admin Section
 //=================================================================================
+
 router.get('/oa/index', function (req, res, next) {
   if (adminid === '') {
     return res.redirect('/oa/login')
@@ -184,60 +189,19 @@ router.get('/oa/index', function (req, res, next) {
 })
 
 //=================================================================================
-//  Login
+//  Login Block
 //=================================================================================
-router.get('/oa/login', function (req, res, next) {
-  res.render('./oa/login.html')
-})
 
-router.post('/oa/login', function (req, response, next) {
-  var options = {
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(req.body)
-  }
-  request(options, function (err, res, data) {
-    adminapi = data;
-    var username = JSON.parse(options.body).email
+// Render login page
+router.get('/oa/login', login_admin_Handler.renderLoginPage)
 
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetCurrentUsers',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + adminapi
-      }
-    }, (err, res, data) => {
-      if (res.body == "") {
-        response.status(200).json({
-          err_code: 1,
-          message: 'Email or password is invalid.'
-        })
-      } else {
-        if (username != 'admin@maalu.com') {
-          return response.status(200).json({
-            err_code: 2,
-            message: 'No Authorization!'
-          })
-        }
-        var admin = JSON.parse(res.body)
-        req.session.admin = admin;
-        adminid = admin.id;
-        response.status(200).json({
-          err_code: 0,
-          message: 'OK'
-        })
-      }
-    })
-  })
-})
+// function for login
+router.post('/oa/login', login_admin_Handler.loginForm)
 
-router.get('/oa/logout', function (req, res) {
-  req.session.admin = null
-  res.redirect('/oa/login')
-})
+// function for logout
+router.get('/oa/logout', login_admin_Handler.loginout)
+
+
 //=================================================================================
 //  Account
 //=================================================================================
@@ -607,7 +571,6 @@ router.post('/oa/newSupplier', function (req, response, next) {
     })
   })
 })
-
 
 //=================================================================================
 //  Orders

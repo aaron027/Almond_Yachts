@@ -52,8 +52,6 @@ module.exports.renderDashboard = (req, res, next) => {
       var boats = JSON.parse(res2.body);
       var latestOrder = orders[orders.length - 1];
       var latestOrderCustomerId = latestOrder.customerId;
-
-
       request.get({
         url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
         headers: {
@@ -275,7 +273,6 @@ module.exports.orderHistoryDetail = (req, res, next) => {
                   }
                 }
               }
-              console.log(selectedSections)
               res.render('orderInfo.html', {
                 user: req.session.user,
                 orderFound: orderInfo,

@@ -140,7 +140,6 @@ module.exports.showResult = (req, res, next) => {
         if (error) return error;
         var boats = JSON.parse(response.body);
         var foundBoat = boats.find(element => element.id == boatId);
-        console.log(foundBoat)
         var categoryId = foundBoat.categoryId
         var options = {
             'method': 'GET',
