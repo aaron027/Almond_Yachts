@@ -104,24 +104,26 @@ module.exports.placeOrder = (req, response, next) => {
                 })
             })
         })
+    } else {
+        // the logged in status to place order
+        request.post({
+            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        }, (err, res, data) => {
+            var result = JSON.parse(res.body);
+            req.session.currentOrderInfo = result
+            response.status(200).json({
+                err_code: 0,
+                message: 'ok!'
+            })
+        })
     }
 
-    // the logged in status to place order
-    request.post({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    }, (err, res, data) => {
-        var result = JSON.parse(res.body);
-        req.session.currentOrderInfo = result
-        response.status(200).json({
-            err_code: 0,
-            message: 'ok!'
-        })
-    })
+
 }
 
 

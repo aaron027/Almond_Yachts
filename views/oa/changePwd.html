@@ -105,6 +105,9 @@
                 if (err_code === 0) {
                     $(".warning").show();
                     $(".warning span").html("Password successfully changed.");
+                } else if (err_code === 1) {
+                    $(".warning").show();
+                    $(".warning span").html("The current password is wrong, please try again.");
                 } else if (err_code === 500) {
                     $(".warning").show();
                     $(".warning span").html("server error.");

@@ -131,7 +131,6 @@ module.exports.orderHistory = (req, res, next) => {
     request(options, function (error, res1) {
       if (error) return error;
       var BoatsResult = JSON.parse(res1.body);
-
       var options = {
         'method': 'GET',
         'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
@@ -338,10 +337,15 @@ module.exports.changePwd = function (req, response, next) {
     body: JSON.stringify(formData)
   }, (err, res, data) => {
     var result = res.body
-    req.session.user = result
+    if (res.statusCode == 400) {
+      response.status(200).json({
+        err_code: 1,
+        message: 'The current password does not match!'
+      })
+    }
     response.status(200).json({
       err_code: 0,
-      message: 'OK'
+      message: 'ok!'
     })
   })
 }

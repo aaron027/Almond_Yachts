@@ -17,6 +17,7 @@ $(function () {
         jQuery("aside.left-panel").toggleClass("collapsed");
         jQuery("body").toggleClass("sidebar-toggled");
         jQuery("#main-wrapper").toggleClass("menu-toggle");
+        localStorage.setItem("hamburger", jQuery("body").hasClass("sidebar-toggled"));
     });
 
     // ========================================================================= //

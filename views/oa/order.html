@@ -104,15 +104,18 @@
         arr.forEach(element => {
             // alert(element)
         });
-        // $(".dateformate").html(formateDate($(".dateformate").html()))
 
-        // $(".orderDate").html(formateDateTime($(".orderDate").html()))
-        jQuery('#orderTable').DataTable({})
+        //Init table with reverse chronological order
+        jQuery('#orderTable').DataTable({ "order": [[1, "desc"]] })
     })
+
+    // Format datetime with 'yyyy-mm-dd'
     var formateDate = function (dateTime) {
         var date = dateTime.split('T')[0]
         return date
     }
+
+    // Format datetime with 'yyyy-mm-dd hh:mm:ss'
     var formateDateTime = function (dateTime) {
         var date = dateTime.split('T')[0] + " " + dateTime.split('T')[1].split('.')[0]
         return date

@@ -85,7 +85,12 @@ module.exports.changePwd = (req, response, next) => {
         body: JSON.stringify(formData)
     }, (err, res, data) => {
         var result = res.body
-        req.session.admin = result
+        if (res.statusCode == 400) {
+            response.status(200).json({
+                err_code: 1,
+                message: 'The current password does not match!'
+            })
+        }
         response.status(200).json({
             err_code: 0,
             message: 'OK'

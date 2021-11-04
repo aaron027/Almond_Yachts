@@ -46,6 +46,27 @@ module.exports.indexPage = (req, res, next) => {
                     todayOrders.push(element)
                 }
             });
+
+            var orderDateArr = []
+            for (var i in orderresult) {
+                orderDateArr.push(new Date(orderresult[i].orderDate).getDay())
+            }
+            var GroupByWeek = []
+            var weekdays = [1, 2, 3, 4, 5, 6, 7]
+            for (var i in weekdays) {
+                var temp = []
+                for (var j in orderDateArr) {
+                    if (weekdays[i] == orderDateArr[j]) {
+                        temp.push(orderDateArr[j])
+                    }
+                }
+                GroupByWeek.push(temp)
+            }
+            var orderCountByDay = []
+            for (var i in GroupByWeek) {
+                orderCountByDay.push(GroupByWeek[i].length)
+            }
+
             var ordersize = orderresult.length;
             var options = {
                 'method': 'GET',
@@ -58,15 +79,68 @@ module.exports.indexPage = (req, res, next) => {
                 if (error) return error;
                 var userresult = JSON.parse(res3.body);
                 var usersize = userresult.length
+                var options = {
+                    'method': 'GET',
+                    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
+                    'headers': {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(options, function (error, res4) {
+                    if (error) return error;
+                    var boats = JSON.parse(res4.body);
+                    var boattemp = []
+                    for (var i in orderresult) {
+                        for (var j in boats) {
+                            if (orderresult[i].boatId == boats[j].id) {
+                                boattemp[i] = boats[j]
+                            }
+                        }
+                    }
+                    var options = {
+                        'method': 'GET',
+                        'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
+                        'headers': {
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                    request(options, function (error, res5) {
+                        if (error) return error;
+                        var categories = JSON.parse(res5.body);
+                        var boattemp = []
+                        for (var i in orderresult) {
+                            for (var j in boats) {
+                                if (orderresult[i].boatId == boats[j].id) {
+                                    boattemp[i] = boats[j]
+                                }
+                            }
+                        }
 
-                res.render('./oa/index.html', {
-                    admin: req.session.admin,
-                    itemsize: itemsize,
-                    ordersize: ordersize,
-                    usersize: usersize,
-                    sumtotal: sumtotal,
-                    todayOrders: todayOrders
-                })
+                        // The function for calculating total orders for two categories
+                        var sum = [];
+                        for (var i in categories) {
+                            var temp = []
+                            for (var j in boattemp) {
+                                if (boattemp[j].categoryId == categories[i].categoryId) {
+                                    temp.push(boattemp[j])
+                                }
+                            }
+                            sum.push(temp);
+                        }
+
+                        res.render('./oa/index.html', {
+                            admin: req.session.admin,
+                            itemsize: itemsize,
+                            ordersize: ordersize,
+                            usersize: usersize,
+                            sumtotal: sumtotal,
+                            todayOrders: todayOrders,
+                            sum: sum,
+                            orderCountByDay: orderCountByDay
+                        })
+                    });
+                });
+
             });
         });
     });

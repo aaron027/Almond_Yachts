@@ -1,21 +1,14 @@
-
-
-// chart 2
+// The chart for show orders in week days
 var ctx = document.getElementById("chart2").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fr'],
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fr', 'Sat', 'Sun'],
         datasets: [{
             label: 'Lightship',
-            data: [150, 200, 190, 190, 200, 230, 220],
+            data: [$("#orderByDay li:nth-child(0)").html(), $("#orderByDay li:nth-child(1)").html(), $("#orderByDay li:nth-child(2)").html(), $("#orderByDay li:nth-child(3)").html(), $("#orderByDay li:nth-child(4)").html(), $("#orderByDay li:nth-child(5)").html(), $("#orderByDay li:nth-child(6)").html()],
             barPercentage: .5,
             backgroundColor: "#d5ae82",
-        }, {
-            label: 'Cruising',
-            data: [190, 140, 180, 240, 160, 190, 140],
-            barPercentage: .5,
-            backgroundColor: "#edc79d",
         }]
     },
     options: {
@@ -56,8 +49,7 @@ var myChart = new Chart(ctx, {
     }
 });
 
-
-// chart 3
+// The chart for show top category in index page
 new Chart(document.getElementById("chart3"), {
     type: 'doughnut',
     data: {
@@ -65,7 +57,7 @@ new Chart(document.getElementById("chart3"), {
         datasets: [{
             label: "Popular Categories",
             backgroundColor: ["#d5ae82", "#edc79d"],
-            data: [500, 800]
+            data: [$("#category1").html(), $("#category2").html()]
         }]
     },
     options: {
