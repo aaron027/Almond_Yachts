@@ -220,13 +220,8 @@
 <script>
     $("#inputBoatName").keyup(function () {
         $("#boatnickname p").html($("#inputBoatName").val())
-        localStorage.setItem('boatnickname', $("#boatnickname p").html());
     });
     var userid = $("input[name='customerId']").val()
-
-    if (localStorage.getItem('boatnickname') != '') {
-        $("#boatnickname p").html(localStorage.getItem('boatnickname'))
-    }
 
     var sectionH1 = 82;
     var sectionH2 = $("#section1").height() - 64

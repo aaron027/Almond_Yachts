@@ -32,9 +32,10 @@ module.exports.renderDashboard = (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login')
   }
+  var userid = req.session.user.id
   var options = {
     'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
+    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/GetOrdersByCustomerId?customerId=' + userid,
     'headers': {
       'Content-Type': 'application/json'
     }
@@ -68,6 +69,7 @@ module.exports.renderDashboard = (req, res, next) => {
           req.session.latestBoat = foundBoat
           var foundCategory = categories.find(element => element.categoryId == foundBoat.categoryId);
           req.session.latestCategory = foundCategory
+
           res.render('account.html', {
             user: req.session.user,
             latestOrder: latestOrder,
@@ -158,7 +160,11 @@ module.exports.orderHistory = (req, res, next) => {
             }
           }
         }
+
+        // Display order history with reverse chronological order
+        orderresult = orderresult.reverse()
         req.session.orderInfo = orderresult
+
         res.render('order.html', {
           user: req.session.user,
           orderresult: orderresult,
@@ -228,13 +234,12 @@ module.exports.orderHistoryDetail = (req, res, next) => {
         request(options, function (error, res4) {
           if (error) return error;
           var categories = JSON.parse(res4.body);
-          var foudCategory;
+          var foundCategory;
           for (var i in categories) {
             if (categories[i].categoryId == foundboat.categoryId) {
-              foudCategory = categories[i];
+              foundCategory = categories[i];
             }
           }
-
           var options = {
             'method': 'GET',
             'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
@@ -255,7 +260,6 @@ module.exports.orderHistoryDetail = (req, res, next) => {
             request(options, function (error, res6) {
               if (error) return error;
               var items = JSON.parse(res6.body);
-              var foudCategory;
               var selectedItems = []
               for (var i in orderDetails) {
                 for (var j in items) {
@@ -276,7 +280,7 @@ module.exports.orderHistoryDetail = (req, res, next) => {
                 user: req.session.user,
                 orderFound: orderInfo,
                 foundboat: foundboat,
-                foudCategory: foudCategory,
+                foundCategory: foundCategory,
                 selectedSections: selectedSections,
                 selectedItems: selectedItems
               })

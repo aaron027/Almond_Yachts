@@ -39,7 +39,7 @@
                         <div class="input-group">
                             <span class="input-group-text text-title">Boat Category</span>
                             <span type="text" class="form-control">
-                                {{foudCategory && foudCategory.categoryName}}</span>
+                                {{foundCategory && foundCategory.categoryName}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
@@ -66,50 +66,52 @@
 
                 </div>
             </div>
-            <div class="info-title clearfix">Delivery Info
-            </div>
-            <div class="info-content">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                            <span class="input-group-text text-title">Delivery</span>
-                            <span type="text" class="form-control"><i class="fa fa-shipping-fast"></i>
-                                Courier Express</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                        <div class="input-group">
-                            <span class="input-group-text text-title">Delivery Date</span>
-                            <span type="text" class="form-control">
-                                {{orderFound && orderFound.estimatedDeliveryDate | getDate}}</span>
-                        </div>
-                    </div>
+            <div id="deliverInfo">
+                <div class="info-title clearfix">Delivery Info
                 </div>
-                <div class="delivery">
+                <div class="info-content">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                            <div class="delivery-title"><i class="fa fa-clipboard-check"></i> Billing</div>
-                            <div class="delivery-content">
-                                <p>{{user && user.firstName}} {{user.lastName}}</p>
-                                <p>{{user && user.address1}} </p>
-                                <p>{{user && user.suburb}} </p>
-                                <p>{{user && user.state}}, {{user.zipCode}} </p>
-                                <p>{{user && user.country}}</p>
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Delivery</span>
+                                <span type="text" class="form-control"><i class="fa fa-shipping-fast"></i>
+                                    Courier Express</span>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
-                            <div class="delivery-title"><i class="fa fa-map-marker-alt"></i> Delivery To</div>
-                            <div class="delivery-content">
-                                <p>{{user && user.firstName}} {{user.lastName}}</p>
-                                <p>{{user && user.address1}} </p>
-                                <p>{{user && user.suburb}} </p>
-                                <p>{{user && user.state}}, {{user.zipCode}} </p>
-                                <p>{{user && user.country}}</p>
+                            <div class="input-group">
+                                <span class="input-group-text text-title">Delivery Date</span>
+                                <span type="text" class="form-control">
+                                    {{orderFound && orderFound.estimatedDeliveryDate | getDate}}</span>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="delivery">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                                <div class="delivery-title"><i class="fa fa-clipboard-check"></i> Billing</div>
+                                <div class="delivery-content">
+                                    <p>{{user && user.firstName}} {{user && user.lastName}}</p>
+                                    <p class="address">{{user && user.address1}} </p>
+                                    <p class="suburb">{{user && user.suburb}} </p>
+                                    <p class="state">{{user && user.state}} {{user && user.zipCode}} </p>
+                                    <p class="country">{{user && user.country}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                                <div class="delivery-title"><i class="fa fa-map-marker-alt"></i> Delivery To</div>
+                                <div class="delivery-content">
+                                    <p>{{user && user.firstName}} {{user && user.lastName}}</p>
+                                    <p>{{user && user.address1}} </p>
+                                    <p>{{user && user.suburb}} </p>
+                                    <p>{{user && user.state}}, {{user && user.zipCode}} </p>
+                                    <p>{{user && user.country}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
             </div>
             <div class="info-title clearfix">Customization Details
             </div>
@@ -128,11 +130,11 @@
                         <tbody>
                             {{each selectedItems}}
                             <tr>
-                                <td>{{ selectedItems && selectedItems[$index].itemName }}</td>
-                                <td>{{ selectedSections && selectedSections[$index].sectionName }}</td>
-                                <td>{{ selectedItems && selectedItems[$index].unitPrice | moneyFormat }}</td>
+                                <td>{{ selectedItems[$index] && selectedItems[$index].itemName }}</td>
+                                <td>{{ selectedSections[$index] && selectedSections[$index].sectionName }}</td>
+                                <td>{{ selectedItems[$index] && selectedItems[$index].unitPrice | moneyFormat }}</td>
                                 <td>× 1</td>
-                                <td>{{ selectedItems && selectedItems[$index].unitPrice | moneyFormat }}</td>
+                                <td>{{ selectedItems[$index] && selectedItems[$index].unitPrice | moneyFormat }}</td>
                             </tr>
                             {{/each}}
                         </tbody>
@@ -148,12 +150,13 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Total(incl.GST)</span>
-                                <span type="text" class="form-control">{{orderFound && orderFound.price |
+                                <span type="text" class="form-control totalAmount">{{orderFound && orderFound.price |
                                     moneyFormat}}</span>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Tax/GST</span>
-                                <span type="text" class="form-control">$158.00</span>
+                                <span type="text" class="form-control tax">{{orderFound && orderFound.price*0.05 |
+                                    moneyFormat}}</span>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Delivery</span>
@@ -169,5 +172,9 @@
 <!-- account content end -->
 {{/block}}
 {{block 'script'}}
-
+<script>
+    if ($(".address").html().trim() == "" || $(".suburb").html().trim() == "" || $(".country").html().trim() == "") {
+        $("#deliverInfo").hide()
+    }
+</script>
 {{/block}}
