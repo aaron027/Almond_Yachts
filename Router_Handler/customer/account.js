@@ -9,7 +9,7 @@ var request = require('request')
  * @returns 
  */
 module.exports.latestOrderInfo = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   var latestOrder = req.session.latestOrder
@@ -29,7 +29,7 @@ module.exports.latestOrderInfo = (req, res, next) => {
  * @returns 
  */
 module.exports.renderDashboard = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   var options = {
@@ -91,7 +91,7 @@ module.exports.renderDashboard = (req, res, next) => {
  * @returns 
  */
 module.exports.userSetting = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   res.render('setting.html', {
@@ -105,7 +105,7 @@ module.exports.userSetting = (req, res, next) => {
  */
 
 module.exports.orderHistory = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   var userid = req.session.user.id;
@@ -177,7 +177,7 @@ module.exports.orderHistory = (req, res, next) => {
  */
 
 module.exports.orderHistoryDetail = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   var orderid = req.query.orderid;
@@ -192,10 +192,10 @@ module.exports.orderHistoryDetail = (req, res, next) => {
   request(options, function (error, res1) {
     if (error) return error;
     var orderInfo = JSON.parse(res1.body);
-    var customerId = orderInfo.customerId
+    var orderId = orderInfo.orderId
     var options = {
       'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByCustomerId?customerId=' + customerId,
+      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByOrderId?orderId=' + orderId,
       'headers': {
         'Content-Type': 'application/json'
       }
@@ -295,7 +295,7 @@ module.exports.orderHistoryDetail = (req, res, next) => {
  * Render edit profile page
  */
 module.exports.RenderEditProfile = (req, res, next) => {
-  if (apikey === '') {
+  if (!req.session.user) {
     return res.redirect('/login')
   }
   res.render('edit.html', {
@@ -314,8 +314,7 @@ module.exports.EditProfileForm = (req, response, next) => {
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + apikey
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(formData)
   }, (err, res, data) => {

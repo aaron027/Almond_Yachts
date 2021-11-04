@@ -2,7 +2,8 @@
 // Login Block for Admin
 //======================================================================================
 var request = require('request')
-
+var adminid = "";
+var adminapi = "";
 /**
  * 
  * Render login page for admin
@@ -28,6 +29,7 @@ module.exports.loginForm = (req, response, next) => {
     }
     request(options, function (err, res, data) {
         adminapi = data;
+        req.session.adminapi = adminapi
         var username = JSON.parse(options.body).email
 
         request.get({
@@ -37,6 +39,7 @@ module.exports.loginForm = (req, response, next) => {
                 'Authorization': 'Bearer ' + adminapi
             }
         }, (err, res, data) => {
+
             if (res.body == "") {
                 response.status(200).json({
                     err_code: 1,

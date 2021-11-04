@@ -15,7 +15,6 @@
         <div class="account-content-info">
             <div class="info-title">Order History</div>
             <div class="info-content">
-                <!-- It seems that there is no order at present. -->
                 <ul>
                     {{each orderresult}}
                     <li>
@@ -74,9 +73,21 @@
                     </li>
                     {{/each}}
                 </ul>
+                <div class="default_page" style="display: none;">
+                    There are currently no orders.
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- account content end -->
+{{/block}}
+{{block 'script'}}
+<script>
+    if (document.querySelector(".info-content ul").querySelector("li") == null) {
+        $(".default_page").show();
+    } else {
+        $(".default_page").hide();
+    }
+</script>
 {{/block}}

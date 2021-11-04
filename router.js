@@ -2,14 +2,39 @@ var express = require('express')
 var request = require('request')
 var router = express.Router()
 var nodemailer = require('nodemailer')
+// import login module for customer
 var user_Handler = require('./Router_Handler/customer/login')
+// import order module for customer
 var order_Handler = require('./Router_Handler/customer/order')
+// import account module for customer
 var account_Handler = require('./Router_Handler/customer/account')
 var model_Handler = require('./Router_Handler/customer/model')
+// import forget password module for customer
 var forgetPwd_Handler = require('./Router_Handler/customer/forgetPwd')
+// import register module for customer
 var register_Handler = require('./Router_Handler/customer/register')
+// import nav menu module for customer
 var menu_Handler = require('./Router_Handler/customer/navMenu')
+// import login module for admin
 var login_admin_Handler = require('./Router_Handler/admin/login')
+// import account module for admin
+var account_admin_Handler = require('./Router_Handler/admin/account')
+// import item module for admin
+var item_admin_Handler = require('./Router_Handler/admin/item')
+// import supplier module for admin
+var supplier_admin_Handler = require('./Router_Handler/admin/supplier')
+// import index module for admin
+var index_admin_Handler = require('./Router_Handler/admin/index')
+// import order module for admin
+var order_admin_Handler = require('./Router_Handler/admin/order')
+// import boat module for admin
+var boat_admin_Handler = require('./Router_Handler/admin/boat')
+// import section module for admin
+var section_admin_Handler = require('./Router_Handler/admin/section')
+// import category module for admin
+var category_admin_Handler = require('./Router_Handler/admin/category')
+// import user module for admin
+var user_admin_Handler = require('./Router_Handler/admin/user')
 
 var apikey = "";
 var adminapi = "";
@@ -115,81 +140,14 @@ router.get('/register', register_Handler.renderRegPage)
 router.post('/register', register_Handler.userRegForm)
 
 
-
-
 //=================================================================================
 // Admin Section
 //=================================================================================
 
-router.get('/oa/index', function (req, res, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    var itemsize = result.length;
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, res2) {
-      if (error) return error;
-      var orderresult = JSON.parse(res2.body);
-      var sumtotal = 0;
-      var d = new Date();
-      var month = d.getMonth();
-      var day = d.getDate();
-      var today = d.getFullYear() + '-' + (month < 10 ? '0' : '') + (month + 1) + '-' + (day < 10 ? '0' : '') + day
-      var todayOrders = []
-      orderresult.forEach(element => {
-        sumtotal += element.price;
-        var orderDate = element.orderDate.split('T')[0]
-        if (orderDate == today) {
-          todayOrders.push(element)
-        }
-      });
-      var ordersize = orderresult.length;
-      var options = {
-        'method': 'GET',
-        'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUsers',
-        'headers': {
-          'Content-Type': 'application/json'
-        }
-      };
-      request(options, function (error, res3) {
-        if (error) return error;
-        var userresult = JSON.parse(res3.body);
-        var usersize = userresult.length
-
-        res.render('./oa/index.html', {
-          admin: req.session.admin,
-          itemsize: itemsize,
-          ordersize: ordersize,
-          usersize: usersize,
-          sumtotal: sumtotal,
-          todayOrders: todayOrders
-        })
-      });
-
-    });
-
-  });
-
-})
+router.get('/oa/index', index_admin_Handler.indexPage)
 
 //=================================================================================
-//  Login Block
+//  Login Block for Admin
 //=================================================================================
 
 // Render login page
@@ -203,1127 +161,162 @@ router.get('/oa/logout', login_admin_Handler.loginout)
 
 
 //=================================================================================
-//  Account
+//  Account Block for Admin
 //=================================================================================
-router.get('/oa/profile', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  res.render('./oa/profile.html', {
-    admin: req.session.admin
-  })
-})
 
-router.post('/oa/profile', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  formData.id = adminid;
-  formData.zipCode = parseInt(formData.zipCode)
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
+//Render profile page
+router.get('/oa/profile', account_admin_Handler.renderProfilePage)
 
-    var result = res.body
-    req.session.admin = req.body
-    response.redirect('/oa/account')
-  })
-})
+//Edit profile page
+router.post('/oa/profile', account_admin_Handler.editAccount)
 
-router.get('/oa/account', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  res.render('./oa/account.html', {
-    admin: req.session.admin
-  })
-})
+// Render Account page
+router.get('/oa/account', account_admin_Handler.renderAccountPage)
 
+//Render change password page
+router.get('/oa/changePwd', account_admin_Handler.renderChangePwd)
+
+// The function to change password for admin
+router.post('/oa/changePwd', account_admin_Handler.changePwd)
 
 
 //=================================================================================
-//  Items
-//=================================================================================
-router.get('/oa/Item', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.items = result
-    res.render('./oa/Item.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
-
-router.get('/oa/itemEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var itemid = parseInt(req.query.id);
-  var items = req.session.items;
-  var found = items.find(element => element.itemId == itemid);
-  req.session.itemSingle = found;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.suppliers = result
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, res2) {
-      if (error) return error;
-      var sectionResult = JSON.parse(res2.body);
-      req.session.sections = sectionResult
-      res.render('./oa/itemEdit.html', {
-        admin: req.session.admin,
-        suppliers: req.session.suppliers,
-        sections: req.session.sections,
-        itemSingle: req.session.itemSingle
-      })
-    });
-
-  });
-})
-
-router.get('/oa/newItem', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.suppliers = result
-    var options = {
-      'method': 'GET',
-      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-      'headers': {
-        'Content-Type': 'application/json'
-      }
-    };
-    request(options, function (error, res2) {
-      if (error) return error;
-      var sectionResult = JSON.parse(res2.body);
-      req.session.sections = sectionResult
-      res.render('./oa/newItem.html', {
-        admin: req.session.admin,
-        suppliers: req.session.suppliers,
-        sections: req.session.sections,
-        itemSingle: req.session.itemSingle
-      })
-    });
-
-  });
-})
-
-router.get('/oa/deleteItem', function (req, response) {
-  var itemid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + itemid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.items = result
-    response.redirect('/oa/Item')
-  })
-
-})
-
-router.post('/oa/newItem', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  formData.quantity = parseInt(formData.quantity)
-  formData.quantityRemaining = parseInt(formData.quantityRemaining)
-  formData.unitPrice = parseInt(formData.unitPrice)
-  formData.weight = parseInt(formData.weight)
-  formData.size = parseInt(formData.size)
-  formData.supplierId = JSON.parse(formData.supplierId)
-  formData.sectionId = JSON.parse(formData.sectionId)
-  formData.section = null
-  formData.section = null
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.items = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-router.post('/oa/itemEdit', function (req, response, next) {
-  var formData = req.body;
-  var itemid = req.session.itemSingle.itemId;
-  formData.itemId = parseInt(formData.itemId)
-  formData.quantity = parseInt(formData.quantity)
-  formData.quantityRemaining = parseInt(formData.quantityRemaining)
-  formData.unitPrice = parseInt(formData.unitPrice)
-  formData.weight = parseInt(formData.weight)
-  formData.size = parseInt(formData.size)
-  formData.supplierId = parseInt(formData.supplierId)
-  formData.sectionId = parseInt(formData.sectionId)
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + itemid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.items = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-//=================================================================================
-//  Suppliers
+//  Items Block for Admin
 //=================================================================================
 
-router.get('/oa/supplierEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var supplierid = parseInt(req.query.id);
-  var suppliers = req.session.suppliers
-  var found = suppliers.find(element => element.supplierId == supplierid);
-  req.session.supplierSingle = found;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.suppliers = result
-    res.render('./oa/supplierEdit.html', {
-      admin: req.session.admin,
-      supplierSingle: req.session.supplierSingle
-    })
-  });
-})
+//Render item page
+router.get('/oa/Item', item_admin_Handler.renderItemPage)
 
-router.post('/oa/supplierEdit', function (req, response, next) {
-  var formData = req.body;
-  var supplierid = req.session.supplierSingle.supplierId;
-  formData.supplierId = parseInt(formData.supplierId)
-  formData.phone = parseInt(formData.phone)
-  formData.item = null
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers/' + supplierid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.suppliers = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+//Render edit page
+router.get('/oa/itemEdit', item_admin_Handler.renderEditItemPage)
 
-router.get('/oa/supplier', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    'headers': {
-      'Authentication': 'Bearer ' + adminid,
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.suppliers = result;
-    res.render('./oa/supplier.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
+//Render new item page
+router.get('/oa/newItem', item_admin_Handler.renderNewItemPage)
 
-router.get('/oa/deleteSupplier', function (req, response) {
-  var supplierid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers/' + supplierid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.suppliers = result
-    response.redirect('/oa/supplier')
-  })
+// The function to delete item
+router.get('/oa/deleteItem', item_admin_Handler.deleteItem)
 
-})
+//The function to add new item
+router.post('/oa/newItem', item_admin_Handler.addNewItem)
 
-router.get('/oa/newSupplier', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.supplierSingle = result
-    res.render('./oa/newSupplier.html', {
-      admin: req.session.admin,
-      suppliers: req.session.suppliers,
-      supplierSingle: req.session.supplierSingle
-    })
-
-  });
-
-})
-
-router.post('/oa/newSupplier', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  formData.phone = parseInt(formData.phone)
-  formData.items = null
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Suppliers',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.suppliers = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-//=================================================================================
-//  Orders
-//=================================================================================
-router.get('/oa/order', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-    'headers': {
-      'Authentication': 'Bearer ' + adminid,
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, res1) {
-    if (error) return error;
-    var orders = JSON.parse(res1.body);
-    req.session.orders = orders
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + adminapi
-      }
-    }, (err, res2, data) => {
-      if (error) return error;
-      var boats = JSON.parse(res2.body);
-      request(options, function (error, response) {
-        if (error) return error;
-        var result = JSON.parse(response.body);
-        req.session.orders = result
-        request.get({
-          url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + adminapi
-          }
-        }, (err, res3, data) => {
-          if (error) return error;
-          var categories = JSON.parse(res3.body);
-          req.session.categories = categories
-          var boatarray = [];
-          var boatcategoryarr = [];
-          orders.forEach(element1 => {
-            boats.forEach(element2 => {
-              if (element1.boatId == element2.id) {
-                boatarray.push(element2)
-              }
-            });
-          });
-          boatarray.forEach(element1 => {
-            categories.forEach(element2 => {
-              if (element1.categoryId == element2.categoryId) {
-                boatcategoryarr.push(element2)
-              }
-            });
-          });
-          req.session.boats = boats;
-
-          res.render('./oa/order.html', {
-            orders: orders,
-            boats: boatarray,
-            admin: req.session.admin,
-            categories: boatcategoryarr
-          })
-        })
-
-      });
-    })
-
-  });
-})
-
-router.get('/oa/orderEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var orderid = parseInt(req.query.id);
-  request.get({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }, (err, res1, data) => {
-    var orders = JSON.parse(res1.body)
-    var found = orders.find(element => element.orderId == orderid);
-    var customerId = found.customerId;
-
-    request.get({
-      url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, res2, data) => {
-      var boats = JSON.parse(res2.body)
-      var boatid = found.boatId;
-      var foundBoat = boats.find(element => element.id == boatid);
-      req.session.orderSingle = found;
-      var categoryid = foundBoat.categoryId;
-      request.get({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + categoryid,
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }, (err, res3, data) => {
-        var categoryResult = JSON.parse(res3.body)
-        request.get({
-          url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUserById?Id=' + customerId,
-          method: 'get',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }, (err, res4, data) => {
-          var cutomerFound = JSON.parse(res4.body)
-          request.get({
-            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByOrderId?orderId=' + orderid,
-            method: 'get',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }, (err, res5, data) => {
-            var orderDetails = JSON.parse(res5.body)
-
-            request.get({
-              url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
-              method: 'get',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }, (err, res6, data) => {
-              var items = JSON.parse(res6.body)
-              var foundArr = []
-              for (var i in orderDetails) {
-                for (var j in items) {
-                  if (orderDetails[i].itemId == items[j].itemId) {
-                    foundArr.push(items[j])
-                  }
-                }
-              }
-              request.get({
-                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-                method: 'get',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              }, (err, res7, data) => {
-                var sections = JSON.parse(res7.body)
-                var foundArrSection = []
-                for (var i in foundArr) {
-                  for (var j in sections) {
-                    if (foundArr[i].sectionId == sections[j].sectionId) {
-
-                      foundArrSection.push(sections[j])
-                    }
-                  }
-                }
-                res.render('./oa/orderEdit.html', {
-                  admin: req.session.admin,
-                  orderSingle: found,
-                  categoryInfo: categoryResult,
-                  foundBoat: foundBoat,
-                  cutomerFound: cutomerFound,
-                  foundArr: foundArr,
-                  foundArrSection: foundArrSection
-                })
-              })
-            })
-          })
-        })
-      })
-    })
-
-  })
-
-
-
-})
-
-router.post('/oa/orderEdit', function (req, response, next) {
-  var formData = req.body;
-  var orderid = formData.orderId;
-  formData.orderId = parseInt(formData.orderId)
-  formData.boatId = parseInt(formData.boatId)
-  formData.price = parseInt(formData.price)
-  formData.boats = null
-  formData.applicationUser = null
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/' + orderid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.orders = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-router.get('/oa/deleteOrder', function (req, response) {
-  var orderid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/' + orderid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.orders = result
-    response.redirect('/oa/order')
-  })
-
-})
-
-router.get('/oa/viewOrder', function (req, response) {
-  var orderid = req.query.id;
-  request.get({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/' + orderid,
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.singleOrder = result
-  })
-
-})
-
-//=================================================================================
-//  Boats
-//=================================================================================
-router.get('/oa/boats', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.boats = result
-    res.render('./oa/boat.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
-
-router.get('/oa/boatEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var boatid = parseInt(req.query.id);
-  var boats = req.session.boats;
-  var found = boats.find(element => element.id == boatid);
-  req.session.BoatSingle = found;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.categories = result
-    res.render('./oa/boatEdit.html', {
-      admin: req.session.admin,
-      categories: req.session.categories,
-      BoatSingle: req.session.BoatSingle
-    })
-
-
-  });
-})
-
-router.get('/oa/deleteBoat', function (req, response) {
-  var boatid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats/' + boatid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.boats = result
-    response.redirect('/oa/boats')
-  })
-
-})
-
-router.post('/oa/boatEdit', function (req, response, next) {
-  var formData = req.body;
-  var boatSingle = req.session.BoatSingle;
-  var boatid = parseInt(boatSingle.id);
-  formData.id = boatid;
-  var categoryId = parseInt(formData.categoryId);
-  formData.categoryId = categoryId;
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats/' + boatid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.boats = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-router.get('/oa/newBoat', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.categories = result
-    res.render('./oa/newBoat.html', {
-      admin: req.session.admin,
-      categories: req.session.categories,
-    })
-  });
-})
-
-router.post('/oa/newBoat', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  var categoryId = parseInt(req.body.categoryId)
-  var modelYear = formData.modelYear;
-  formData.categoryId = categoryId
-  formData.category = null
-  formData.items = null
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.boats = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-//=================================================================================
-//  Sections
-//=================================================================================
-
-router.get('/oa/sections', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.sections = result
-    res.render('./oa/section.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
-
-router.get('/oa/sectionEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var sectionid = parseInt(req.query.id);
-  var sections = req.session.sections
-  var found = sections.find(element => element.sectionId == sectionid);
-  req.session.sectionSingle = found;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.sections = result
-    res.render('./oa/sectionEdit.html', {
-      admin: req.session.admin,
-      sectionSingle: req.session.sectionSingle
-    })
-  });
-})
-
-router.post('/oa/sectionEdit', function (req, response, next) {
-  var formData = req.body;
-  var sectionid = formData.sectionId;
-  formData.sectionId = parseInt(formData.sectionId)
-  formData.items = null
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections/' + sectionid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.sections = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
-
-router.get('/oa/deleteSection', function (req, response) {
-  var sectionid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections/' + sectionid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.sections = result
-    response.redirect('/oa/sections')
-  })
-
-})
-
-router.get('/oa/newSection', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.supplierSingle = result
-    res.render('./oa/newSection.html', {
-      admin: req.session.admin,
-      sections: req.session.sections,
-      sectionSingle: req.session.sectionSingle
-    })
-
-  });
-
-})
-
-router.post('/oa/newSection', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  formData.items = null
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.sections = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+// The function to edit item
+router.post('/oa/itemEdit', item_admin_Handler.editItem)
 
 
 //=================================================================================
-//  Categories
+//  Suppliers Block for Admin
 //=================================================================================
-router.get('/oa/categories', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.categories = result
-    res.render('./oa/category.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
 
-router.get('/oa/categoryEdit', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var categoryid = parseInt(req.query.id);
-  var categories = req.session.categories;
-  var found = categories.find(element => element.categoryId == categoryid);
+// Render supplier edit page
+router.get('/oa/supplierEdit', supplier_admin_Handler.renderSupplierEditPage)
 
-  req.session.categorySingle = found;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.categories = result
-    res.render('./oa/categoryEdit.html', {
-      admin: req.session.admin,
-      categorySingle: req.session.categorySingle
-    })
-  });
-})
+// The function to edit supplier
+router.post('/oa/supplierEdit', supplier_admin_Handler.editSupplier)
 
-router.post('/oa/categoryEdit', function (req, response, next) {
-  var formData = req.body;
-  var categoryid = formData.categoryId;
-  formData.categoryId = parseInt(formData.categoryId)
-  formData.boats = null
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + categoryid,
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.categories = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+// Render supplier list page
+router.get('/oa/supplier', supplier_admin_Handler.renderSupplierPage)
 
-router.get('/oa/newCategory', function (req, res) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    req.session.categorySingle = result
-    res.render('./oa/newCategory.html', {
-      admin: req.session.admin,
-      categories: req.session.categories,
-      categorySingle: req.session.categorySingle
-    })
+// The function to delete supplier
+router.get('/oa/deleteSupplier', supplier_admin_Handler.deleteSupplier)
 
-  });
+// Render add new supplier page
+router.get('/oa/newSupplier', supplier_admin_Handler.renderNewSupplierPage)
 
-})
+// The function to add new supplier
+router.post('/oa/newSupplier', supplier_admin_Handler.addNewSupplier)
 
-router.post('/oa/newCategory', function (req, response, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var formData = req.body;
-  formData.boats = null
-  request.post({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.categories = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
+//=================================================================================
+//  Orders Block for Admin
+//=================================================================================
 
-router.get('/oa/deleteCategory', function (req, response) {
-  var sectionid = req.query.id;
-  request.delete({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories/' + sectionid,
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    }
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.categories = result
-    response.redirect('/oa/categories')
-  })
+// Render Order list page
+router.get('/oa/order', order_admin_Handler.renderOrderPage)
 
-})
+//Render order edit page
+router.get('/oa/orderEdit', order_admin_Handler.renderOrderEditPage)
+
+// The function to edit order
+router.post('/oa/orderEdit', order_admin_Handler.editOrder)
+
+//The function to delete order
+router.get('/oa/deleteOrder', order_admin_Handler.deleteOrder)
+
+
+//=================================================================================
+//  Boats Block for Admin
+//=================================================================================
+
+// Render boat list page
+router.get('/oa/boats', boat_admin_Handler.renderBoatPage)
+
+// Render edit boat page
+router.get('/oa/boatEdit', boat_admin_Handler.renderBoatEditPage)
+
+// The function to delete boat
+router.get('/oa/deleteBoat', boat_admin_Handler.deleteBoat)
+
+// The function to edit boat
+router.post('/oa/boatEdit', boat_admin_Handler.editBoat)
+
+// Render new boat page
+router.get('/oa/newBoat', boat_admin_Handler.renderNewBoatPage)
+
+// The function to add a new boat
+router.post('/oa/newBoat', boat_admin_Handler.addNewBoat)
+
+//=================================================================================
+//  Sections Block for Admin
+//=================================================================================
+
+//Render section list page
+router.get('/oa/sections', section_admin_Handler.renderSectionPage)
+
+//Render section edit page
+router.get('/oa/sectionEdit', section_admin_Handler.renderSectionEditPage)
+
+//The function to edit section
+router.post('/oa/sectionEdit', section_admin_Handler.editSection)
+
+// The function to delete section
+router.get('/oa/deleteSection', section_admin_Handler.deleteSection)
+
+// Render new section page
+router.get('/oa/newSection', section_admin_Handler.renderNewSectionPage)
+
+// The function to add new section
+router.post('/oa/newSection', section_admin_Handler.addNewSection)
+
+
+//=================================================================================
+//  Categories Block for Admin
+//=================================================================================
+
+// Render category list page
+router.get('/oa/categories', category_admin_Handler.renderCategoryPage)
+
+// Render category edit page
+router.get('/oa/categoryEdit', category_admin_Handler.renderCategoryEditPage)
+
+// The function to edit page
+router.post('/oa/categoryEdit', category_admin_Handler.editCategory)
+
+// Render new category page
+router.get('/oa/newCategory', category_admin_Handler.renderNewCategoryPage)
+
+// The function to add new category
+router.post('/oa/newCategory', category_admin_Handler.addNewCategory)
+
+// The function to delete category
+router.get('/oa/deleteCategory', category_admin_Handler.deleteCategory)
 
 //=================================================================================
 //  Users
 //=================================================================================
-router.get('/oa/users', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUsers',
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    result.forEach(element => {
-      element.role = 'Customer'
-      if (element.email == 'admin@maalu.com') {
-        element.role = 'Administrator'
-      }
 
-    });
-    res.render('./oa/user.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
+// Render user list page
+router.get('/oa/users', user_admin_Handler.renderUserPage)
 
-router.get('/oa/userView', async (req, res) => {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  var userid = req.query.id;
-  var options = {
-    'method': 'GET',
-    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/GetUserById?Id=' + userid,
-    'headers': {
-      'Content-Type': 'application/json'
-    }
-  };
-  request(options, function (error, response) {
-    if (error) return error;
-    var result = JSON.parse(response.body);
-    res.render('./oa/userView.html', {
-      result: result,
-      admin: req.session.admin
-    })
-  });
-})
+// The function to view user details
+router.get('/oa/userView', user_admin_Handler.viewUser)
 
-//======================================================================================
-// Change password Block
-//======================================================================================
-
-router.get('/oa/changePwd', function (req, res, next) {
-  if (adminid === '') {
-    return res.redirect('/oa/login')
-  }
-  res.render('./oa/changePwd.html', {
-    admin: req.session.admin
-  })
-})
-router.post('/oa/changePwd', function (req, response, next) {
-  var formData = req.body;
-  request.put({
-    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/ResetPassword',
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + adminapi
-    },
-    body: JSON.stringify(formData)
-  }, (err, res, data) => {
-    var result = res.body
-    req.session.admin = result
-    response.status(200).json({
-      err_code: 0,
-      message: 'OK'
-    })
-  })
-})
 module.exports = router

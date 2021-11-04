@@ -22,8 +22,7 @@ module.exports.userRegForm = (req, response, next) => {
         url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authentication': 'Bearer ' + apikey
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(req.body)
     }, (err, res, data) => {

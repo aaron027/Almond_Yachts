@@ -2,7 +2,6 @@
 // Index and Model Module
 //======================================================================================
 var request = require('request')
-var apikey = "";
 
 //Render Model page
 module.exports.modelPage = (req, res, next) => {
@@ -10,7 +9,6 @@ module.exports.modelPage = (req, res, next) => {
         'method': 'GET',
         'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories', // get category Date from API
         'headers': {
-            'Authentication': 'Bearer ' + apikey,
             'Content-Type': 'application/json'
         }
     };
@@ -21,7 +19,6 @@ module.exports.modelPage = (req, res, next) => {
             'method': 'GET',
             'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Boats',  // get boat Date from API
             'headers': {
-                'Authentication': 'Bearer ' + apikey,
                 'Content-Type': 'application/json'
             }
         };
