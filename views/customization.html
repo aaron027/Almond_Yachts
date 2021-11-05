@@ -1,3 +1,4 @@
+<!-- The customization page  -->
 {{extend './_layout/layout.html'}}
 
 {{block 'content'}}
@@ -15,7 +16,7 @@
                                 <img src="../../public/images/resource/featured-image-{{found.id}}.jpg" alt="" title="">
                             </div>
                             <div class="section-box" id="boatnickname">
-                                Boat Name: <p>{{found.boatName}}</p>
+                                Boat Name: <p>{{found && found.boatName}}</p>
                             </div>
                             <div class="price-box">
                                 <div class="row">
@@ -52,16 +53,19 @@
 
                                                 <div class="tab-content custom-form offers-widget">
                                                     <div class="tab-pane active" id="lightship">
-                                                        <input type="text" value="{{found.id}}" name="boatId" hidden>
-                                                        <input type="text" value="{{found.boatName}}" name="boatName"
+                                                        <input type="text" value="{{found && found.id}}" name="boatId"
                                                             hidden>
-                                                        <input type="text" value="{{found.category.categoryId}}"
+                                                        <input type="text" value="{{found && found.boatName}}"
+                                                            name="boatName" hidden>
+                                                        <input type="text"
+                                                            value="{{found && found.category.categoryId}}"
                                                             name="categoryId" hidden>
-                                                        <input type="text" value="{{found.category.categoryName}}"
+                                                        <input type="text"
+                                                            value="{{found && found.category.categoryName}}"
                                                             name="categoryName" hidden>
                                                         <input type="text" value="{{user && user.id}}" name="customerId"
                                                             hidden>
-                                                        <h5>{{found.boatName}}</h5>
+                                                        <h5>{{found && found.boatName}}</h5>
                                                         <div class="expected">Estimated Delivery: <span>2~4 weeks</span>
                                                         </div>
                                                         <div id="itemContent">
@@ -228,7 +232,7 @@
 <script src="https://smtpjs.com/v3/smtp.js">
 </script>
 <script>
-
+    // The function to show the editted name by customer
     $("#inputBoatName").keyup(function () {
         $("#boatnickname p").html($("#inputBoatName").val())
     });
@@ -241,7 +245,7 @@
     var sectionH5 = $("#section4").height() + sectionH4 - 64
     var boatid = $("input[name='boatId']").val()
 
-    //scroll the scrollbar and change the picture according to the offset
+    //The function to monitor scroll even and show different picture in the left according to offset
     $("#mCSB_3_container").bind('mousewheel', function (event, delta) {
         var h = Math.abs(parseInt($(this).position().top))
         if (h < sectionH2) {
@@ -279,6 +283,7 @@
             });
     }
 
+    // Check the quantity remaining of each item and show the status of 'out of stock' if the quantity below or equals to zero
     var quantityArr = $(".quantityRemaining")
     for (var i in quantityArr) {
         if (parseInt(quantityArr[i].value) == 0 || parseInt(quantityArr[i].value) < 0) {
@@ -289,6 +294,7 @@
 
     var obj = {};
     var sum = 0;
+    // The function for showing summary
     $("input").on("click", function () {
         obj.sectiontemp = [];
         obj.pricetemp = [];
@@ -353,6 +359,7 @@
     //     $("#summaryTotal").html('$' + sum)
     // });
 
+    // The function to generate PDF
     $("#PdfReport").click(function () {
         makePDF()
     });
@@ -371,6 +378,7 @@
 
     }
 
+    // Send ajax request to server
     $('#customForm').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize()
@@ -390,6 +398,7 @@
         })
     })
 
+    // The function to get the value of selected input
     function getValue() {
         var radio = $('input:checked');
         sum = "";

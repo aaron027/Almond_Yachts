@@ -147,6 +147,7 @@
                             </div>
                     </li>
                 </ul>
+                <!-- if there is no order then show this div  -->
                 {{else}}
                 <div class="default_page">
                     There are currently no orders.
@@ -158,13 +159,4 @@
     </div>
 </div>
 <!-- account content end -->
-{{/block}}
-{{block 'script'}}
-<script>
-    $(".info-content .form-control").each(function (index) {
-        if ($(this).html().trim() === '') {
-            $(this).html('-')
-        }
-    });
-</script>
 {{/block}}

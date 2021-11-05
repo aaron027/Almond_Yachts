@@ -1,3 +1,4 @@
+<!-- The page for section list  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -47,22 +48,21 @@
                                     <tbody>
                                         {{each result}}
                                         <tr>
-                                            <td>{{result[$index].sectionId}}</td>
-                                            <td>{{result[$index].sectionName}}</td>
-                                            <td>{{result[$index].description}}</td>
+                                            <td>{{result && result[$index].sectionId}}</td>
+                                            <td>{{result && result[$index].sectionName}}</td>
+                                            <td>{{result && result[$index].description}}</td>
                                             <td>
-                                                <a href="/oa/sectionEdit?id={{result[$index].sectionId}}"
+                                                <a href="/oa/sectionEdit?id={{result && result[$index].sectionId}}"
                                                     class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a href="/oa/deleteSection?id={{result[$index].sectionId}}"
+                                                <a href="/oa/deleteSection?id={{result && result[$index].sectionId}}"
                                                     class='mr-4 btn-delete' onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
                                             </td>
                                         </tr>
                                         {{/each}}
-
                                     </tbody>
                                 </table>
                             </div>

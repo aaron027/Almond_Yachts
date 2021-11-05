@@ -1,3 +1,4 @@
+<!-- The page for order list  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -53,27 +54,27 @@
                                         {{each orders }}
                                         <tr>
                                             <td>
-                                                {{orders[$index] && orders[$index].orderId}}
+                                                {{orders && orders[$index].orderId}}
                                             </td>
-                                            <td class="orderDate">{{orders[$index] && orders[$index].orderDate |
+                                            <td class="orderDate">{{orders && orders[$index].orderDate |
                                                 getDateTime}}</td>
-                                            <td>{{boats[$index] && boats[$index].boatName }} </td>
-                                            <td>{{categories[$index] && categories[$index].categoryName }} </td>
-                                            <td class="dateformate"> {{orders[$index] &&
+                                            <td>{{boats && boats[$index].boatName }} </td>
+                                            <td>{{categories && categories[$index].categoryName }} </td>
+                                            <td class="dateformate"> {{orders &&
                                                 orders[$index].estimatedDeliveryDate | getDate}}
                                             </td>
-                                            <td> {{orders[$index] && orders[$index].price | moneyFormat}}</td>
+                                            <td> {{orders && orders[$index].price | moneyFormat}}</td>
                                             <td class="text-start">
                                                 <span class="badge badge-primary">Received</span>
                                             </td>
                                             <td>
 
                                                 <a class='mr-4 edit'
-                                                    href="/oa/orderEdit?id={{orders[$index] && orders[$index].orderId}}">
+                                                    href="/oa/orderEdit?id={{orders && orders[$index].orderId}}">
                                                     <span class='fas fa-pencil-alt'></span>
                                                 </a>
                                                 <a class='mr-4 vue'
-                                                    href="/oa/deleteOrder?id={{orders[$index] && orders[$index].orderId}}"
+                                                    href="/oa/deleteOrder?id={{orders && orders[$index].orderId}}"
                                                     onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>

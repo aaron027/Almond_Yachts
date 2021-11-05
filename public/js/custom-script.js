@@ -918,3 +918,9 @@ $(".navigation li a").each(function () {
 	}
 });
 
+// The function to transfer the empty string to '-' 
+$(".info-content .form-control").each(function (index) {
+	if ($(this).html().trim() === '') {
+		$(this).html('-')
+	}
+});

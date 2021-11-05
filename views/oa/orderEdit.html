@@ -292,12 +292,14 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // Init table css
     var table = $('#item_table').DataTable();
 
     $('#item_table tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
-        //  alert( 'You clicked on '+data[0]+'\'s row' );
     });
+
+    //Sending ajax request
     $('#editOrder').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();

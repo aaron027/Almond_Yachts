@@ -1,3 +1,4 @@
+<!-- The page for supplier edit  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -113,7 +114,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
-
+    // Sending ajax request
     $('#editSupplier').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();

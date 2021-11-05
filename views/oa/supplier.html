@@ -1,3 +1,4 @@
+<!-- The page for supplier list  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -51,20 +52,20 @@
                                     <tbody>
                                         {{each result}}
                                         <tr>
-                                            <td>{{result[$index].supplierId}}</td>
-                                            <td>{{result[$index].supplierName}}</td>
-                                            <td>{{result[$index].abn}}</td>
-                                            <td>{{result[$index].phone}}</td>
-                                            <td>{{result[$index].email}}</td>
-                                            <td>{{result[$index].address}}</td>
-                                            <td>{{result[$index].contactPersonName}}</td>
+                                            <td>{{result && result[$index].supplierId}}</td>
+                                            <td>{{result && result[$index].supplierName}}</td>
+                                            <td>{{result && result[$index].abn}}</td>
+                                            <td>{{result && result[$index].phone}}</td>
+                                            <td>{{result && result[$index].email}}</td>
+                                            <td>{{result && result[$index].address}}</td>
+                                            <td>{{result && result[$index].contactPersonName}}</td>
                                             <td>
-                                                <a href="/oa/supplierEdit?id={{result[$index].supplierId}}"
+                                                <a href="/oa/supplierEdit?id={{result && result[$index].supplierId}}"
                                                     class='mr-4'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
                                                 <a class='mr-4 delet'
-                                                    href="/oa/deleteSupplier?id={{result[$index].supplierId}}"
+                                                    href="/oa/deleteSupplier?id={{result && result[$index].supplierId}}"
                                                     onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>

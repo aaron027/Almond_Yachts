@@ -1,3 +1,4 @@
+<!-- The page for user  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -96,13 +97,13 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // Init table css
     var table = $('#user_table').DataTable();
-
+    //The function for selecting the row of table
     $('#user_table tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
-        //  alert( 'You clicked on '+data[0]+'\'s row' );
     });
-
+    // The function to change the empty to string to '-'
     $("#user_table tr td").each(function (index) {
         if ($(this).html().trim() === '') {
             $(this).html('-')

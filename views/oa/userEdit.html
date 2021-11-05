@@ -1,3 +1,4 @@
+<!-- The page for editting user  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -41,7 +42,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="firstName"
-                                                    value="{{userSingle.firstName}}">
+                                                    value="{{userSingle && userSingle.firstName}}">
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +52,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="lastName"
-                                                    value="{{itemSingle.lastName}}">
+                                                    value="{{itemSingle && itemSingle.lastName}}">
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +62,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="email"
-                                                    value="{{itemSingle.email}}" readonly>
+                                                    value="{{itemSingle && itemSingle.email}}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +72,7 @@
                                                     class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="phoneNumber"
-                                                    value="{{itemSingle.phoneNumber}}" required>
+                                                    value="{{itemSingle && itemSingle.phoneNumber}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +82,7 @@
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" class="form-control" name="country"
-                                                    value="{{itemSingle.country}}">
+                                                    value="{{itemSingle && itemSingle.country}}">
                                             </div>
                                         </div>
                                     </div>
@@ -90,8 +91,8 @@
                                             <label class="col-lg-4 col-form-label">State<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.state}}"
-                                                    name="state">
+                                                <input type="text" class="form-control"
+                                                    value="{{itemSingle && itemSingle.state}}" name="state">
                                             </div>
                                         </div>
                                     </div>
@@ -100,8 +101,8 @@
                                             <label class="col-lg-4 col-form-label">Suburb<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.suburb}}"
-                                                    name="suburb">
+                                                <input type="text" class="form-control"
+                                                    value="{{itemSingle && itemSingle.suburb}}" name="suburb">
                                             </div>
                                         </div>
                                     </div>
@@ -110,8 +111,8 @@
                                             <label class="col-lg-4 col-form-label">Address1<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.address1}}"
-                                                    name="address1">
+                                                <input type="text" class="form-control"
+                                                    value="{{itemSingle && itemSingle.address1}}" name="address1">
                                             </div>
                                         </div>
                                     </div>
@@ -120,8 +121,8 @@
                                             <label class="col-lg-4 col-form-label">Address2<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.address2}}"
-                                                    name="address2">
+                                                <input type="text" class="form-control"
+                                                    value="{{itemSingle && itemSingle.address2}}" name="address2">
                                             </div>
                                         </div>
                                     </div>
@@ -130,8 +131,8 @@
                                             <label class="col-lg-4 col-form-label">Zipcode<span
                                                     class="text-danger"></span></label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{itemSingle.zipCode}}"
-                                                    name="zipCode">
+                                                <input type="text" class="form-control"
+                                                    value="{{itemSingle && itemSingle.zipCode}}" name="zipCode">
                                             </div>
                                         </div>
                                     </div>
@@ -149,12 +150,14 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
-
+    // Send ajax request to server
     $('#editInfo').on('submit', function (e) {
         e.preventDefault()
+        // get the value of selected supplier and send the value to server
         var supplierId = $("#suppliers option:selected").val();
         var sectionId = $("#sections option:selected").val();
         var formData = $(this).serialize() + '&supplierId=' + supplierId + '&sectionId=' + sectionId
+        // send ajax request to server
         $.ajax({
             url: '/oa/itemEdit',
             type: 'post',
