@@ -6,7 +6,7 @@
     <div class="group" style="display: none;">
         <ul id="orderByDay">
             {{each orderCountByDay}}
-            <li>{{ orderCountByDay[$index] }}</li>
+            <li>{{ orderCountByDay && orderCountByDay[$index] }}</li>
             {{/each}}
         </ul>
     </div>
@@ -185,6 +185,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    //Render table and order the table according to the first column
     $(function () {
         jQuery('#todayOrder').DataTable({ "order": [[1, "desc"]] })
     })

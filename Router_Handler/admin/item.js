@@ -20,12 +20,32 @@ module.exports.renderItemPage = (req, res) => {
     };
     request(options, function (error, response) {
         if (error) return error;
-        var result = JSON.parse(response.body);
-        req.session.items = result
-        res.render('./oa/Item.html', {
-            result: result,
-            admin: req.session.admin
-        })
+        var items = JSON.parse(response.body);
+        req.session.items = items
+        var options = {
+            'method': 'GET',
+            'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
+            'headers': {
+                'Content-Type': 'application/json'
+            }
+        };
+        request(options, function (error, res2) {
+            if (error) return error;
+            var sections = JSON.parse(res2.body);
+            var sectionArr = []
+            for (var i in items) {
+                for (var j in sections) {
+                    if (items[i].sectionId == sections[j].sectionId) {
+                        sectionArr.push(sections[j])
+                    }
+                }
+            }
+            res.render('./oa/Item.html', {
+                items: items,
+                admin: req.session.admin,
+                sectionArr: sectionArr
+            })
+        });
     });
 }
 
@@ -140,7 +160,7 @@ module.exports.deleteItem = (req, response) => {
 
 /**
  * 
- * The function to delete item
+ * The function to add new  item
  * @returns 
  */
 module.exports.addNewItem = (req, response, next) => {

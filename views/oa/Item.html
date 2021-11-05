@@ -1,3 +1,4 @@
+<!-- The item list page  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -40,7 +41,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Item Name</th>
-                                            <th>Quantity</th>
+                                            <th>Section Name</th>
                                             <th>Inventory</th>
                                             <th>unitPrice</th>
                                             <th>origin</th>
@@ -48,20 +49,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{each result}}
+                                        {{each items}}
                                         <tr>
-                                            <td>{{result[$index].itemId}}</td>
-                                            <td>{{result[$index].itemName}}</td>
-                                            <td>{{result[$index].quantity}}</td>
-                                            <td>{{result[$index].quantityRemaining}}</td>
-                                            <td>{{result[$index].unitPrice | moneyFormat}}</td>
-                                            <td>{{result[$index].origin}}</td>
+                                            <td>{{items && items[$index].itemId}}</td>
+                                            <td>{{items && items[$index].itemName}}</td>
+                                            <td>{{sectionArr && sectionArr[$index].sectionName}}</td>
+                                            <td>{{items && items[$index].quantityRemaining}}</td>
+                                            <td>{{items && items[$index].unitPrice | moneyFormat}}</td>
+                                            <td>{{items && items[$index].origin}}</td>
                                             <td>
-                                                <a href="/oa/itemEdit?id={{result[$index].itemId}}"
+                                                <a href="/oa/itemEdit?id={{items && items[$index].itemId}}"
                                                     class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a href="/oa/deleteItem?id={{result[$index].itemId}}"
+                                                <a href="/oa/deleteItem?id={{items && items[$index].itemId}}"
                                                     class='mr-4 btn-delete' onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>

@@ -107,37 +107,44 @@ module.exports.renderDashboard = (req, res, next) => {
     }, (err, res2, data) => {
       if (error) return error;
       var boats = JSON.parse(res2.body);
-      var latestOrder = orders[orders.length - 1];
-      var latestOrderCustomerId = latestOrder.customerId;
-      request.get({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }, (err, res2, data) => {
-        if (error) return error;
-        var categories = JSON.parse(res2.body);
-        var boatId = latestOrder.boatId;
-        var foundBoat = boats.find(element => element.id == boatId);
-        var userid = req.session.user.id;
-        if (latestOrderCustomerId == userid) {
-          req.session.latestOrder = latestOrder
-          req.session.latestBoat = foundBoat
-          var foundCategory = categories.find(element => element.categoryId == foundBoat.categoryId);
-          req.session.latestCategory = foundCategory
+      if (orders.length != 0) {
+        var latestOrder = orders[orders.length - 1];
+        var latestOrderCustomerId = latestOrder.customerId;
+        request.get({
+          url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Categories',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }, (err, res2, data) => {
+          if (error) return error;
+          var categories = JSON.parse(res2.body);
+          var boatId = latestOrder.boatId;
+          var foundBoat = boats.find(element => element.id == boatId);
+          var userid = req.session.user.id;
+          if (latestOrderCustomerId == userid) {
+            req.session.latestOrder = latestOrder
+            req.session.latestBoat = foundBoat
+            var foundCategory = categories.find(element => element.categoryId == foundBoat.categoryId);
+            req.session.latestCategory = foundCategory
 
-          res.render('account.html', {
-            user: req.session.user,
-            latestOrder: latestOrder,
-            foundBoat: foundBoat,
-            foundCategory: foundCategory
-          })
-        } else {
-          res.render('account.html', {
-            user: req.session.user
-          })
-        }
-      })
+            res.render('account.html', {
+              user: req.session.user,
+              latestOrder: latestOrder,
+              foundBoat: foundBoat,
+              foundCategory: foundCategory
+            })
+          } else {
+            res.render('account.html', {
+              user: req.session.user
+            })
+          }
+        })
+      } else {
+        res.render('account.html', {
+          user: req.session.user
+        })
+      }
+
     })
   });
 }

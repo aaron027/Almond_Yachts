@@ -1,3 +1,4 @@
+<!-- The category List page -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -47,15 +48,15 @@
                                     <tbody>
                                         {{each result}}
                                         <tr>
-                                            <td>{{result[$index].categoryId}}</td>
-                                            <td>{{result[$index].categoryName}}</td>
-                                            <td>{{result[$index].description}}</td>
+                                            <td>{{result && result[$index].categoryId}}</td>
+                                            <td>{{result && result[$index].categoryName}}</td>
+                                            <td>{{result && result[$index].description}}</td>
                                             <td>
-                                                <a href="/oa/categoryEdit?id={{result[$index].categoryId}}"
+                                                <a href="/oa/categoryEdit?id={{result && result[$index].categoryId}}"
                                                     class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a href="/oa/deleteCategory?id={{result[$index].categoryId}}"
+                                                <a href="/oa/deleteCategory?id={{result && result[$index].categoryId}}"
                                                     class='mr-4 btn-delete' onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
@@ -89,13 +90,4 @@
     </div>
 </div>
 <!-- End section content -->
-{{/block }}
-{{block 'oascript'}}
-<script>
-    // $("#confirm-delete").on("click", ".btn-danger", function () {
-    //     alert($(e.relatedTarget).data('href'))
-    // });
-
-
-</script>
 {{/block }}

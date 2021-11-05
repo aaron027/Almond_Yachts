@@ -1,3 +1,4 @@
+<!-- The Edit boat page  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -107,6 +108,8 @@
 {{block 'oascript'}}
 <script>
     $("#categories").val($("#categoryId").val())
+
+    //Ajax send post request after pressing submit button
     $('#editBoat').on('submit', function (e) {
         e.preventDefault()
         var categoryId = $("#categories option:selected").val();
@@ -123,7 +126,6 @@
                 } else if (err_code === 500) {
                     t_alert("Server error");
                 }
-
             }
         })
     })

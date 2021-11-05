@@ -75,13 +75,22 @@
                                                                     <ul class="additional-services">
                                                                         {{each value.info value2 index2}}
                                                                         <li>
-                                                                            <div class="upper">
+                                                                            <div class="upper clearfix">
                                                                                 <div class="check-block"><input
                                                                                         type="{{value.type}}"
                                                                                         id="radio_motor{{value2.itemId}}"
                                                                                         name="engine{{value2.sectionId}}"
-                                                                                        value="{{value2.itemId}}_{{value2.unitPrice}}"><label
+                                                                                        value="{{value2.itemId}}_{{value2.unitPrice}}"
+                                                                                        class="input_box"><label
                                                                                         for="radio_motor{{value2.itemId}}">{{value2.itemName}}</label>
+                                                                                    <input type="text"
+                                                                                        value="{{value2.quantityRemaining}}"
+                                                                                        name="quantityRemaining"
+                                                                                        class="quantityRemaining"
+                                                                                        hidden>
+                                                                                    <span class="stockStatus"
+                                                                                        style="display: none;">Out of
+                                                                                        Stock</span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="downlevel clearfix">
@@ -219,6 +228,7 @@
 <script src="https://smtpjs.com/v3/smtp.js">
 </script>
 <script>
+
     $("#inputBoatName").keyup(function () {
         $("#boatnickname p").html($("#inputBoatName").val())
     });
@@ -269,38 +279,44 @@
             });
     }
 
+    var quantityArr = $(".quantityRemaining")
+    for (var i in quantityArr) {
+        if (parseInt(quantityArr[i].value) == 0 || parseInt(quantityArr[i].value) < 0) {
+            quantityArr[i].nextElementSibling.style.display = 'block'
+            quantityArr[i].parentNode.firstChild.disabled = true;
+        }
+    }
 
-
-    // var obj = {};
-    // var sum = 0;
-    // $("input").on("click", function () {
-    //     obj.sectiontemp = [];
-    //     obj.pricetemp = [];
-    //     obj.itemtemp = [];
-    //     var sectionName = $(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim();
-    //     var price = parseInt($(this).val().split("_")[1]);
-    //     var itemName = $(this).val().split("_")[0]
-    //     if (this.checked == true) {
-    //         obj.sectiontemp.push(sectionName)
-    //         obj.pricetemp.push(price)
-    //         obj.itemtemp.push(itemName)
-    //         sum += price;
-    //     }
-    //     if (this.checked == false) {
-    //         obj.sectiontemp.remove(sectionName)
-    //         obj.pricetemp.remove(price)
-    //         obj.itemtemp.remove(itemName)
-    //         sum -= price;
-    //     }
-    //     $("#tableOne tbody").append(`<tr>
-    //                                     <td width='25%'>`+ obj.itemtemp + `</td>
-    //                                     <td width='25%'>`+ obj.sectiontemp + `</td>
-    //                                     <td width='25%'>$`+ obj.pricetemp + ` × 1</td>
-    //                                     <td width='25%'>$`+ obj.pricetemp + `</td>
-    //                                 </tr>`)
-    //     $("#summaryTotal").html('$' + sum)
-    //     $(".realPrice").html('$' + sum)
-    // })
+    var obj = {};
+    var sum = 0;
+    $("input").on("click", function () {
+        obj.sectiontemp = [];
+        obj.pricetemp = [];
+        obj.itemtemp = [];
+        var sectionName = $(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim();
+        var price = parseInt($(this).val().split("_")[1]);
+        var itemName = $(this).parent().children("label").text().trim()
+        if (this.checked == true) {
+            obj.sectiontemp.push(sectionName)
+            obj.pricetemp.push(price)
+            obj.itemtemp.push(itemName)
+            sum += price;
+        }
+        if (this.checked == false) {
+            obj.sectiontemp.remove(sectionName)
+            obj.pricetemp.remove(price)
+            obj.itemtemp.remove(itemName)
+            sum -= price;
+        }
+        $("#tableOne tbody").append(`<tr>
+                                        <td width='25%'>`+ obj.itemtemp + `</td>
+                                        <td width='25%'>`+ obj.sectiontemp + `</td>
+                                        <td width='25%'>$`+ obj.pricetemp + ` × 1</td>
+                                        <td width='25%'>$`+ obj.pricetemp + `</td>
+                                    </tr>`)
+        $("#summaryTotal").html('$' + sum)
+        $(".realPrice").html('$' + sum)
+    })
     // var obj = {};
     // var sectiontemp = [];
     // var pricetemp = [];

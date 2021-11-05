@@ -10,10 +10,10 @@
             </div>
             <div class="result-info">
                 <div class="result-lg">
-                    Thank you for making order with us.
+                    Thank you for your order.
                 </div>
                 <div class="result-xs">
-                    Your order has been placed
+                    Congratulations, your order has been placed successfully.
                 </div>
 
                 <div class="desc">
@@ -31,11 +31,12 @@
 
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-xs-12">
-                            Order Number: <span>#20211019000{{currentOrderInfo.orderId}}</span>
+                            Order Number: <span>#20211019000{{currentOrderInfo && currentOrderInfo.orderId}}</span>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <span class="expected_delivery"> <i class="fa fa-clock"></i>
-                                Est. Delivery: <span class="date">{{currentOrderInfo.estimatedDeliveryDate |
+                                Est. Delivery: <span class="date">{{currentOrderInfo &&
+                                    currentOrderInfo.estimatedDeliveryDate |
                                     getDate}}</span></span>
                         </div>
                     </div>
@@ -46,14 +47,15 @@
                         <div class="col-lg-4">
                             Boat Name:
                         </div>
-                        <div class="col-lg-8"> <span class="span-text">{{foundBoat.boatName}}</span></div>
+                        <div class="col-lg-8"> <span class="span-text">{{foundBoat && foundBoat.boatName}}</span></div>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-4">
                             Boat Category:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">{{foundCategory.categoryName}}</span>
+                        <div class="col-lg-8"><span class="span-text">{{foundCategory &&
+                                foundCategory.categoryName}}</span>
                         </div>
                     </div>
                     <div class="row">
@@ -61,7 +63,8 @@
                         <div class="col-lg-4">
                             Boat Price:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">{{currentOrderInfo.price | moneyFormat}}</span>
+                        <div class="col-lg-8"><span class="span-text">{{currentOrderInfo && currentOrderInfo.price |
+                                moneyFormat}}</span>
                         </div>
                     </div>
                     <div class="row">
@@ -69,7 +72,8 @@
                         <div class="col-lg-4">
                             Order Date:
                         </div>
-                        <div class="col-lg-8"><span class="span-text">{{currentOrderInfo.orderDate | getDate}}</span>
+                        <div class="col-lg-8"><span class="span-text">{{currentOrderInfo && currentOrderInfo.orderDate |
+                                getDate}}</span>
                         </div>
                     </div>
                 </div>

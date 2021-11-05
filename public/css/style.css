@@ -19232,3 +19232,13 @@ a:hover {
 	border:1px solid #e69c48;
 	box-shadow: 0 0 0 0.2rem rgb(230 96 0 / 25%);
 }
+.stockStatus{
+	position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 20px;
+    background: #f1f1f1;
+    font-size: 0.7rem;
+    padding: 0 5px;
+	display: none;
+}

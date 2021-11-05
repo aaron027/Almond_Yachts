@@ -128,9 +128,9 @@
                             <tr>
                                 <td>{{selectedItemarr && selectedItemarr[$index].itemName}}</td>
                                 <td>{{selectedsections && selectedsections[$index].sectionName}}</td>
-                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice}}</td>
+                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice | moneyFormat}}</td>
                                 <td>× 1</td>
-                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice}}</td>
+                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice | moneyFormat}}</td>
                             </tr>
                             {{/each}}
                         </tbody>

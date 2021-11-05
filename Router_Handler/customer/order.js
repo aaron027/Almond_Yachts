@@ -95,17 +95,62 @@ module.exports.placeOrder = (req, response, next) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
-            }, (err, res2, data) => {
-                var result = JSON.parse(res2.body);
-                req.session.currentOrderInfo = result
+            }, (err, res, data) => {
+                var orderDetailInfos = JSON.parse(res.body);
+                req.session.currentOrderInfo = orderDetailInfos
+                request.get({
+                    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }, (err, res2, data) => {
+                    var items = JSON.parse(res2.body);
 
-                req.session.save(function (err) {
-                    response.status(200).json({
-                        err_code: 0,
-                        message: 'ok!'
+                    // Deduct item quantity after placed order
+                    for (var i in items) {
+                        for (var j in orderDetailInfos.orderDetails) {
+                            if (items[i].itemId == orderDetailInfos.orderDetails[j].itemId) {
+
+                                items[i].quantityRemaining = parseInt(items[i].quantityRemaining) - 1;
+                                request.put({
+                                    url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + items[i].itemId,
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        itemId: items[i].itemId,
+                                        itemName: items[i].itemName,
+                                        quantity: items[i].quantity,
+                                        quantityRemaining: items[i].quantityRemaining,
+                                        unitPrice: items[i].unitPrice,
+                                        weight: items[i].weight,
+                                        size: items[i].size,
+                                        origin: items[i].origin,
+                                        supplierId: items[i].supplierId,
+                                        sectionId: items[i].sectionId
+                                    })
+                                }, (err, res, data) => {
+                                    var result = res.body
+                                    req.session.items = result
+                                    response.status(200).json({
+                                        err_code: 0,
+                                        message: 'OK'
+                                    })
+                                })
+
+                            }
+                        }
+                    }
+
+                    req.session.save(function (err) {
+                        response.status(200).json({
+                            err_code: 0,
+                            message: 'ok!'
+                        })
                     })
                 })
-
             })
         })
     } else {
@@ -119,13 +164,57 @@ module.exports.placeOrder = (req, response, next) => {
             },
             body: JSON.stringify(formData)
         }, (err, res, data) => {
-            var result = JSON.parse(res.body);
-            req.session.currentOrderInfo = result
-            req.session.save(function (err) {
-                response.status(200).json({
-                    err_code: 0,
-                    message: 'ok!'
+            var orderDetailInfos = JSON.parse(res.body);
+            req.session.currentOrderInfo = orderDetailInfos
+            request.get({
+                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }, (err, res2, data) => {
+                var items = JSON.parse(res2.body);
+                // Deduct item quantity after placed order
+                for (var i in items) {
+                    for (var j in orderDetailInfos.orderDetails) {
+                        if (items[i].itemId == orderDetailInfos.orderDetails[j].itemId) {
+                            items[i].quantityRemaining = parseInt(items[i].quantityRemaining) - 1;
+                            request.put({
+                                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + items[i].itemId,
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    itemId: items[i].itemId,
+                                    itemName: items[i].itemName,
+                                    quantity: items[i].quantity,
+                                    quantityRemaining: items[i].quantityRemaining,
+                                    unitPrice: items[i].unitPrice,
+                                    weight: items[i].weight,
+                                    size: items[i].size,
+                                    origin: items[i].origin,
+                                    supplierId: items[i].supplierId,
+                                    sectionId: items[i].sectionId
+                                })
+                            }, (err, res, data) => {
+                                var result = res.body
+                                req.session.items = result
+                                response.status(200).json({
+                                    err_code: 0,
+                                    message: 'OK'
+                                })
+                            })
+                        }
+                    }
+                }
+                req.session.save(function (err) {
+                    response.status(200).json({
+                        err_code: 0,
+                        message: 'ok!'
+                    })
                 })
+
             })
 
         })
@@ -147,7 +236,6 @@ module.exports.showResult = (req, res, next) => {
         if (error) return error;
         var boats = JSON.parse(response.body);
         var foundBoat = boats.find(element => element.id == boatId);
-        console.log(foundBoat)
         var categoryId = foundBoat.categoryId
         var options = {
             'method': 'GET',

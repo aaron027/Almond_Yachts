@@ -1,3 +1,4 @@
+<!-- The boat page -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -48,16 +49,17 @@
                                     <tbody>
                                         {{each result}}
                                         <tr>
-                                            <td>{{result[$index].id}}</td>
-                                            <td>{{result[$index].boatName}}</td>
-                                            <td>{{result[$index].modelNumber}}</td>
+                                            <td>{{result && result[$index].id}}</td>
+                                            <td>{{result && result[$index].boatName}}</td>
+                                            <td>{{result && result[$index].modelNumber}}</td>
                                             <td class="modelYear">
-                                                {{result[$index].modelYear | getDate}}</td>
+                                                {{result && result[$index].modelYear | getDate}}</td>
                                             <td>
-                                                <a href="/oa/boatEdit?id={{result[$index].id}}" class='mr-4 btn-edit'>
+                                                <a href="/oa/boatEdit?id={{result && result[$index].id}}"
+                                                    class='mr-4 btn-edit'>
                                                     <span class='fa fa-edit' aria-hidden='true'></span>
                                                 </a>
-                                                <a href="/oa/deleteBoat?id={{result[$index].id}}"
+                                                <a href="/oa/deleteBoat?id={{result && result[$index].id}}"
                                                     class='mr-4 btn-delete'>
                                                     <span class='fas fa-trash-alt'
                                                         onclick="return confirmAct();"></span>
@@ -78,10 +80,4 @@
 </div>
 
 <!-- End section content -->
-{{/block }}
-{{block 'oascript'}}
-<script>
-
-
-</script>
 {{/block }}

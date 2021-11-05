@@ -195,23 +195,52 @@ module.exports.editOrder = (req, response, next) => {
     formData.orderId = parseInt(formData.orderId)
     formData.boatId = parseInt(formData.boatId)
     formData.price = parseInt(formData.price)
-    formData.boats = null
-    formData.applicationUser = null
-    request.put({
-        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/' + orderid,
-        method: 'PUT',
+    formData.customerId = formData.customerId
+    request.get({
+        url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
+        method: 'get',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    }, (err, res, data) => {
-        var result = res.body
-        req.session.orders = result
-        response.status(200).json({
-            err_code: 0,
-            message: 'OK'
+        }
+    }, (err, res1, data) => {
+        var orders = JSON.parse(res1.body)
+        var foundOrder;
+        for (var i in orders) {
+            if (orders[i].orderId == orderid) {
+                foundOrder = orders[i]
+            }
+        }
+        console.log(foundOrder)
+        formData.orderDate = foundOrder.orderDate
+        request.get({
+            url: 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByOrderId?orderId=' + orderid,
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }, (err, res2, data) => {
+            var orderdetails = JSON.parse(res2.body)
+            request.put({
+                url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders/' + orderid,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            }, (err, res3, data) => {
+                var result = res3.body
+                result.orderDetails = orderdetails
+                req.session.orders = result
+                response.status(200).json({
+                    err_code: 0,
+                    message: 'OK'
+                })
+            })
         })
+
     })
+
+
 }
 
 /**

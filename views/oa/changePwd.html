@@ -92,6 +92,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // Send ajax request after submitting the form
     $('#changePwd').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();
@@ -103,16 +104,15 @@
             success: function (data) {
                 var err_code = data.err_code
                 if (err_code === 0) {
-                    $(".warning").show();
+                    $(".warning").show(); // Show message returned by server according to error code
                     $(".warning span").html("Password successfully changed.");
                 } else if (err_code === 1) {
-                    $(".warning").show();
+                    $(".warning").show();// Show message returned by server according to error code
                     $(".warning span").html("The current password is wrong, please try again.");
                 } else if (err_code === 500) {
-                    $(".warning").show();
+                    $(".warning").show();// Show message returned by server according to error code
                     $(".warning span").html("server error.");
                 }
-
             }
         })
     })
