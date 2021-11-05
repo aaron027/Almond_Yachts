@@ -124,41 +124,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{each selectedItemarr}}
                             <tr>
-                                <td>NAVY 6.0 REMOTE LONGSHAFT</td>
-                                <td>Motor</td>
-                                <td>$4000</td>
+                                <td>{{selectedItemarr && selectedItemarr[$index].itemName}}</td>
+                                <td>{{selectedsections && selectedsections[$index].sectionName}}</td>
+                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice}}</td>
                                 <td>× 1</td>
-                                <td>$4000</td>
+                                <td>{{selectedItemarr && selectedItemarr[$index].unitPrice}}</td>
                             </tr>
-                            <tr>
-                                <td>E175 E-SERIES BATTERY</td>
-                                <td>Motor</td>
-                                <td>$8000</td>
-                                <td>× 1</td>
-                                <td>$8000</td>
-                            </tr>
-                            <tr>
-                                <td>RONSTAN RIGGING</td>
-                                <td>Running Rigging</td>
-                                <td>$24190</td>
-                                <td>× 1</td>
-                                <td>$4200</td>
-                            </tr>
-                            <tr>
-                                <td>MAINSAILS</td>
-                                <td>Sails</td>
-                                <td>$2440</td>
-                                <td>× 1</td>
-                                <td>$3000</td>
-                            </tr>
-                            <tr>
-                                <td>NAVY BATTERY CONTROL</td>
-                                <td>Battery</td>
-                                <td>$300</td>
-                                <td>× 1</td>
-                                <td>$300</td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                     <div class="row">

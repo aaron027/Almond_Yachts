@@ -146,6 +146,7 @@ function confirmAct () {
     return false;
 }
 
+
 /**
  * The method for changing the navagation status
  */

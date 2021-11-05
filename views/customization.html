@@ -30,7 +30,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 view_summary">
                                         <span class="arrow fa fa-arrow-circle-right"></span><button class="view"
-                                            data-toggle="modal" data-target="#viewsummary">View Summary</button>
+                                            data-toggle="modal" data-target="#viewsummary" id="view_summary">View
+                                            Summary</button>
                                     </div>
                                 </div>
                             </div>
@@ -229,6 +230,8 @@
     var sectionH4 = $("#section3").height() + sectionH3 - 64
     var sectionH5 = $("#section4").height() + sectionH4 - 64
     var boatid = $("input[name='boatId']").val()
+
+    //scroll the scrollbar and change the picture according to the offset
     $("#mCSB_3_container").bind('mousewheel', function (event, delta) {
         var h = Math.abs(parseInt($(this).position().top))
         if (h < sectionH2) {
@@ -267,36 +270,72 @@
     }
 
 
-    var obj = {};
-    var sum = 0;
-    $("input").on("click", function () {
-        obj.sectiontemp = [];
-        obj.pricetemp = [];
-        obj.itemtemp = [];
-        var sectionName = $(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim();
-        var price = parseInt($(this).val().split("_")[1]);
-        var itemName = $(this).val().split("_")[0]
-        if (this.checked == true) {
-            obj.sectiontemp.push(sectionName)
-            obj.pricetemp.push(price)
-            obj.itemtemp.push(itemName)
-            sum += price;
-        }
-        if (this.checked == false) {
-            obj.sectiontemp.remove(sectionName)
-            obj.pricetemp.remove(price)
-            obj.itemtemp.remove(itemName)
-            sum -= price;
-        }
-        $("#tableOne tbody").append(`<tr>
-                                        <td width='25%'>`+ obj.itemtemp + `</td>
-                                        <td width='25%'>`+ obj.sectiontemp + `</td>
-                                        <td width='25%'>$`+ obj.pricetemp + ` × 1</td>
-                                        <td width='25%'>$`+ obj.pricetemp + `</td>
-                                    </tr>`)
-        $("#summaryTotal").html('$' + sum)
-        $(".realPrice").html('$' + sum)
-    })
+
+    // var obj = {};
+    // var sum = 0;
+    // $("input").on("click", function () {
+    //     obj.sectiontemp = [];
+    //     obj.pricetemp = [];
+    //     obj.itemtemp = [];
+    //     var sectionName = $(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim();
+    //     var price = parseInt($(this).val().split("_")[1]);
+    //     var itemName = $(this).val().split("_")[0]
+    //     if (this.checked == true) {
+    //         obj.sectiontemp.push(sectionName)
+    //         obj.pricetemp.push(price)
+    //         obj.itemtemp.push(itemName)
+    //         sum += price;
+    //     }
+    //     if (this.checked == false) {
+    //         obj.sectiontemp.remove(sectionName)
+    //         obj.pricetemp.remove(price)
+    //         obj.itemtemp.remove(itemName)
+    //         sum -= price;
+    //     }
+    //     $("#tableOne tbody").append(`<tr>
+    //                                     <td width='25%'>`+ obj.itemtemp + `</td>
+    //                                     <td width='25%'>`+ obj.sectiontemp + `</td>
+    //                                     <td width='25%'>$`+ obj.pricetemp + ` × 1</td>
+    //                                     <td width='25%'>$`+ obj.pricetemp + `</td>
+    //                                 </tr>`)
+    //     $("#summaryTotal").html('$' + sum)
+    //     $(".realPrice").html('$' + sum)
+    // })
+    // var obj = {};
+    // var sectiontemp = [];
+    // var pricetemp = [];
+    // var itemtemp = [];
+    // var sum = 0;
+    // $("#view_summary").click(function () {
+
+    //     $("#itemContent input").each(function () {
+    //         if ($(this).is(":checked") == true) {
+    //             if (!sectiontemp.includes($(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim())) {
+    //                 sectiontemp.push($(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim())
+    //             }
+    //             if (!pricetemp.includes(parseInt($(this).val().split("_")[1]))) {
+    //                 pricetemp.push(parseInt($(this).val().split("_")[1]))
+    //             }
+    //             if (!itemtemp.includes($(this).parent().children("label").text().trim())) {
+    //                 itemtemp.push($(this).parent().children("label").text().trim());
+    //                 sum += parseInt($(this).val().split("_")[1]);
+    //             }
+    //         }
+    //     })
+
+    //     obj.sectiontemp = sectiontemp;
+    //     obj.pricetemp = pricetemp;
+    //     obj.itemtemp = itemtemp;
+    //     for (var i in obj.sectiontemp) {
+    //         $("#tableOne tbody").append(`<tr>
+    //                                     <td width='25%'>`+ obj.itemtemp[i] + `</td>
+    //                                     <td width='25%'>`+ obj.sectiontemp[i] + `</td>
+    //                                     <td width='25%'>$`+ obj.pricetemp[i] + ` × 1</td>
+    //                                     <td width='25%'>$`+ obj.pricetemp[i] + `</td>
+    //                                 </tr>`)
+    //     }
+    //     $("#summaryTotal").html('$' + sum)
+    // });
 
     $("#PdfReport").click(function () {
         makePDF()
@@ -329,9 +368,8 @@
                 if (err_code === 0) {
                     window.location.href = '/orderResult'
                 } else if (err_code === 500) {
-                    t_alert("Server error");
+                    alert("Server error");
                 }
-
             }
         })
     })

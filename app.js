@@ -10,6 +10,11 @@ var app = express()
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/public/', express.static(path.join(__dirname, './public/')))
+app.use(session({
+  secret: 'almondboats',
+  resave: true,
+  saveUninitialized: true
+}))
 app.use('/node_modules/', express.static(path.join(__dirname, './node_modules/')))
 
 app.engine('html', require('express-art-template'))
@@ -75,11 +80,7 @@ app.use(function (req, res, next) {
   };
   next();
 });
-app.use(session({
-  secret: 'almondboats',
-  resave: false,
-  saveUninitialized: false
-}))
+
 
 app.use(router)
 

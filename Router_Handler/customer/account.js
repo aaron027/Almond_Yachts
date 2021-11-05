@@ -15,12 +15,68 @@ module.exports.latestOrderInfo = (req, res, next) => {
   var latestOrder = req.session.latestOrder
   var latestBoat = req.session.latestBoat
   var latestCategory = req.session.latestCategory
-  res.render('latestOrder.html', {
-    user: req.session.user,
-    latestOrder: latestOrder,
-    latestBoat: latestBoat,
-    latestCategory: latestCategory
-  })
+  var orderid = latestOrder.orderId;
+  var options = {
+    'method': 'GET',
+    'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/OrderDetails/GetOrderDetailsByOrderId?orderId=' + orderid,
+    'headers': {
+      'Content-Type': 'application/json'
+    }
+  };
+  request(options, function (error, res1) {
+    if (error) return error;
+    var orderdetails = JSON.parse(res1.body);
+    var options = {
+      'method': 'GET',
+      'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
+      'headers': {
+        'Content-Type': 'application/json'
+      }
+    };
+    request(options, function (error, res2) {
+      if (error) return error;
+      var items = JSON.parse(res2.body);
+      var selectedItemarr = []
+      for (var i in items) {
+        for (var j in orderdetails) {
+          if (items[i].itemId == orderdetails[j].itemId) {
+            selectedItemarr.push(items[i])
+          }
+        }
+      }
+      var options = {
+        'method': 'GET',
+        'url': 'https://boatconfigure20210930164433.azurewebsites.net/api/Sections',
+        'headers': {
+          'Content-Type': 'application/json'
+        }
+      };
+      request(options, function (error, res3) {
+        if (error) return error;
+        var sections = JSON.parse(res3.body);
+        var selectedsections = []
+        for (var i in sections) {
+          for (var j in selectedItemarr) {
+            if (sections[i].sectionId == selectedItemarr[j].sectionId) {
+              selectedsections.push(sections[i])
+            }
+          }
+        }
+        res.render('latestOrder.html', {
+          user: req.session.user,
+          latestOrder: latestOrder,
+          latestBoat: latestBoat,
+          latestCategory: latestCategory,
+          selectedsections: selectedsections,
+          selectedItemarr: selectedItemarr
+        })
+
+      });
+
+    });
+
+  });
+
 }
 
 /**

@@ -98,14 +98,19 @@ module.exports.placeOrder = (req, response, next) => {
             }, (err, res2, data) => {
                 var result = JSON.parse(res2.body);
                 req.session.currentOrderInfo = result
-                response.status(200).json({
-                    err_code: 0,
-                    message: 'ok!'
+
+                req.session.save(function (err) {
+                    response.status(200).json({
+                        err_code: 0,
+                        message: 'ok!'
+                    })
                 })
+
             })
         })
     } else {
         // the logged in status to place order
+        req.session.newuser = null;
         request.post({
             url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
             method: 'POST',
@@ -116,16 +121,16 @@ module.exports.placeOrder = (req, response, next) => {
         }, (err, res, data) => {
             var result = JSON.parse(res.body);
             req.session.currentOrderInfo = result
-            response.status(200).json({
-                err_code: 0,
-                message: 'ok!'
+            req.session.save(function (err) {
+                response.status(200).json({
+                    err_code: 0,
+                    message: 'ok!'
+                })
             })
+
         })
     }
-
-
 }
-
 
 //Render order Result after placing the order
 module.exports.showResult = (req, res, next) => {
@@ -142,6 +147,7 @@ module.exports.showResult = (req, res, next) => {
         if (error) return error;
         var boats = JSON.parse(response.body);
         var foundBoat = boats.find(element => element.id == boatId);
+        console.log(foundBoat)
         var categoryId = foundBoat.categoryId
         var options = {
             'method': 'GET',

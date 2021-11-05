@@ -129,7 +129,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example1" class="display nowrap">
+                                <table id="todayOrder" class="display nowrap">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -147,7 +147,7 @@
                                                 {{todayOrders && todayOrders[$index].orderId}}
                                             </td>
                                             <td class="orderDate">{{todayOrders && todayOrders[$index].orderDate |
-                                                getDate}}</td>
+                                                getDateTime}}</td>
                                             <td class="dateformate"> {{todayOrders &&
                                                 todayOrders[$index].estimatedDeliveryDate | getDate}}
                                             </td>
@@ -166,9 +166,7 @@
                                                     onclick="return confirmAct();">
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
-                                                <a class='view' href="/oa/viewOrder?id={{$value.orderId}}">
-                                                    <span class='fas fa-eye'></span>
-                                                </a>
+
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -185,3 +183,10 @@
 </div>
 <!-- End section content -->
 {{/block }}
+{{block 'oascript'}}
+<script>
+    $(function () {
+        jQuery('#todayOrder').DataTable({ "order": [[1, "desc"]] })
+    })
+</script>
+{{/block}}

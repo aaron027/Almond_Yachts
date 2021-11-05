@@ -6,7 +6,7 @@ var myChart = new Chart(ctx, {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fr', 'Sat', 'Sun'],
         datasets: [{
             label: 'Lightship',
-            data: [$("#orderByDay li:nth-child(0)").html(), $("#orderByDay li:nth-child(1)").html(), $("#orderByDay li:nth-child(2)").html(), $("#orderByDay li:nth-child(3)").html(), $("#orderByDay li:nth-child(4)").html(), $("#orderByDay li:nth-child(5)").html(), $("#orderByDay li:nth-child(6)").html()],
+            data: [$("#orderByDay li:nth-child(1)").html(), $("#orderByDay li:nth-child(2)").html(), $("#orderByDay li:nth-child(3)").html(), $("#orderByDay li:nth-child(4)").html(), $("#orderByDay li:nth-child(5)").html(), $("#orderByDay li:nth-child(6)").html(), $("#orderByDay li:nth-child(0)").html()],
             barPercentage: .5,
             backgroundColor: "#d5ae82",
         }]
