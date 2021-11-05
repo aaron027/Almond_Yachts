@@ -1,3 +1,4 @@
+<!-- The item edit page  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -164,6 +165,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // Get the value of selected suppliers and write back to select options
     $("#suppliers").val($("#supplierId").val())
     $("#sections").val($("#sectionId").val())
     $('#editInfo').on('submit', function (e) {

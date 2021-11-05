@@ -1,3 +1,4 @@
+<!-- The page for adding a new boat  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -34,7 +35,7 @@
                                                 <select class="form-control" id="categories">
                                                     {{each categories}}
                                                     <option name="categoryId" value="{{categories[$index].categoryId}}">
-                                                        {{categories[$index].categoryName}}</option>
+                                                        {{categories && categories[$index].categoryName}}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
@@ -103,8 +104,10 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // The function to send ajax request
     $('#newBoats').on('submit', function (e) {
         e.preventDefault()
+        // Write back the value of selection options
         var categoryId = $("#categories option:selected").val();
         var formData = $(this).serialize() + '&categoryId=' + categoryId;
         $.ajax({
@@ -124,6 +127,7 @@
         })
     })
 
+    //The function to format date
     var formateDate = function (date) {
         const dateFormatted = new Date(date);
         return dateFormatted

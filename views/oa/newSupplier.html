@@ -1,3 +1,4 @@
+<!-- The page for adding a new supplier  -->
 {{extend './layout.html'}}
 
 {{block 'oacontent'}}
@@ -85,15 +86,12 @@
                                     </div>
                                     <hr>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-sm-11">
                                         <div class="form-group"><button type="submit"
                                                 class="btn btn-primary float-end">Save</button></div>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -107,7 +105,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
-
+    // Send ajax request for posting formdata
     $('#newSupplier').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();

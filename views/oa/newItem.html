@@ -42,7 +42,7 @@
                                                 <select class="form-control" id="suppliers">
                                                     {{each suppliers}}
                                                     <option name="supplierId" value="{{suppliers[$index].supplierId}}">
-                                                        {{suppliers[$index].supplierName}}</option>
+                                                        {{suppliers && suppliers[$index].supplierName}}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
@@ -57,7 +57,7 @@
                                                 <select class="form-control" id="sections">
                                                     {{each sections}}
                                                     <option name="sectionId" value="{{sections[$index].sectionId}}">
-                                                        {{sections[$index].sectionName}}</option>
+                                                        {{sections && sections[$index].sectionName}}</option>
                                                     {{/each}}
                                                 </select>
                                             </div>
@@ -154,6 +154,7 @@
 {{/block }}
 {{block 'oascript'}}
 <script>
+    // Send ajax request for posting formdata
     $('#postItem').on('submit', function (e) {
         e.preventDefault()
         var supplierId = $("#suppliers option:selected").val();
