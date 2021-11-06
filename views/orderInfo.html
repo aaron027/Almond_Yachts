@@ -95,7 +95,8 @@
                                     <p>{{user && user.firstName}} {{user && user.lastName}}</p>
                                     <p class="address">{{user && user.address1}} </p>
                                     <p class="suburb">{{user && user.suburb}} </p>
-                                    <p class="state">{{user && user.state}} {{user && user.zipCode}} </p>
+                                    <p class="state">{{user && user.state}} {{user && user.zipCode==0?'': user.zipCode}}
+                                    </p>
                                     <p class="country">{{user && user.country}}</p>
                                 </div>
                             </div>
@@ -105,7 +106,7 @@
                                     <p>{{user && user.firstName}} {{user && user.lastName}}</p>
                                     <p>{{user && user.address1}} </p>
                                     <p>{{user && user.suburb}} </p>
-                                    <p>{{user && user.state}}, {{user && user.zipCode}} </p>
+                                    <p>{{user && user.state}}, {{user && user.zipCode==0?'': user.zipCode}} </p>
                                     <p>{{user && user.country}}</p>
                                 </div>
                             </div>

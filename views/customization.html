@@ -405,6 +405,8 @@
                     window.location.href = '/orderResult'
                 } else if (err_code === 500) {
                     alert("Server error");
+                } else if (err_code === 2) {
+                    alert("Email exists, you can login to place the order");
                 }
             }
         })

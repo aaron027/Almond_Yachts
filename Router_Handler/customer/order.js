@@ -84,6 +84,12 @@ module.exports.placeOrder = (req, response, next) => {
                 password: createdpassword
             })
         }, (err, res, data) => {
+            if (data == 'Email Already Exists, Please Provide  Another Email') {
+                return response.status(200).json({
+                    err_code: 2,
+                    message: 'Email Exists'
+                })
+            }
             var newuser = JSON.parse(res.body);
             req.session.user = newuser
             req.session.newuser = newuser;
