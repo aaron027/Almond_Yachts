@@ -98,10 +98,9 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="downlevel clearfix">
-                                                                                <a class="fa fa-info-circle icon-info"
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#motor2"></a>
-                                                                                <span>More
+                                                                                <a
+                                                                                    class="fa fa-info-circle icon-info"></a>
+                                                                                <span> More
                                                                                     Information</span>
                                                                                 <span class="price "><span
                                                                                         class="convertPrice">{{value2.unitPrice
@@ -117,6 +116,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="personal_info">
                                                 <div class="form-group">
                                                     <div class="field-inner">
@@ -125,7 +125,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--tabs end-->
+
                                             {{if user}}
 
                                             {{else}}
@@ -155,7 +155,7 @@
                                             {{/if}}
                                             <div class="place-order">
                                                 <div class="form-group">
-                                                    <button type="submit" class="theme-btn"><span
+                                                    <button type="submit" id="place_order_btn" disabled><span
                                                             class="btn-title">Place
                                                             order</span></button>
                                                 </div>
@@ -236,6 +236,18 @@
     $("#inputBoatName").keyup(function () {
         $("#boatnickname p").html($("#inputBoatName").val())
     });
+
+
+    // Checked the input checked status in order to prevent submit nothing
+
+    $(".boatcontent input").on("change keyup paste", function () {
+        if ($('.boatcontent input:checked').length > 0) {
+            $("#place_order_btn").attr("disabled", false)
+        } else {
+            $("#place_order_btn").attr("disabled", true)
+        }
+    })
+
     var userid = $("input[name='customerId']").val()
 
     var sectionH1 = 82;

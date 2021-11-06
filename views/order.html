@@ -1,3 +1,4 @@
+<!-- The order history page in my account  -->
 {{extend './_layout/layout.html'}}
 
 {{block 'content'}}
@@ -73,6 +74,7 @@
                     </li>
                     {{/each}}
                 </ul>
+                <!-- If there is no order in the account, this div will show  -->
                 <div class="default_page" style="display: none;">
                     There are currently no orders.
                 </div>
@@ -84,6 +86,7 @@
 {{/block}}
 {{block 'script'}}
 <script>
+    // The function to show div for no order
     if (document.querySelector(".info-content ul").querySelector("li") == null) {
         $(".default_page").show();
     } else {

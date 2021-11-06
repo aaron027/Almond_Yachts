@@ -1,3 +1,4 @@
+<!-- The page for users to change password  -->
 {{extend './_layout/layout.html'}}
 
 {{block 'content'}}
@@ -105,7 +106,7 @@
 {{/block}}
 {{block 'script'}}
 <script>
-
+    // Sending form data to server
     $('#changePwd').on('submit', function (e) {
         e.preventDefault()
         var formData = $(this).serialize();
@@ -131,7 +132,7 @@
             }
         })
     })
-
+    // The function to hide message block if user click the button
     $(".warning i").click(function () {
         $(this).parent().hide()
     })

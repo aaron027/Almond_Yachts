@@ -20,6 +20,7 @@ app.use('/node_modules/', express.static(path.join(__dirname, './node_modules/')
 app.engine('html', require('express-art-template'))
 app.set('views', path.join(__dirname, './views/'))
 
+// The function to format date with the format of 'yyyy-mm-dd'
 template.defaults.imports.getDate = (dateTime) => {
   const datetime = new Date(dateTime)
   const year = datetime.getFullYear()
@@ -31,6 +32,7 @@ template.defaults.imports.getDate = (dateTime) => {
   return year + "-" + month + "-" + date
 }
 
+// The function to format date with the format of 'yyyy-mm-dd HH:MM:ss'
 template.defaults.imports.getDateTime = (dateTime) => {
   const datetime = new Date(dateTime)
   const year = datetime.getFullYear()
@@ -42,6 +44,7 @@ template.defaults.imports.getDateTime = (dateTime) => {
   return year + "-" + month + "-" + date + ' ' + hour + ':' + minute + ':' + second
 }
 
+// The function to format date with the format of month name, day and date
 template.defaults.imports.getMonthDate = (dateTime) => {
   const datetime = new Date(dateTime)
   const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -61,6 +64,7 @@ template.defaults.imports.getMonthDate = (dateTime) => {
   return day + ", " + date + ' ' + monthname
 }
 
+// The function to format money
 template.defaults.imports.moneyFormat = (money) => {
   if (money) {
     return '$' + money.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');

@@ -1,3 +1,4 @@
+<!-- The page to show order informtion for each order history  -->
 {{extend './_layout/layout.html'}}
 
 {{block 'content'}}
@@ -173,6 +174,7 @@
 {{/block}}
 {{block 'script'}}
 <script>
+    // if the customer information is incomplete, the delivery informtion will hide 
     if ($(".address").html().trim() == "" || $(".suburb").html().trim() == "" || $(".country").html().trim() == "") {
         $("#deliverInfo").hide()
     }

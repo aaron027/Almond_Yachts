@@ -1,3 +1,4 @@
+<!-- The page for showing latest order information  -->
 {{extend './_layout/layout.html'}}
 
 {{block 'content'}}
@@ -12,7 +13,6 @@
             </ol>
         </nav>
         <div class="account-content-info">
-
             <div class="info-title clearfix">Order Info <span class="status">
                     <i class="fa fa-check-circle"></i>
                     received
@@ -64,6 +64,7 @@
 
                 </div>
             </div>
+            <!-- Delivery Information  -->
             <div class="info-title clearfix">Delivery Info
             </div>
             <div class="info-content">
@@ -150,7 +151,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Tax/GST</span>
-                                <span type="text" class="form-control">$158.00</span>
+                                <span type="text" class="form-control">{{latestOrder.price * 0.05 | moneyFormat}}</span>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text text-title">Delivery</span>
