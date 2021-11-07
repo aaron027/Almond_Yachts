@@ -191,8 +191,7 @@
                             <div class="scroller">
                                 <div class="summary-title">
                                     <h5><span class="text">Brief Info </span>
-                                        <a href="#" class="btn btn-light share-it" id="emailDetail">
-                                            <span class="fa fa-envelope"></span> Email Details</a>
+
                                         <a href="javascript:genPDF()" class="btn btn-light share-it"><span
                                                 class="fa fa-file-pdf"></span> PDF Summary</a>
                                     </h5>
@@ -203,7 +202,6 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>ITEM NAME</th>
-                                            <th>SECTION</th>
                                             <th>UNIT PRICE</th>
                                             <th>SUBTOTAL</th>
                                         </tr>
@@ -232,6 +230,53 @@
 <script src="https://smtpjs.com/v3/smtp.js">
 </script>
 <script>
+    // The function to show summary 
+    var elementArr = []
+    var itemNames = []
+    // loop all the item names
+    $('label').each(function () {
+        itemNames.push($(this).attr('for') + ',' + $(this).html());
+    });
+
+    // Once click the button the function to show summary
+    $("#view_summary").click(function () {
+        elementArr = $("#customForm").serialize().split("&");
+
+        var selectedArr = []
+        var selectedPrice = []
+        var sumPrice = 0;
+
+        // check all the input with the name 'engine'
+        for (var i in elementArr) {
+            if (elementArr[i].startsWith("engine")) {
+                selectedArr.push(elementArr[i])
+                selectedPrice.push(elementArr[i].split('=')[1].split("_")[1])
+                sumPrice += parseInt(elementArr[i].split('=')[1].split("_")[1])
+            }
+        }
+        var selectedItemNames = []
+        // get all the item names
+        for (var i in selectedArr) {
+            for (var j in itemNames) {
+                if (selectedArr[i].split("=")[1].split("_")[0] == itemNames[j].split(',')[0].replace(/radio_motor/g, '')) {
+                    selectedItemNames.push(itemNames[j].split(',')[1])
+                }
+
+            }
+        }
+        // put all the information in the table
+        $("#tableOne tbody").html("")
+        for (var i in selectedItemNames) {
+            $("#tableOne tbody").append(`<tr>
+                                        <td width='33.3%'>`+ selectedItemNames[i] + `</td>
+                                        <td width='33.3%'>$`+ selectedPrice[i] + ` × 1</td>
+                                        <td width='33.3%'>$`+ selectedPrice[i] + `</td>
+                                    </tr>`)
+        }
+        $("#summaryTotal").html('$' + sumPrice)
+        $(".realPrice").html('$' + sumPrice)
+    })
+
     // The function to show the editted name by customer
     $("#inputBoatName").keyup(function () {
         $("#boatnickname p").html($("#inputBoatName").val())
@@ -303,73 +348,6 @@
             quantityArr[i].parentNode.firstChild.disabled = true;
         }
     }
-
-    var obj = {};
-    var sum = 0;
-    // The function for showing summary
-    $("input").on("click", function () {
-        obj.sectiontemp = [];
-        obj.pricetemp = [];
-        obj.itemtemp = [];
-        var sectionName = $(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim();
-        var price = parseInt($(this).val().split("_")[1]);
-        var itemName = $(this).parent().children("label").text().trim()
-        if (this.checked == true) {
-            obj.sectiontemp.push(sectionName)
-            obj.pricetemp.push(price)
-            obj.itemtemp.push(itemName)
-            sum += price;
-        }
-        if (this.checked == false) {
-            obj.sectiontemp.remove(sectionName)
-            obj.pricetemp.remove(price)
-            obj.itemtemp.remove(itemName)
-            sum -= price;
-        }
-        $("#tableOne tbody").append(`<tr>
-                                        <td width='25%'>`+ obj.itemtemp + `</td>
-                                        <td width='25%'>`+ obj.sectiontemp + `</td>
-                                        <td width='25%'>$`+ obj.pricetemp + ` × 1</td>
-                                        <td width='25%'>$`+ obj.pricetemp + `</td>
-                                    </tr>`)
-        $("#summaryTotal").html('$' + sum)
-        $(".realPrice").html('$' + sum)
-    })
-    // var obj = {};
-    // var sectiontemp = [];
-    // var pricetemp = [];
-    // var itemtemp = [];
-    // var sum = 0;
-    // $("#view_summary").click(function () {
-
-    //     $("#itemContent input").each(function () {
-    //         if ($(this).is(":checked") == true) {
-    //             if (!sectiontemp.includes($(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim())) {
-    //                 sectiontemp.push($(this).parent().parent().parent().parent().parent().parent().children(".field-label").children(".label-title").text().trim())
-    //             }
-    //             if (!pricetemp.includes(parseInt($(this).val().split("_")[1]))) {
-    //                 pricetemp.push(parseInt($(this).val().split("_")[1]))
-    //             }
-    //             if (!itemtemp.includes($(this).parent().children("label").text().trim())) {
-    //                 itemtemp.push($(this).parent().children("label").text().trim());
-    //                 sum += parseInt($(this).val().split("_")[1]);
-    //             }
-    //         }
-    //     })
-
-    //     obj.sectiontemp = sectiontemp;
-    //     obj.pricetemp = pricetemp;
-    //     obj.itemtemp = itemtemp;
-    //     for (var i in obj.sectiontemp) {
-    //         $("#tableOne tbody").append(`<tr>
-    //                                     <td width='25%'>`+ obj.itemtemp[i] + `</td>
-    //                                     <td width='25%'>`+ obj.sectiontemp[i] + `</td>
-    //                                     <td width='25%'>$`+ obj.pricetemp[i] + ` × 1</td>
-    //                                     <td width='25%'>$`+ obj.pricetemp[i] + `</td>
-    //                                 </tr>`)
-    //     }
-    //     $("#summaryTotal").html('$' + sum)
-    // });
 
     // The function to generate PDF
     $("#PdfReport").click(function () {

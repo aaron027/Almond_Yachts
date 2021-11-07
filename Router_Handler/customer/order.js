@@ -249,6 +249,7 @@ module.exports.placeOrder = (req, response, next) => {
                     viewPath: 'views/'
                 }
 
+                // Render template html to email
                 transporter.use('compile', hbs(options));
                 var itemLength = selectedItemsforUser.length
                 var userFirstName = req.session.user.firstName
@@ -264,7 +265,7 @@ module.exports.placeOrder = (req, response, next) => {
                     subject: 'Order Confirmation',
                     text: 'Thank you for your order',
                     template: 'orderConfirmation',
-                    context: {                  // <=
+                    context: {
                         username: userFirstName,
                         orderId: '2020110500' + orderid,
                         address: address,
