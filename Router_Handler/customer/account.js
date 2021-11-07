@@ -374,7 +374,7 @@ module.exports.RenderEditProfile = (req, res, next) => {
  */
 module.exports.EditProfileForm = (req, response, next) => {
   var formData = req.body;
-  formData.id = userid;
+  formData.id = req.session.user.id
   formData.zipCode = parseInt(formData.zipCode)
   request.put({
     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/UpdateUsers',

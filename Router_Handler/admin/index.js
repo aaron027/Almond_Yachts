@@ -52,7 +52,7 @@ module.exports.indexPage = (req, res, next) => {
                 orderDateArr.push(new Date(orderresult[i].orderDate).getDay())
             }
             var GroupByWeek = []
-            var weekdays = [1, 2, 3, 4, 5, 6, 7]
+            var weekdays = [0, 1, 2, 3, 4, 5, 6]
             for (var i in weekdays) {
                 var temp = []
                 for (var j in orderDateArr) {

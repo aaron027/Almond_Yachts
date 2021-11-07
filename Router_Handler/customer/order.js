@@ -2,7 +2,9 @@
 // Order Module
 //======================================================================================
 var request = require('request')
-
+var smtpTransport = require('nodemailer-smtp-transport');
+var nodemailer = require("nodemailer");
+var hbs = require('nodemailer-express-handlebars')
 
 // The function for place order
 module.exports.placeOrder = (req, response, next) => {
@@ -162,6 +164,7 @@ module.exports.placeOrder = (req, response, next) => {
     } else {
         // the logged in status to place order
         req.session.newuser = null;
+        var useremail = req.session.user.email;
         request.post({
             url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Orders',
             method: 'POST',
@@ -181,9 +184,13 @@ module.exports.placeOrder = (req, response, next) => {
             }, (err, res2, data) => {
                 var items = JSON.parse(res2.body);
                 // Deduct item quantity after placed order
+                var selectedItemsforUser = []
+                var selectedSum = 0;
                 for (var i in items) {
                     for (var j in orderDetailInfos.orderDetails) {
                         if (items[i].itemId == orderDetailInfos.orderDetails[j].itemId) {
+                            selectedItemsforUser.push(items[i])
+                            selectedSum += items[i].unitPrice;
                             items[i].quantityRemaining = parseInt(items[i].quantityRemaining) - 1;
                             request.put({
                                 url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + items[i].itemId,
@@ -214,12 +221,70 @@ module.exports.placeOrder = (req, response, next) => {
                         }
                     }
                 }
+
                 req.session.save(function (err) {
                     response.status(200).json({
                         err_code: 0,
                         message: 'ok!'
                     })
                 })
+
+                // Reference: https://stackoverflow.com/questions/45302010/how-to-use-handlebars-with-nodemailer-to-send-email
+                // create transporter object with smtp server details
+                var transporter = nodemailer.createTransport(smtpTransport({
+                    service: 'gmail',
+                    host: 'smtp.gmail.com',
+                    auth: {
+                        user: 'noreplyalmondboats@gmail.com',
+                        pass: 'Manpower123'
+                    }
+                }));
+
+                var options = {
+                    viewEngine: {
+                        extname: '.handlebars',
+                        layoutsDir: 'views/',
+                        defaultLayout: 'orderConfirmation',
+                    },
+                    viewPath: 'views/'
+                }
+
+                transporter.use('compile', hbs(options));
+                var itemLength = selectedItemsforUser.length
+                var userFirstName = req.session.user.firstName
+                var orderid = orderDetailInfos.orderId
+                var orderDate = orderDetailInfos.orderDate
+                var zipCode = req.session.user.zipCode
+                var address = req.session.user.address1
+                var state = req.session.user.state
+                var country = req.session.user.country
+                var mailOptions = {
+                    from: 'noreplyalmondboats@gmail.com',
+                    to: useremail,
+                    subject: 'Order Confirmation',
+                    text: 'Thank you for your order',
+                    template: 'orderConfirmation',
+                    context: {                  // <=
+                        username: userFirstName,
+                        orderId: '2020110500' + orderid,
+                        address: address,
+                        country: country,
+                        state: state,
+                        zipCode: zipCode,
+                        selectedItemsforUser: selectedItemsforUser,
+                        selectedSum: selectedSum,
+                        itemLength: itemLength,
+                        orderDate: orderDate
+                    }
+                };
+
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
 
             })
 

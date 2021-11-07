@@ -3,10 +3,10 @@ var ctx = document.getElementById("chart2").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fr', 'Sat', 'Sun'],
+        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fr', 'Sat'],
         datasets: [{
             label: 'Lightship',
-            data: [$("#orderByDay li:nth-child(1)").html(), $("#orderByDay li:nth-child(2)").html(), $("#orderByDay li:nth-child(3)").html(), $("#orderByDay li:nth-child(4)").html(), $("#orderByDay li:nth-child(5)").html(), $("#orderByDay li:nth-child(6)").html(), $("#orderByDay li:nth-child(0)").html()],
+            data: [$("#orderByDay li:nth-child(1)").html(), $("#orderByDay li:nth-child(2)").html(), $("#orderByDay li:nth-child(3)").html(), $("#orderByDay li:nth-child(4)").html(), $("#orderByDay li:nth-child(5)").html(), $("#orderByDay li:nth-child(6)").html(), $("#orderByDay li:nth-child(7)").html()],
             barPercentage: .5,
             backgroundColor: "#d5ae82",
         }]
