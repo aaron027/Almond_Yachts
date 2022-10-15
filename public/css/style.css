@@ -18972,7 +18972,7 @@ img.lazy-image.loaded{
   .login-pwd i{
 	  position: absolute;
 	  right: 20px;
-      top: 44px;
+      top: 16px;
 	  cursor: pointer;
   }
   .info-content ul li{
@@ -19245,4 +19245,7 @@ a:hover {
 }
 .place-order .form-group button:disabled {
     background: #ffdab1;
+}
+.login_tips{
+	background: #fff; border:1px solid #dfdfdf;position: absolute; display: none; z-index:10; padding:10px; width:100%;
 }

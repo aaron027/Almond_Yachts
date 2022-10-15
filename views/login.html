@@ -32,11 +32,26 @@
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <div class="field-label">Password</div>
-                                            <div class="field-inner login-pwd">
+                                            <div class="field-inner login-pwd" style="position: relative;">
                                                 <input type="password" id="password" name="password"
-                                                    placeholder="password" required value="">
+                                                    placeholder="Password" required value="">
                                                 <i class="fa fa-eye"></i>
+                                                <div id="login_tip" class="login_tips">
+                                                    <div>Password must be at least 8 characters long and contains at
+                                                        least
+                                                        three of
+                                                        the following</div>
+                                                    <ul>
+                                                        <li> <span class="fa fa-check-circle"></span> Uppercase letter
+                                                        </li>
+                                                        <li> <span class="fa fa-check-circle"></span> Numbers</li>
+                                                        <li> <span class="fa fa-check-circle"></span> None-alphanumeric
+                                                            letter
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <div class="form-group col-lg-12 col-md-12 col-sm-12">
@@ -76,6 +91,13 @@
 
 {{block 'script'}}
 <script>
+
+    $("#password").focus(function () {
+        $("#login_tip").show()
+    })
+    $("#password").blur(function () {
+        $("#login_tip").hide()
+    })
     // Sending the form date to server
     $('#login_form').on('submit', function (e) {
         e.preventDefault()

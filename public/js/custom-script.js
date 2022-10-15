@@ -924,3 +924,11 @@ $(".info-content .form-control").each(function (index) {
 		$(this).html('-')
 	}
 });
+
+// show password validation message
+$("#password").focus(function () {
+	$("#login_tip").show()
+})
+$("#password").blur(function () {
+	$("#login_tip").hide()
+})

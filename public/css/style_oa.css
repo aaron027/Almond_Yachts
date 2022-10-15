@@ -1129,7 +1129,6 @@ Buttons
 .main-scroll {
   position: relative;
   overflow-y: scroll;
-  height: 380px;
   padding: 1rem !important;
   padding-top: 0 !important;
   padding-left: 0 !important;
@@ -1179,7 +1178,7 @@ Buttons
     letter-spacing: 0.7px; }
   .timeline .timeline-panel .media-info {
     background: #f0f6fc;
-    color: #a927f9; }
+    color: #de9746; }
   .timeline .timeline-panel .media-success {
     background: #c1f3e8;
     color: #51bb25; }
@@ -1432,7 +1431,7 @@ Buttons
               border-radius: 5px; } }
           .header .top-head .header-right .notification_dropdown .cart-wrapper .cart-icon .cart-control i {
             font-size: 15px;
-            color: #de9746; }
+            color: #9a9a9a; }
       .header .top-head .header-right .my-account-wrapper {
         background-color: #ffffff;
         padding: 10px 12px;
@@ -1604,7 +1603,7 @@ Buttons
   width: .4rem;
   height: .4rem;
   position: absolute;
-  background-color: #de9746;
+  background-color: #ff0000;
   right: 5px;
   top: .6rem;
   -webkit-border-radius: 0.5rem;
@@ -1619,7 +1618,7 @@ Buttons
     right: 0;
     bottom: 0;
     left: -.2rem;
-    background-color: #de9746;
+    background-color: #ff0000;
     margin: auto;
     -webkit-transform: scale(0.3);
     transform: scale(0.3);
@@ -3064,5 +3063,8 @@ Authentification
 }
 .login-page .warning .warning-wrapper{
 padding: 0 10px;
+}
+.login_tips{
+	background: #fff; border:1px solid #dfdfdf;position: absolute; display: none; z-index:10; padding:10px; width:100%;
 }
 

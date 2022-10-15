@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="item_inventory">
                                 <table id="example1" class="display nowrap">
                                     <thead>
                                         <tr>
@@ -54,7 +54,7 @@
                                             <td>{{items && items[$index].itemId}}</td>
                                             <td>{{items && items[$index].itemName}}</td>
                                             <td>{{sectionArr && sectionArr[$index].sectionName}}</td>
-                                            <td>{{items && items[$index].quantityRemaining}}</td>
+                                            <td class="inventory_q">{{items && items[$index].quantityRemaining}}</td>
                                             <td>{{items && items[$index].unitPrice | moneyFormat}}</td>
                                             <td>{{items && items[$index].origin}}</td>
                                             <td>
@@ -83,3 +83,11 @@
 
 <!-- End section content -->
 {{/block }}
+{{block 'oascript'}}
+<script>
+    var arr = [];
+    // for(var i=0; i<$(".inventory_q").length; i++){
+
+    // }
+</script>
+{{/block}}

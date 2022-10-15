@@ -11,10 +11,24 @@
             </div>
             <div class="form-group m-b-10">
                 <label class="col-form-label">Password</label>
-                <div class="form-input position-relative login-pwd">
-                    <input class="form-control" id="password" type="password" name="password" placeholder="Password">
+                <div class="form-input position-relative login-pwd" style="position: relative;">
+                    <input class="form-control" id="password" type="password" name="password" placeholder=" Password ">
                     <i class="fa fa-eye"></i>
+                    <div id="login_tip" class="login_tips">
+                        <div>Password must be at least 8 characters long and contains at least
+                            three of
+                            the following</div>
+                        <ul>
+                            <li> <span class="fa fa-check-circle"></span> Uppercase letter
+                            </li>
+                            <li> <span class="fa fa-check-circle"></span> Numbers</li>
+                            <li> <span class="fa fa-check-circle"></span> None-alphanumeric
+                                letter
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+
             </div>
             <div class="form-group mb-0 default-form">
                 <div class="check-block"><input type="checkbox" id="remember" name="remember"><label
@@ -42,6 +56,13 @@
 {{/block}}
 {{block 'oascript'}}
 <script>
+    // show password validation message
+    $("#password").focus(function () {
+        $("#login_tip").show()
+    })
+    $("#password").blur(function () {
+        $("#login_tip").hide()
+    })
     // The function to show and hide password
     $(".login-pwd i").click(function () {
         var password = $("#password");

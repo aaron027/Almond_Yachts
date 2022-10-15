@@ -47,10 +47,9 @@ module.exports.placeOrder = (req, response, next) => {
 
     // loop the formdate of items and put them in array for later use
     for (var item in formData) {
-        if (item.indexOf("engine") != -1) {
+        if (JSON.stringify(item).indexOf("engine") != -1) {
             sumPrice += parseInt(JSON.stringify(formData[item]).split('_')[1])
             itemList.push(parseInt(JSON.stringify(formData[item]).split('_')[0].replace(/\"/g, "")))
-        } else {
         }
     }
 
@@ -58,7 +57,7 @@ module.exports.placeOrder = (req, response, next) => {
     var detailInfo = []
     itemList.forEach((element, index) => {
         detailInfo.push({
-            itemId: element
+            itemId: parseInt(element)
         })
     })
     // put item detail in the json format 
@@ -73,6 +72,7 @@ module.exports.placeOrder = (req, response, next) => {
     if (formData.customerId == '') {
         var createdpassword = 'Almond@123'
         req.session.createdpassword = createdpassword
+        req.session.save()
         request.post({
             url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Authentication/Signup',
             method: 'POST',
@@ -106,6 +106,7 @@ module.exports.placeOrder = (req, response, next) => {
             }, (err, res, data) => {
                 var orderDetailInfos = JSON.parse(res.body);
                 req.session.currentOrderInfo = orderDetailInfos
+                req.session.save()
                 request.get({
                     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items',
                     method: 'GET',
@@ -116,10 +117,13 @@ module.exports.placeOrder = (req, response, next) => {
                     var items = JSON.parse(res2.body);
 
                     // Deduct item quantity after placed order
+                    var selectedItemsforUser = []
+                    var selectedSum = 0;
                     for (var i in items) {
                         for (var j in orderDetailInfos.orderDetails) {
-                            if (items[i].itemId == orderDetailInfos.orderDetails[j].itemId) {
-
+                            if (items[i].itemId === orderDetailInfos.orderDetails[j].itemId) {
+                                selectedItemsforUser.push(items[i])
+                                selectedSum += parseInt(items[i].unitPrice);
                                 items[i].quantityRemaining = parseInt(items[i].quantityRemaining) - 1;
                                 request.put({
                                     url: 'https://boatconfigure20210930164433.azurewebsites.net/api/Items/' + items[i].itemId,
@@ -128,16 +132,16 @@ module.exports.placeOrder = (req, response, next) => {
                                         'Content-Type': 'application/json'
                                     },
                                     body: JSON.stringify({
-                                        itemId: items[i].itemId,
+                                        itemId: parseInt(items[i].itemId),
                                         itemName: items[i].itemName,
-                                        quantity: items[i].quantity,
-                                        quantityRemaining: items[i].quantityRemaining,
-                                        unitPrice: items[i].unitPrice,
-                                        weight: items[i].weight,
-                                        size: items[i].size,
+                                        quantity: parseInt(items[i].quantity),
+                                        quantityRemaining: parseInt(items[i].quantityRemaining),
+                                        unitPrice: parseInt(items[i].unitPrice),
+                                        weight: parseInt(items[i].weight),
+                                        size: parseInt(items[i].size),
                                         origin: items[i].origin,
-                                        supplierId: items[i].supplierId,
-                                        sectionId: items[i].sectionId
+                                        supplierId: parseInt(items[i].supplierId),
+                                        sectionId: parseInt(items[i].sectionId)
                                     })
                                 }, (err, res, data) => {
                                     var result = res.body
@@ -147,7 +151,6 @@ module.exports.placeOrder = (req, response, next) => {
                                         message: 'OK'
                                     })
                                 })
-
                             }
                         }
                     }
@@ -158,6 +161,66 @@ module.exports.placeOrder = (req, response, next) => {
                             message: 'ok!'
                         })
                     })
+
+                    // Send a confirmation email after the cutomer place the order without login
+                    // Reference: https://stackoverflow.com/questions/45302010/how-to-use-handlebars-with-nodemailer-to-send-email
+                    // create transporter object with smtp server details
+                    var useremail = newuser.email;
+                    var transporter = nodemailer.createTransport(smtpTransport({
+                        service: 'gmail',
+                        host: 'smtp.gmail.com',
+                        auth: {
+                            user: 'noreplyalmondboats@gmail.com',
+                            pass: 'Manpower123'
+                        }
+                    }));
+
+                    var options = {
+                        viewEngine: {
+                            extname: '.handlebars',
+                            layoutsDir: 'views/',
+                            defaultLayout: 'orderConfirmation',
+                        },
+                        viewPath: 'views/'
+                    }
+
+                    // Render template html to email
+                    transporter.use('compile', hbs(options));
+                    var itemLength = selectedItemsforUser.length
+                    var userFirstName = newuser.firstName
+                    var orderid = orderDetailInfos.orderId
+                    var orderDate = orderDetailInfos.orderDate
+                    var zipCode = newuser.zipCode
+                    var address = newuser.address1
+                    var state = newuser.state
+                    var country = newuser.country
+                    var mailOptions = {
+                        from: 'noreplyalmondboats@gmail.com',
+                        to: useremail,
+                        subject: 'Order Confirmation',
+                        text: 'Thank you for your order',
+                        template: 'orderConfirmation',
+                        context: {
+                            username: userFirstName,
+                            orderId: '2020110500' + orderid,
+                            address: address,
+                            country: country,
+                            state: state,
+                            zipCode: zipCode,
+                            selectedItemsforUser: selectedItemsforUser,
+                            selectedSum: selectedSum,
+                            itemLength: itemLength,
+                            orderDate: orderDate
+                        }
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
                 })
             })
         })
@@ -188,7 +251,7 @@ module.exports.placeOrder = (req, response, next) => {
                 var selectedSum = 0;
                 for (var i in items) {
                     for (var j in orderDetailInfos.orderDetails) {
-                        if (items[i].itemId == orderDetailInfos.orderDetails[j].itemId) {
+                        if (items[i].itemId === orderDetailInfos.orderDetails[j].itemId) {
                             selectedItemsforUser.push(items[i])
                             selectedSum += items[i].unitPrice;
                             items[i].quantityRemaining = parseInt(items[i].quantityRemaining) - 1;
@@ -199,16 +262,16 @@ module.exports.placeOrder = (req, response, next) => {
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
-                                    itemId: items[i].itemId,
+                                    itemId: parseInt(items[i].itemId),
                                     itemName: items[i].itemName,
-                                    quantity: items[i].quantity,
-                                    quantityRemaining: items[i].quantityRemaining,
-                                    unitPrice: items[i].unitPrice,
-                                    weight: items[i].weight,
-                                    size: items[i].size,
+                                    quantity: parseInt(items[i].quantity),
+                                    quantityRemaining: parseInt(items[i].quantityRemaining),
+                                    unitPrice: parseInt(items[i].unitPrice),
+                                    weight: parseInt(items[i].weight),
+                                    size: parseInt(items[i].size),
                                     origin: items[i].origin,
-                                    supplierId: items[i].supplierId,
-                                    sectionId: items[i].sectionId
+                                    supplierId: parseInt(items[i].supplierId),
+                                    sectionId: parseInt(items[i].sectionId)
                                 })
                             }, (err, res, data) => {
                                 var result = res.body
@@ -217,6 +280,7 @@ module.exports.placeOrder = (req, response, next) => {
                                     err_code: 0,
                                     message: 'OK'
                                 })
+
                             })
                         }
                     }
@@ -307,7 +371,7 @@ module.exports.showResult = (req, res, next) => {
     request(options, function (error, response) {
         if (error) return error;
         var boats = JSON.parse(response.body);
-        var foundBoat = boats.find(element => element.id == boatId);
+        var foundBoat = boats.find(element => element.id === boatId);
         var categoryId = foundBoat.categoryId
         var options = {
             'method': 'GET',
@@ -319,7 +383,7 @@ module.exports.showResult = (req, res, next) => {
         request(options, function (error, response) {
             if (error) return error;
             var categories = JSON.parse(response.body);
-            var foundCategory = categories.find(element => element.categoryId == categoryId);
+            var foundCategory = categories.find(element => element.categoryId === categoryId);
             res.render('orderResult.html', {
                 user: req.session.user,
                 newuser: req.session.newuser,

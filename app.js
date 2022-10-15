@@ -4,17 +4,31 @@ var bodyParser = require('body-parser')
 var session = require('express-session')
 var router = require('./router')
 var template = require('art-template')
+var connect = require('connect');
+var mongoose = require('mongoose')
+// var SessionStore = require("session-mongoose")(connect);
+const MongoStore = require('connect-mongodb-session')(session)
 
 var app = express()
 
 app.use(express.urlencoded({ extended: false }))
 
+const store = new MongoStore({
+  uri: process.env.DB_URI,
+  databaseName: 'chatter',
+  collection: 'sessions',
+})
 
+store.on('error', err => {
+  throw new Error(err)
+})
 app.use(session({
+  store: store,
   secret: 'almondboats',
   resave: false,
   saveUninitialized: false
 }))
+
 
 app.use('/public/', express.static(path.join(__dirname, './public/')))
 app.use('/node_modules/', express.static(path.join(__dirname, './node_modules/')))
